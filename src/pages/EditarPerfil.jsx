@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import imagemCarro from '../assets/Meu BB-EletroRota.png';
+import { getUsuarioByIdUrl } from '../api/usuariosApi.js';
 
 export default function EditarPerfil({ usuario, setUsuario }) {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
+      const response = await fetch(getUsuarioByIdUrl(usuario.id), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuarioAtualizado)

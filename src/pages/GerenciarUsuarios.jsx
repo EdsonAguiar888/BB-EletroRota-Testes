@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getUsuariosCollectionUrl } from '../api/usuariosApi.js';
 
 export default function GerenciarUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -13,7 +14,7 @@ export default function GerenciarUsuarios() {
   const [editId, setEditId] = useState(null);
   const [mensagem, setMensagem] = useState('');
 
-  const API_URL = 'http://localhost:3000/usuarios';
+  const API_URL = getUsuariosCollectionUrl();
 
   useEffect(() => {
     carregarUsuarios();
