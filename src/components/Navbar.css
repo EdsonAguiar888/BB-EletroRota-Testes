@@ -6,6 +6,8 @@
   --bb-yellow: #ffdf00;
   --bb-white: #ffffff;
   --bb-font: Arial, sans-serif;
+  --bb-input:#144ce6;
+  --bb-out:#315780;
 }
 
 .bb-header {
@@ -49,11 +51,16 @@
   min-width: 320px;
 }
 
+
 .bb-logo-img {
-  height: 50px;
+  height: 65px;
   width: auto;
   display: block;
   object-fit: contain;
+  border-radius: 50%;
+  border-radius: 50%;  
+  padding: 3px; 
+
 }
 
 .bb-logo-text, .bb-logo-yellow {
@@ -79,12 +86,12 @@
 
 .bb-topnav a:hover {
   /* opacity: 0.75; */
-  color: var(--bb-blue-dark);
-  border-bottom: 2px solid var(--bb-blue-dark);
+  color: var(--bb-blue);
+  border-bottom: 2px solid var(--bb-blue);
 }
 
 .bb-topnav a.active {
-  color: var(--bb-blue-dark);
+  color: var(--bb-blue);
   border-bottom: 2px solid var(--bb-blue);
   font-weight: 800;
 }
@@ -119,6 +126,10 @@
   opacity: 0.7;
 } 
 
+.bb-search-form .fas.fa-search {
+  color: var(--bb-blue);
+}
+
 
 /* Botão de Conta Sólido Azul  */
 .bb-account-btn {
@@ -133,14 +144,14 @@
   font-weight: 700;
   font-size: 0.78rem;
   white-space: nowrap;
-  text-decoration: none;
   height: 36px;
   cursor: pointer;
   border: none;
+  transition: background 0.2s, color 0.2s;
 }
 
 .bb-account-btn:hover {
-  background-color: var(--bb-blue-dark);
+  background-color: var(--bb-input);
 }
 
 .bb-user-name {
@@ -148,7 +159,13 @@
   font-size: 0.9rem;
   color: var(--bb-blue);
   font-weight: 500;
-  white-space: nowrap; 
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.usuario:hover {
+  color: var(--bb-input);
 }
 
 .bb-logout-btn { 
@@ -172,7 +189,7 @@
 }
   
 .bb-logout-btn:hover {
-  background-color: var(--bb-blue-dark);
+  background-color: var(--bb-out);
 }
 
 .bb-ola-mobile {

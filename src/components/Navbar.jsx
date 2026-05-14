@@ -70,9 +70,10 @@ export default function Navbar({ usuario, setUsuario }) {
           {usuario ? (
             /* L O G A D O */
               <>
-                <h3 className="bb-user-name">
-                  Olá, <strong>{usuario?.nome.split(' ')[0]}</strong>
-                </h3>
+                <Link className='bb-user-name' to="/editarPerfil">
+                  Bem vindo, <strong className='usuario'>{usuario.nome}</strong>
+                </Link>
+
                 <button className="bb-logout-btn" onClick={handleLogout}>
                   Sair
                 </button>
