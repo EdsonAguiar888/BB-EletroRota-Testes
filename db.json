@@ -67,12 +67,6 @@
       "email": "heitor@heitor.com",
       "senha": "12345",
       "id": "Wn4AxNnPyhg"
-    },
-    {
-      "nome": "allany",
-      "email": "allanyteste@gmail.com",
-      "senha": "12345",
-      "id": "wcu6JLx3Ru8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
