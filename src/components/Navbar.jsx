@@ -43,11 +43,8 @@ export default function Navbar({ usuario, setUsuario }) {
   
         {usuario ? (
           <>
-          
-
             <Link className='usuarioLogado' to="/editarPerfil" style={{ color: '#2116b8', width: '250px;', textDecoration: 'none', fontWeight: '500' }}>Bem vindo, <strong>{usuario?.nome}</strong></Link>
         
-
         <button className='btn-logout'>
           <Link
           onClick={handleLogout} 
