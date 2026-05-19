@@ -51,20 +51,32 @@ body {
 .cards {
   display: flex;
   justify-content: space-around;
-  margin: 10px;
-  gap: 15px;
-  padding: 15px 100px;
+  margin: 20px;
+  gap: 5px;
+  padding: 20px;
+  border-radius: 100px;
+  background-color: #f8fafc;
+}
+  /* Estilo para o título */
+h3 {
+  color: white; /* Cor diferente para o h3 */
 }
 
+p {
+  color: white; /* Cor diferente para o p */
+}   
+
+
 .card {
-  background: linear-gradient(to bottom, #004aad, #003a8f);
-  color: white;
+  background:#002D6A;
   /* padding: 20px; */
   border-radius: 10px;
-  width: 22%;
+  width: 350px;
   cursor: pointer;
   transition: 0.3s;
+  max-height: 170px
 }
+
 
 
 
