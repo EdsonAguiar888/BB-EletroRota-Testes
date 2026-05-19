@@ -50,8 +50,8 @@ export default function HomeLogado({ usuario, setUsuario }) {
 
     try {
       // 1. Atualiza o JSON Server via método PUT
-      await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
-      //await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+      //await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
+      await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuarioAtualizado)

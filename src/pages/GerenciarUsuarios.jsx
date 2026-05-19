@@ -13,8 +13,8 @@ export default function GerenciarUsuarios() {
   const [editId, setEditId] = useState(null);
   const [mensagem, setMensagem] = useState('');
 
-  const API_URL = 'http://localhost:3000/usuarios';
-  //const API_URL = 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
+  //const API_URL = 'http://localhost:3000/usuarios';
+  const API_URL = 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
   useEffect(() => {
     carregarUsuarios();
