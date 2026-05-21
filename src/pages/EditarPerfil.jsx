@@ -35,7 +35,9 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     };
 
     try {
-      const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+        const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+        //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
+
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuarioAtualizado)
@@ -59,6 +61,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
 
     try {
       const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+      //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
         method: 'DELETE'
       });
 
@@ -81,7 +84,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
         {/* Lado Esquerdo: Imagem */}
         <div style={imageSectionStyle}>
           <img src={imagemCarro} alt="Carro Elétrico" style={imageStyle} />
-          <h3 style={{ color: '#2c3e50', marginTop: '20px' }}>Meu bbEletroRota</h3>
+          <h3 style={{ color: '#2c3e50', marginTop: '20px' }}>Meu BB EletroRota</h3>
         </div>
 
         {/* Lado Direito: Informações e Formulário */}
