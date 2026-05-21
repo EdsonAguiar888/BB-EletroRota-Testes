@@ -1,0 +1,384 @@
+RESET BÁSICO Remove margens padrão do navegador * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fundo da página (fora da tela de login) */
+body {
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* LADO LOGIN ==========================================
+   2. CONTAINER PRINCIPAL (100dvw x 100dvh) para ocupar toda a tela do desktop*/
+.container-login {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    text-align: left;
+    /* index.css define #root { text-align: center } — evita inputs/botões desalinhados */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.6s ease-in-out;
+    opacity: 1;
+    overflow: hidden;
+}
+
+/* O Cadastro desliza pra direita e acende! */
+.container-login.modo-cadastro .area-cadastro {
+    transform: translateX(100%);
+    opacity: 1;
+    pointer-events: auto;
+    /* O !important força a tela a aceitar cliques */
+    z-index: 10 !important;
+    /* Coloca a área de cadastro acima de todas as outras camadas */
+}
+
+.area-login {
+    flex: 1;
+    /* Ocupa metade do espaço */
+    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-display: block;
+}
+
+/* seletor superior (Toggle) Entrar / Criar Conta */
+.seletor-superior {
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    margin-bottom: 70px;
+    padding: 5px;
+    position: relative;
+    /* Adicione esta linha */
+    z-index: 1000;
+    /* Adicione esta linha */
+    top: 65px;
+    bottom: 52;
+}
+
+.btn-ativo {
+    flex: 1;
+    margin: 0;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s, color 0.3s;
+    /* Suaviza animações de hover */
+    background-color: #ffd600;
+    /* Amarelo do BB */
+    color: #0038a8;
+    /* Azul do BB */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-inativo {
+    background-color: transparent;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex: 1;
+    border: none;
+    cursor: pointer;
+}
+
+/* Efeito de hover no botão "Criar Conta" solicitado */
+.btn-inativo:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+/* Textos Iniciais */
+.textos-boas-vindas {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.textos-boas-vindas h1 {
+    color: #0038a8;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+/* Campos de Formulário */
+
+.grupo-input label,
+.grupo-input2 label {
+    display: block;
+    color: #0038a8;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.grupo-input label {
+    margin: 5px;
+    margin-top: 10px;
+}
+
+.grupo-input .input-sem-icone,
+.grupo-input2 .input-sem-icone {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.grupo-input .input-sem-icone input,
+.grupo-input2 .input-sem-icone input {
+    width: 100%;
+    padding: 14px 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    color: #37415ff1;
+    background-color: #ffffff;
+}
+
+.grupo-input .input-sem-icone input:focus,
+.grupo-input2 .input-sem-icone input:focus {
+    border-color: #0038a8;
+}
+
+
+/* Lembrar-me e Esqueci a Senha */
+.opcoes-extras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.lembrar-mim {
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.link-esqueceu {
+    color: #0038a8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-esqueceu:hover {
+    text-decoration: underline;
+}
+
+/* Botões de Ação (Entrar) */
+.btn-enter {
+    width: 100%;
+    padding: 4%;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* espaço entre o texto e o ícone de seta*/
+    transition: 0.3s;
+    background-color: #0038a8;
+    color: floralwhite;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.btn-enter:hover {
+    background-color: #00297a;
+}
+
+/* ==========================================
+   ÁREA DE CADASTRO 
+   ========================================== */
+
+/* Estado padrão: esconde o formulário de cadastro */
+.area-cadastro {
+    flex: 1;
+    padding: 50px 100px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    order: 2;
+    margin: 15px;
+}
+
+/* Modo cadastro: override da regra acima (vem depois na cascata → ganha) */
+.container-login.modo-cadastro .area-cadastro {
+    display: flex;
+    transform: none;
+    opacity: 1;
+}
+
+.container-login.modo-cadastro .area-login {
+    display: none;
+}
+
+/* Branding vai para a esquerda */
+.container-login.modo-cadastro .area-branding {
+    order: -1;
+}
+
+/* Textos iniciais do cadastro */
+.texto-cadastro {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.texto-cadastro h1 {
+    color: #0038a8;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.grupo-input2 label {
+    /* margin: 15px; */
+    /* margin-bottom: 10px; */
+    margin-top: 15px;
+    /*espaço da margem do topo*/
+    margin-bottom: 5px;
+}
+
+.grupo-input2 .input-sem-icone input {
+    color: #374151;
+}
+
+/* Botão Criar Conta (espelha .btn-enter do login) */
+.btn-criar-conta {
+    width: 100%;
+    padding: 20px;
+    /*tamanho do botão*/
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    background-color: #0038a8;
+    color: floralwhite;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.btn-criar-conta:hover {
+    background-color: #00297a;
+}
+
+/* ==========================================
+   LAADO (BRANDING) COM LOGO 
+   ========================================== */
+.area-branding {
+    flex: 1;
+    /* Ocupa a outra metade */
+    /* Caminho relativo ao CSS: Vite resolve e serve o ficheiro em src/assets */
+    background-image: url(../assets/Container.png);
+    background-size: cover;
+    background-position: center;
+    padding: 80px 90px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centraliza os textos verticalmente */
+    position: relative;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    position: absolute;
+    /* Fixa a logo independente do texto centralizado */
+    top: 60px;
+    /* Distância do topo da tela azul */
+    left: 80px;
+    /* Distância da esquerda da tela azul */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 25.32px;
+    font-weight: bolder;
+    z-index: 20;
+    /* Garante que ela fique sempre visível por cima de tudo */
+}
+
+.logo-svg {
+    height: 140px;
+    width: 140px;
+}
+
+/* Textos Principais Direita */
+.textos-branding h2 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.textos-branding p {
+    font-size: 18px;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+/* Rodapé Direito */
+.rodape-branding {
+    position: absolute;
+    bottom: 40px;
+    /* elemento fica a 40px de distância da parte inferior da tela*/
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    color: #94a3b8;
+    gap: 20px;
+}
+
+.rodape-branding span {
+    white-space: nowrap;
+    position: relative;
+    left: 0;
+}
+
+
+.links-rodape {
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 15px;
+}
+
+.links-rodape a {
+    color: #94a3b8;
+    text-decoration: none;
+    margin: 0 60px;
+}
+
+.links-rodape a:hover {
+    color: white;
+}
