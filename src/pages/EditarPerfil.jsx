@@ -35,7 +35,19 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     };
 
     try {
-        const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+
+
+
+
+        const response = await fetch(window.location.hostname === 'localhost'
+        ? 'http://localhost:3000/usuarios'
+        : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
+
+
+
+
+
+        //const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
         //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
 
         method: 'PUT',
@@ -60,7 +72,17 @@ export default function EditarPerfil({ usuario, setUsuario }) {
       return;
 
     try {
-      const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+
+
+      const response = await fetch(window.location.hostname === 'localhost'
+        ? 'http://localhost:3000/usuarios'
+        : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
+
+
+
+
+
+      //const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
       //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
         method: 'DELETE'
       });

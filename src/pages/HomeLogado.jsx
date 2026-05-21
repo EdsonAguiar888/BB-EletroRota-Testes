@@ -46,7 +46,17 @@ export default function HomeLogado({ usuario, setUsuario }) {
 
     try {
       // 1. Atualiza o JSON Server via método PUT
-        await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+
+
+
+
+      await fetch(window.location.hostname === 'localhost'
+        ? 'http://localhost:3000/usuarios'
+        : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
+
+
+
+        //await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
         //await fetch(`http://localhost:3001/usuarios/${usuario.id}`, {
 
           

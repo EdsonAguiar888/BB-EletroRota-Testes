@@ -22,7 +22,18 @@ export default function Auth({ onLoginSuccess }) {
     try {
       if (isLogin) {
 
-        const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
+
+
+
+
+        const resp = await fetch(window.location.hostname === 'localhost'
+          ? 'http://localhost:3000/usuarios'
+          : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
+
+
+
+
+        //const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
         //const resp = await fetch('http://localhost:3000/usuarios');
         
         const usuarios = await resp.json();
@@ -47,7 +58,21 @@ export default function Auth({ onLoginSuccess }) {
       } else {
         // Lógica de Cadastro (POST) 
 
-        const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
+
+
+
+
+        const resp = await fetch(window.location.hostname === 'localhost'
+  ? 'http://localhost:3000/usuarios'
+  : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
+
+
+
+
+
+
+
+        //const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
         //const resp = await fetch('http://localhost:3000/usuarios', {
           
           method: 'POST',
