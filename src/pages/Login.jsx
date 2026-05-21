@@ -30,6 +30,7 @@ export default function Auth({ onLoginSuccess }) {
     setMensagem({ texto: 'Validando...', tipo: '' });
 
     try {
+      // const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
       const resp = await fetch('http://localhost:3000/usuarios');
       if (!resp.ok) {
         setMensagem({ texto: 'Servidor indisponível. Inicie o json-server na porta 3000.', tipo: 'error' });
@@ -67,6 +68,7 @@ export default function Auth({ onLoginSuccess }) {
     }
 
     try {
+      // const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
       const resp = await fetch('http://localhost:3000/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
