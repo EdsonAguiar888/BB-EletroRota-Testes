@@ -39,9 +39,9 @@ export default function EditarPerfil({ usuario, setUsuario }) {
 
 
 
-        const response = await fetch(window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/usuarios'
-        : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
+        // const response = await fetch(window.location.hostname === 'localhost'
+        // ? 'http://localhost:3000/usuarios'
+        // : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
 
 
 
@@ -50,10 +50,37 @@ export default function EditarPerfil({ usuario, setUsuario }) {
         //const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
         //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
 
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(usuarioAtualizado)
-      });
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(usuarioAtualizado)
+      // });
+
+
+
+
+
+
+
+
+
+// 1. Monte a URL correta identificando onde o sistema está rodando
+const urlRequisicao = window.location.hostname === 'localhost'
+  ? `http://localhost:3000/usuarios/${usuario.id}`
+  : `https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`;
+
+// 2. Passe essa variável para o seu fetch (Linha 42)
+const response = await fetch(urlRequisicao, {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(usuarioAtualizado) // ou o nome do seu payload
+});
+
+
+
+
+
+
+
 
       if (response.ok) {
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
@@ -74,18 +101,44 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     try {
 
 
-      const response = await fetch(window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/usuarios'
-        : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
+  //     const response = await fetch(window.location.hostname === 'localhost'
+  // ? `http://localhost:3000/usuarios/${usuario.id}`
+  // : `https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+  //     // const response = await fetch(window.location.hostname === 'localhost'
+  //     //   ? 'http://localhost:3000/usuarios'
+  //     //   : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
 
 
 
 
 
-      //const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
-      //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
-        method: 'DELETE'
-      });
+      
+      //   method: 'DELETE'
+      // });
+
+
+
+
+
+
+
+
+
+      const urlRequisicaoDelete = window.location.hostname === 'localhost'
+  ? `http://localhost:3000/usuarios/${usuario.id}`
+  : `https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`;
+
+const response = await fetch(urlRequisicaoDelete, {
+  method: 'DELETE'
+});
+
+
+
+
+
+
+
+
 
       if (response.ok) {
         localStorage.removeItem('usuarioLogado');

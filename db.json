@@ -1,27 +1,10 @@
 {
   "usuarios": [
     {
-      "nome": "123EDW",
-      "email": "12345@email.com",
-      "senha": "123",
-      "id": "9acmwZSwBoE"
-    },
-    {
       "nome": "2",
       "email": "2@2.com",
       "senha": "12345",
       "id": "yFDYomrxaEg"
-    },
-    {
-      "nome": "1",
-      "email": "1@1.com",
-      "senha": "12345",
-      "veiculo": {
-        "marca": "chevrolet",
-        "potencia": "200",
-        "bateriaAtual": 90
-      },
-      "id": "cPu6kVWv_Rs"
     },
     {
       "nome": "3",
@@ -41,17 +24,6 @@
       "id": "JuPJH8W3d5A"
     },
     {
-      "nome": "Edson Aguiar",
-      "email": "edson@edson.com",
-      "senha": "12345",
-      "veiculo": {
-        "marca": "byd",
-        "potencia": "309",
-        "bateriaAtual": "92"
-      },
-      "id": "OwBXSvYnaac"
-    },
-    {
       "nome": "Heitor Autusto dos Santos Aguiar",
       "email": "heitor@heitor.com",
       "senha": "12345",
@@ -67,6 +39,18 @@
       "email": "heitor@heitor.com",
       "senha": "12345",
       "id": "Wn4AxNnPyhg"
+    },
+    {
+      "nome": "1",
+      "email": "1@1.com",
+      "senha": "12345",
+      "id": "QleBqe58EHw"
+    },
+    {
+      "nome": "Edson Aguiar",
+      "email": "edson@edson.com",
+      "senha": "12345",
+      "id": "OqMFz9WdOCE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
