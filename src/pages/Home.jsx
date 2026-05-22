@@ -161,12 +161,12 @@ export default function Home({ usuario, setUsuario }) {
 
 
         {/* Bloco 2: Busca Eletroposto */}
-        <div class="station-container">
-          <div class="station-title">Estação Recomendada Mais Próxima</div>
+        <div className="station-container">
+          <div className="station-title">Estação Recomendada Mais Próxima</div>
 
-          <div class="station-card">
-            <div class="map-wrapper">
-              <div class="map-placeholder">
+          <div className="station-card">
+            <div className="map-wrapper">
+              <div className="map-placeholder">
                 <img
                   src={imagemgps}
                   alt="Carro elétrico do projeto bbEletroRota"
@@ -180,26 +180,26 @@ export default function Home({ usuario, setUsuario }) {
               </div>
             </div>
 
-            <div class="details-wrapper">
-              <div class="station-name">Eletroposto Central</div>
+            <div className="details-wrapper">
+              <div className="station-name">Eletroposto Central</div>
 
-              <div class="info-grid">
-                <div class="info-item">
-                  <span class="icon">🔌</span>
+              <div className="info-grid">
+                <div className="info-item">
+                  <span className="icon">🔌</span>
                   <strong>3</strong> Carregadores Disponíveis
                 </div>
-                <div class="info-item">
-                  <span class="icon">⏱</span>
+                <div className="info-item">
+                  <span className="icon">⏱</span>
                   <strong>2 Min</strong> de Espera Estimada
                 </div>
-                <div class="info-item">
-                  <span class="icon">📍</span>
+                <div className="info-item">
+                  <span className="icon">📍</span>
                   <strong>5,2 km</strong> Distância até o local
                 </div>
 
-                <div class="action-wrapper">
-                  <button class="btn-navigate">
-                    Navegar até a Estação <span class="arrow">&gt;</span>
+                <div className="action-wrapper">
+                  <button className="btn-navigate">
+                    Navegar até a Estação <span className="arrow">&gt;</span>
                   </button>
                 </div>
               </div>
