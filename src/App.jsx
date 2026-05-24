@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Auth from './pages/Login';
 import Home from './pages/Home';
 import HomeLogado from './pages/HomeLogado';
-import GerenciarUsuarios from './pages/GerenciarUsuarios';
+import GerenciarVeiculos from './pages/GerenciarVeiculos';
 import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
 import Busca from './pages/BuscaPag'
@@ -44,7 +44,7 @@ function App() {
           {/* Rotas protegidas */}
           <Route 
             path="/gerenciar" 
-            element={usuario ? <GerenciarUsuarios /> : <Navigate to="/login" replace />} 
+            element={usuario ? <GerenciarVeiculos /> : <Navigate to="/login" replace />} 
           />
 
           <Route 

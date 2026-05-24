@@ -29,10 +29,25 @@
       "senha": "12345",
       "id": "700PjTyYYE8",
       "veiculo": {
-        "marca": "byd",
+        "idVeiculo": "1",
+        "marca": "Byd",
         "potencia": "300",
         "bateriaAtual": "60"
-      }
+      },
+      "veiculos": [
+        {
+          "idVeiculo": "1",
+          "marca": "Byd",
+          "potencia": "300",
+          "bateriaAtual": "60"
+        },
+        {
+          "idVeiculo": "1779639630192",
+          "marca": "Corola",
+          "potencia": "200",
+          "bateriaAtual": "100"
+        }
+      ]
     },
     {
       "nome": "heitor",
@@ -44,13 +59,65 @@
       "nome": "1",
       "email": "1@1.com",
       "senha": "12345",
-      "id": "QleBqe58EHw"
+      "id": "QleBqe58EHw",
+      "veiculos": [
+        {
+          "idVeiculo": "1779638388502",
+          "marca": "byd",
+          "potencia": "300",
+          "bateriaAtual": "92"
+        },
+        {
+          "idVeiculo": "1779638782636",
+          "marca": "Corola",
+          "potencia": "300",
+          "bateriaAtual": "100"
+        },
+        {
+          "idVeiculo": "1779638801112",
+          "marca": "chevrolet",
+          "potencia": "300",
+          "bateriaAtual": "100"
+        }
+      ],
+      "veiculo": {
+        "idVeiculo": "1779638388502",
+        "marca": "byd",
+        "potencia": "300",
+        "bateriaAtual": "92"
+      }
     },
     {
       "nome": "Edson Aguiar",
       "email": "edson@edson.com",
       "senha": "12345",
-      "id": "OqMFz9WdOCE"
+      "id": "OqMFz9WdOCE",
+      "veiculo": {
+        "idVeiculo": "1779631686448",
+        "marca": "chevrole",
+        "potencia": "333",
+        "bateriaAtual": "222"
+      },
+      "veiculos": [
+        {
+          "idVeiculo": "1779631686448",
+          "marca": "chevrole",
+          "potencia": "333",
+          "bateriaAtual": "222"
+        },
+        {
+          "idVeiculo": "1779631694037",
+          "marca": "byd",
+          "potencia": "3",
+          "bateriaAtual": "32"
+        }
+      ]
+    },
+    {
+      "nome": "heitor Augusto",
+      "email": "heitor@heitor.com",
+      "senha": "12345",
+      "id": "8YfcotkM5KQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

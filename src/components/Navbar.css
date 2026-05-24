@@ -47,6 +47,15 @@
   padding: 3px;
 }
 
+.bb-logo-area .nomeLogo{
+  height: 65px;
+  width: auto;
+  display: block;
+  object-fit: contain;  
+  padding: 3px;
+  border-radius: 0%;
+}
+
 .bb-logo-text,
 .bb-logo-yellow {
   font-family: var(--bb-font);

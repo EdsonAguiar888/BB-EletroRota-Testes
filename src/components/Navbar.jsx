@@ -1,8 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import LogoImg from '../assets/LogoEletroRota.png';
+
+//import Logo from '../assets/logo bb transp a.png';
+
 import BarraBusca from './Busca';
 import './Navbar.css';
+
+
+
 
 
 function BotaoLogin() {
@@ -42,14 +48,15 @@ export default function Navbar({ usuario, setUsuario }) {
       <div className="bb-topbar">
 
         <div className="bb-logo-area">
-          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
+          <img  src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
           <span className="bb-logo-text">BB</span>
+          {/* <img src={Logo} className="nomeLogo" /> */}
           <span className="bb-logo-yellow">EletroRota</span>
         </div>
 
         <nav className="bb-topnav">
           <Link to="/">Início</Link>
-          <Link to="/gerenciar">Gerenciar Usuários</Link>
+          <Link to="/gerenciar">Gerenciar Veículos</Link>
           <Link to="/mapas">Mapas</Link>
         </nav>
 

@@ -13,6 +13,7 @@ export default function Auth({ onLoginSuccess }) {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
   };
 
   const handleSubmit = async (e) => {
@@ -116,11 +117,15 @@ export default function Auth({ onLoginSuccess }) {
 
               <button id="btnMain" type="submit">{isLogin ? 'Entrar' : 'Criar'}</button>
 
+              <p style={{ margin: '22px 0' }} >Para cadastrar seu veiculo faça aqui seu login ou crie sua conta</p>
+
               <p id="btnSwitch" className="btn-secondary" onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', color: 'blue' }}>
                 {isLogin ? 'Criar conta' : 'Já tenho possue uma conta'}
               </p>
+              
 
               {mensagem.texto && <div className={`message ${mensagem.tipo}`}>{mensagem.texto}</div>}
+
 
             </form>
           </div>

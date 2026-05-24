@@ -3,7 +3,7 @@
 .gerenciar-container {
   padding: 30px;
   max-width: 1000px;
-  margin: 30px auto;
+  margin: 30px 15%;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -47,6 +47,7 @@
   margin-top: 10px;
   font-weight: bold;
   color: #2c3e50;
+  font-size: 20px;
 }
 
 /* Grupo de botões */
