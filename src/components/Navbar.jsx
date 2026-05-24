@@ -1,9 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+<<<<<<< HEAD
 import LogoImg from '../assets/LogoEletroRota.png';
 
 //import Logo from '../assets/logo bb transp a.png';
 
+=======
+import LogoImg from '../assets/LogoEletroRota.svg';
+>>>>>>> origin/navbar
 import BarraBusca from './Busca';
 import './Navbar.css';
 
@@ -48,10 +52,16 @@ export default function Navbar({ usuario, setUsuario }) {
       <div className="bb-topbar">
 
         <div className="bb-logo-area">
+<<<<<<< HEAD
           <img  src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
           <span className="bb-logo-text">BB</span>
           {/* <img src={Logo} className="nomeLogo" /> */}
           <span className="bb-logo-yellow">EletroRota</span>
+=======
+          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
+          {/* <span className="bb-logo-text">BB</span>
+          <span className="bb-logo-yellow">EletroRota</span> */}
+>>>>>>> origin/navbar
         </div>
 
         <nav className="bb-topnav">

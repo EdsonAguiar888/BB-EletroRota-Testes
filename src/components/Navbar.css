@@ -25,28 +25,29 @@
   background-color: var(--bb-yellow);
   display: flex;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 56px;
   font-family: var(--bb-font);
-  height: 70px;
+  height: 90px;
   box-sizing: border-box;
-}
 
+}
 
 .bb-logo-area {
   justify-content: flex-start;
   gap: 10px;
   line-height: 1;
+  display: flex;
 }
 
 .bb-logo-img {
   height: 65px;
   width: auto;
-  display: block;
   object-fit: contain;
-  border-radius: 50%;
+  border-radius: 0%;
   padding: 3px;
 }
 
+<<<<<<< HEAD
 .bb-logo-area .nomeLogo{
   height: 65px;
   width: auto;
@@ -68,15 +69,17 @@
   align-items: center;
 }
 
+=======
+>>>>>>> origin/navbar
 .bb-topnav {
-  gap: 23px;
+  gap: 43px;
   justify-content: center;
 }
 
 .bb-topnav a {
   color: var(--bb-blue);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
@@ -117,7 +120,7 @@
   padding: 0 12px;
   box-sizing: border-box;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(247, 233, 165, 0.45);
 }
 
 .bb-search-inner {
