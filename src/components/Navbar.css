@@ -47,30 +47,6 @@
   padding: 3px;
 }
 
-<<<<<<< HEAD
-.bb-logo-area .nomeLogo{
-  height: 65px;
-  width: auto;
-  display: block;
-  object-fit: contain;  
-  padding: 3px;
-  border-radius: 0%;
-}
-
-.bb-logo-text,
-.bb-logo-yellow {
-  font-family: var(--bb-font);
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--bb-blue) !important;
-  margin: 0;
-  cursor: default;
-  display: flex;
-  align-items: center;
-}
-
-=======
->>>>>>> origin/navbar
 .bb-topnav {
   gap: 43px;
   justify-content: center;
@@ -79,7 +55,7 @@
 .bb-topnav a {
   color: var(--bb-blue);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
@@ -222,7 +198,7 @@
 @media (max-width: 1366px) and (min-width: 861px) {
   .bb-topbar { padding: 0 24px; gap: 12px; }
   .bb-topnav { gap: 16px; }
-  .bb-topnav a { font-size: 0.82rem; }
+  .bb-topnav a { font-size: 0.92rem; }
   .bb-search-form { width: 180px; }
   .bb-logo-text { font-size: 1.1rem; }
 }
