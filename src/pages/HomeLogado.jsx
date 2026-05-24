@@ -111,119 +111,6 @@ useEffect(() => {
 
   if (!usuario) return <p>Carregando...</p>;
 
-<<<<<<< HEAD
-  return (
-    <div>
-      {/* Exibição da Imagem */}
-      <div>
-        <img
-          src={imagemCarro}
-          alt="Carro elétrico do projeto bbEletroRota"
-          style={{
-            maxWidth: '100%',
-            width: '100%',
-            height: 'auto',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-          }}
-        />
-      </div>
-
-      <section className="cards">
-        <a className="card" id="estacoes">
-          ⚡
-          <h3>Encontre Estações de Carga</h3>
-          <p>Veja os pontos de recarga próximos.</p>
-        </a>
-
-        <a className="card" id="autonomia">
-          🔋
-          <h3>Calculadora de Autonomia</h3>
-          <p>Calcule até onde você pode chegar.</p>
-        </a>
-
-        <a className="card" id="viagem">
-          📍
-          <h3>Planejar Viagem</h3>
-          <p>Planeje sua rota com paradas.</p>
-        </a>
-
-        <Link className="card" id="cadastro" to="/gerenciar-veiculos">
-          🚗
-          <h3>Cadastro do Meu Carro</h3>
-          <p>Salve seu veículo.</p>
-        </Link>
-      </section>
-
-      <div className="painel-container">
-        {/* Bloco 1: Eletroposto mais proximo */}
-        <div className="station-container">
-          <div className="station-title">Estação Recomendada Mais Próxima</div>
-          <div className="station-card">
-            <div className="map-wrapper">
-              <div className="map-placeholder">
-                <img
-                  src={imagemgps}
-                  alt="Carro elétrico do projeto bbEletroRota"
-                  style={{
-                    maxWidth: '100%',
-                    width: '100%',
-                    height: 'auto',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="details-wrapper">
-              <div className="station-name">Eletroposto Central</div>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="icon">🔌</span>
-                  <strong>3</strong> Carregadores Disponíveis
-                </div>
-                <div className="info-item">
-                  <span className="icon">⏱</span>
-                  <strong>2 Min</strong> de Espera Estimada
-                </div>
-                <div className="info-item">
-                  <span className="icon">📍</span>
-                  <strong>5,2 km</strong> Distância até o local
-                </div>
-                <div className="action-wrapper">
-                  <button className="btn-navigate">
-                    Navegar até a Estação <span className="arrow">&gt;</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bloco 2: Painel Principal do Veículo */}
-        <div className="station">
-          <h2>Painel Principal</h2>
-          <div className="station-box info-veiculo">
-            <div style={{ width: '100%' }}>
-              <h3 style={{ marginTop: '0', color: '#2c3e50', fontSize: '1.2rem' }}>Informações do Veículo</h3>
-
-              <p><strong>Usuário:</strong> {usuario.nome}</p>
-              {/* 🔥 AGORA OS DADOS SÃO EXIBIDOS DIRETAMENTE DO OBJETO ATUALIZADO */}
-              <p><strong>Marca/Modelo:</strong> {usuario.veiculo?.marca || 'Não informada'}</p>
-              <p><strong>Potência:</strong> {usuario.veiculo?.potencia || 'Não informada'} kW</p>
-              <p><strong>Bateria Atual:</strong> {usuario.veiculo?.bateriaAtual || 0}%</p>
-
-              <button onClick={alterarBateria} className="btn-simulate">
-                Simular Consumo (-10% bateria)
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-=======
 
  return (
    <div>
@@ -335,7 +222,6 @@ useEffect(() => {
    </div>
  );
  }
->>>>>>> origin/cards
 
 
 
