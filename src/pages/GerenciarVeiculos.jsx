@@ -94,6 +94,43 @@ export default function GerenciaVeiculos() {
       listaNova.push(novoVeiculo);
     }
 
+
+
+
+
+
+
+// const payload = {
+//   ...usuarioLogado,
+//   // Se o carro editado for o mesmo que está ativo na Home, atualiza ele também!
+//   veiculo: usuarioLogado.veiculo?.idVeiculo === editId || listaVeiculosAtualizada.length === 1
+//     ? { idVeiculo: editId || novoId, marca: formData.marca, potencia: formData.potencia, bateriaAtual: formData.bateriaAtual }
+//     : usuarioLogado.veiculo,
+//   veiculos: listaVeiculosAtualizada
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Monta o payload mantendo os dados intactos do usuário e atualizando a lista de veículos
     const payload = {
 
@@ -101,6 +138,24 @@ export default function GerenciaVeiculos() {
       veiculos: listaNova,
       veiculo: listaNova[0] || null // Mantém compatibilidade com páginas antigas usando o primeiro veículo
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     try {
       const response = await fetch(`${API_URL}/${usuarioLogado.id}`, {
