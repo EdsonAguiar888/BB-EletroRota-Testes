@@ -13,6 +13,7 @@ export default function Auth({ onLoginSuccess }) {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
   };
 
   const handleSubmit = async (e) => {
@@ -23,19 +24,11 @@ export default function Auth({ onLoginSuccess }) {
       if (isLogin) {
 
 
-
-
-
         const resp = await fetch(window.location.hostname === 'localhost'
           ? 'http://localhost:3000/usuarios'
           : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
 
 
-
-
-        //const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
-        //const resp = await fetch('http://localhost:3000/usuarios');
-        
         const usuarios = await resp.json();
 
         const usuarioEncontrado = usuarios.find(u =>
@@ -58,23 +51,11 @@ export default function Auth({ onLoginSuccess }) {
       } else {
         // Lógica de Cadastro (POST) 
 
-
-
-
-
         const resp = await fetch(window.location.hostname === 'localhost'
   ? 'http://localhost:3000/usuarios'
   : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
 
 
-
-
-
-
-
-        //const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
-        //const resp = await fetch('http://localhost:3000/usuarios', {
-          
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
@@ -116,11 +97,15 @@ export default function Auth({ onLoginSuccess }) {
 
               <button id="btnMain" type="submit">{isLogin ? 'Entrar' : 'Criar'}</button>
 
+              <p style={{ margin: '22px 0' }} >Para cadastrar seu veiculo faça aqui seu login ou crie sua conta</p>
+
               <p id="btnSwitch" className="btn-secondary" onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', color: 'blue' }}>
                 {isLogin ? 'Criar conta' : 'Já tenho possue uma conta'}
               </p>
+              
 
               {mensagem.texto && <div className={`message ${mensagem.tipo}`}>{mensagem.texto}</div>}
+
 
             </form>
           </div>

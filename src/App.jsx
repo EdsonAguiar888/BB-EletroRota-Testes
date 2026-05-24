@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Auth from './pages/Login';
 import Home from './pages/Home';
 import HomeLogado from './pages/HomeLogado';
-import GerenciarUsuarios from './pages/GerenciarUsuarios';
+import GerenciarVeiculos from './pages/GerenciarVeiculos';
 import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
 import Busca from './pages/BuscaPag'
@@ -20,44 +20,64 @@ function App() {
   };
 
   return (
-   
+
     <BrowserRouter>
       <Routes>
 
         {/* Rota pública de login */}
-        <Route 
-          path="/login" 
-          element={usuario ? <Navigate to="/" replace /> : <Auth onLoginSuccess={handleLogin} />} 
+
+
+       
+
+
+
+        <Route
+          path="/login"
+          element={usuario ? <Navigate to="/" replace /> : <Auth onLoginSuccess={handleLogin} />}
         />
-        
+
         {/* Rotas estruturadas com o Layout */}
         <Route element={<Layout usuario={usuario} setUsuario={setUsuario} />}>
 
-        <Route path="/busca" element={<Busca />} />
-          
+          <Route path="/busca" element={<Busca />} />
+
           {/* Rota Home com exibição dinâmica */}
-          <Route 
-            path="/" 
-            element={usuario ? <HomeLogado usuario={usuario} /> : <Home />} 
-          />
-          
-          {/* Rotas protegidas */}
-          <Route 
-            path="/gerenciar" 
-            element={usuario ? <GerenciarUsuarios /> : <Navigate to="/login" replace />} 
+          <Route
+            path="/"
+            element={usuario ? <HomeLogado usuario={usuario} /> : <Home />}
           />
 
-          <Route 
-            path="/editarPerfil" 
-            element={usuario ? <EditarPerfil usuario={usuario} setUsuario={setUsuario} /> : <Navigate to="/login" replace />} 
+
+
+
+
+
+          {/* Rotas protegidas */}
+          <Route
+            path="/gerenciar"
+            element={usuario ? <GerenciarVeiculos setUsuario={setUsuario} /> : <Navigate to="/login" replace />}
           />
-          
+
+           {/* <Route
+          path="/gerenciar"
+          element={<GerenciaVeiculos setUsuario={setUsuario} />}
+            /> */}
+
+
+
+
+
+          <Route
+            path="/editarPerfil"
+            element={usuario ? <EditarPerfil usuario={usuario} setUsuario={setUsuario} /> : <Navigate to="/login" replace />}
+          />
+
         </Route>
 
         {/* Redirecionamento para rotas inexistentes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter> 
+    </BrowserRouter>
   );
 }
 

@@ -25,49 +25,37 @@
   background-color: var(--bb-yellow);
   display: flex;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 56px;
   font-family: var(--bb-font);
-  height: 70px;
+  height: 90px;
   box-sizing: border-box;
-}
 
+}
 
 .bb-logo-area {
   justify-content: flex-start;
   gap: 10px;
   line-height: 1;
+  display: flex;
 }
 
 .bb-logo-img {
   height: 65px;
   width: auto;
-  display: block;
   object-fit: contain;
-  border-radius: 50%;
+  border-radius: 0%;
   padding: 3px;
 }
 
-.bb-logo-text,
-.bb-logo-yellow {
-  font-family: var(--bb-font);
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--bb-blue) !important;
-  margin: 0;
-  cursor: default;
-  display: flex;
-  align-items: center;
-}
-
 .bb-topnav {
-  gap: 23px;
+  gap: 43px;
   justify-content: center;
 }
 
 .bb-topnav a {
   color: var(--bb-blue);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 700;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
@@ -108,7 +96,7 @@
   padding: 0 12px;
   box-sizing: border-box;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(247, 233, 165, 0.45);
 }
 
 .bb-search-inner {
@@ -210,7 +198,7 @@
 @media (max-width: 1366px) and (min-width: 861px) {
   .bb-topbar { padding: 0 24px; gap: 12px; }
   .bb-topnav { gap: 16px; }
-  .bb-topnav a { font-size: 0.82rem; }
+  .bb-topnav a { font-size: 0.92rem; }
   .bb-search-form { width: 180px; }
   .bb-logo-text { font-size: 1.1rem; }
 }
