@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import LogoImg from '../assets/LogoEletroRota.png';
+import LogoImg from '../assets/LogoEletroRota.svg';
 import BarraBusca from './Busca';
 import './Navbar.css';
 
@@ -43,8 +43,8 @@ export default function Navbar({ usuario, setUsuario }) {
 
         <div className="bb-logo-area">
           <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
-          <span className="bb-logo-text">BB</span>
-          <span className="bb-logo-yellow">EletroRota</span>
+          {/* <span className="bb-logo-text">BB</span>
+          <span className="bb-logo-yellow">EletroRota</span> */}
         </div>
 
         <nav className="bb-topnav">

@@ -43,11 +43,11 @@
   width: auto;
   display: block;
   object-fit: contain;
-  border-radius: 50%;
+  border-radius: 0%;
   padding: 3px;
 }
 
-.bb-logo-text,
+/* .bb-logo-text,
 .bb-logo-yellow {
   font-family: var(--bb-font);
   font-size: 1.35rem;
@@ -57,7 +57,7 @@
   cursor: default;
   display: flex;
   align-items: center;
-}
+} */
 
 .bb-topnav {
   gap: 23px;
