@@ -7,11 +7,24 @@
 
 body {
   background: #f5f5f5;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 
+/* Imagem do Topo */
+.hero-image-container {
+  width: 100%;
+}
 
+.hero-image {
+  max-width: 100%; /* Corrigido para o padrão correto do CSS */
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* Topbar original mantida */
 .topbar {
   background: #ffdf00;
   display: flex;
@@ -37,138 +50,99 @@ body {
   color: #003a8f;
 }
 
-
-.img-topo{
-
-  background-image: url("/src/assets/imagemCarro.png");
-  width: 100%;
-  height: 40px;
-}
-
-
-
-
+/* Seção de Cards - Modificada para quebrar linhas no Mobile */
 .cards {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap; /* Permite que os cards pulem de linha se não houver espaço */
   margin: 20px;
-  gap: 5px;
+  gap: 20px;
   padding: 20px;
-  border-radius: 100px;
+  border-radius: 20px; /* Reduzido de 100px para não deformar em telas menores */
   background-color: #f8fafc;
 }
-  /* Estilo para o título */
-h3 {
-  color: white; /* Cor diferente para o h3 */
-}
 
-p {
-  color: white; /* Cor diferente para o p */
-}   
-
-
+/* Elemento Card Individual */
+/* Elemento Card Individual - Mais compacto e com altura controlada */
 .card {
-  background:#002D6A;
-  /* padding: 20px; */
+  background: #002D6A;
   border-radius: 10px;
-  width: 350px;
-  width: 350px;
+  width: 100%;
+  max-width: 300px; /* Largura ideal para caberem 4 lado a lado no PC */
+  min-height: 130px; /* Garante que todos tenham exatamente o mesmo tamanho vertical */
   cursor: pointer;
   transition: 0.3s;
-  max-height: 170px;
+  padding: 15px; /* Reduzido o padding interno para diminuir a altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinha o conteúdo a partir do topo */
+  align-items: flex-start;
+  text-decoration: none;
 }
-
-
-
-
-
-
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-
-.station {
-  padding: 10px ;
-  margin: 20px;
-}
-
-.station h2 {
-  padding: 10px 30px;
-}
-
-.station-box {
-  display: flex;
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
-  align-items: center;
-}
-
-.map {
-  width: 200px;
-  height: 150px;
-  background: #ddd;
+/* Título interno do Card */
+.card h3 {
+  color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 40px;
+  margin-bottom: 10px; /* Reduzido o espaço abaixo do título */
+  text-align: center;
+  width: 100%;
+  font-size: 0.95rem; /* Ajustado levemente para não quebrar muitas linhas */
+  line-height: 1.2;
 }
 
-.info {
-  margin-left: 20px;
+/* Ícones dos Cards - Padronizados pelo tamanho do primeiro card */
+.card-icon {
+  width: 32px; /* Tamanho fixo em pixels para todas as imagens ficarem idênticas */
+  height: 32px; /* Força uma proporção quadrada perfeita */
+  object-fit: contain; /* Garante que a imagem não distorça dentro do quadrado */
+  margin-right: 10px;
+  flex-shrink: 0; /* Impede que o flexbox amasse o ícone */
 }
 
-.button-logout {
-  width: 60px;
-  margin-top: 10px;
-  background: #1a73e8;
-  border: none;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-left: 200px;
+/* Linha divisória interna */
+.divider {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 10px; /* Reduzido o espaço abaixo da linha */
 }
 
-button:hover {
-  /* background: #c3cedb; */
-  border-color: #ffdf00;
-}
+/* Parágrafo descritivo */
+.card p {
+  color: #cbd5e1;
+  margin: 0;
+  text-align: center; /* Alinhado à esquerda para acompanhar o fluxo do título */
+  width: 100%;
+  font-size: 0.8rem; /* Fonte ligeiramente menor para economizar espaço vertical */
+}  
 
-
+/* Painel Container Inferior */
+/* 1. Altera o container para alinhar em coluna de cima para baixo */
 .painel-container {
-
   display: flex;
-  align-items: stretch;
-  justify-content: space-around;
+  flex-direction: column; /* Força um elemento embaixo do outro */
+  gap: 25px;
+  padding: 20px;
+  max-width: 800px; /* Alinha o limite de largura pelo tamanho do bloco maior */
+  margin: 0 auto;
+  align-items: center; /* Centraliza os dois blocos na tela */
 }
 
-
-/* ============================================================ */
-
-
-
-
-
-/* PainelMapa.css */
-
-/* EstacaoRecomendada.css */
-
-/* Container Principal */
+/* 2. Garante que o bloco da Estação ocupe 100% da largura do container */
 .station-container {
   width: 100%;
-  max-width: 900px;
-  margin: 20px auto;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8fafc; /* Fundo suave do card principal */
-  padding: 40px;
-  border-radius: 8px;
+  max-width: 100%; /* Remove o limite antigo de 700px */
+  background-color: #f8fafc;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Título superior azul */
 .station-title {
   color: #003366;
   font-size: 1.25rem;
@@ -178,71 +152,48 @@ button:hover {
   padding-bottom: 10px;
 }
 
-/* Estrutura do Card (Mapa + Infos) */
 .station-card {
   display: flex;
-  gap: 25px;
+  gap: 20px;
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 10px;
+  padding: 15px;
   align-items: center;
 }
 
-
-
-
-
-
-
-
-
-
-/* Área do Mapa (Esquerda) */
 .map-wrapper {
-  flex: 0 0 260px;
-  height: 160px;
-  background-color: #e2e8f0; /* Caso a imagem falhe */
-  border: 1px solid #cbd5e1;
+  flex: 0 0 200px;
+  height: 140px;
   border-radius: 6px;
   overflow: hidden;
 }
 
-/* Centralizador temporário para o ícone de mapa */
-.map-placeholder {
+.map-img {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  background: radial-gradient(circle, #e0f2fe 0%, #bae6fd 100%);
+  object-fit: cover;
 }
 
-/* Área de Detalhes (Direita) */
 .details-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
-/* Nome do Eletroposto */
 .station-name {
   color: #003366;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
-/* Grid que alinha os dados e o botão */
 .info-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
-/* Itens individuais de informação */
 .info-item {
   display: flex;
   align-items: center;
@@ -251,188 +202,106 @@ button:hover {
   font-size: 0.95rem;
 }
 
-.info-item .icon {
-  font-size: 1.2rem;
-}
-
-.info-item strong {
-  font-weight: bold;
-  margin-right: 4px;
-}
-
-/* Container do Botão Amarelo */
 .action-wrapper {
-  grid-column: 2; /* Força o botão a ficar na segunda coluna (abaixo do tempo) */
-  display: flex;
-  justify-content: flex-start;
+  margin-top: 5px;
 }
 
-/* Estilização do Botão Amarelo */
 .btn-navigate {
   background: linear-gradient(180deg, #ffe000 0%, #ffd000 100%);
   border: 1px solid #e6b800;
   color: #002244;
   font-weight: bold;
-  padding: 12px 24px;
+  padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.1s, filter 0.2s;
+  transition: filter 0.2s;
 }
 
-.btn-navigate:hover {
-  filter: brightness(0.95);
-}
+.btn-navigate:hover { filter: brightness(0.95); }
 
-.btn-navigate:active {
-  transform: scale(0.98);
-}
-
-.btn-navigate .arrow {
-  font-size: 0.85rem;
-  font-weight: 900;
-}
-
-/* Responsividade simples para telas menores */
-@media (max-width: 768px) {
-  .station-card {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .map-wrapper {
-    flex: none;
-    width: 100%;
-  }
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  .action-wrapper {
-    grid-column: 1;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* MAPINHA + PAINEL DO USUARIO .css */
-
-/* Container principal que junta os dois painéis lado a lado */
-.painel-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  padding: 30px;
-  max-width: 1100px;
-  margin: 0 auto;
-  justify-content: center;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Estilização dos dois blocos principais (Estação e Painel Principal) */
+/* 3. Garante que o Painel Principal também ocupe 100% da largura, igualando os tamanhos */
 .station {
-  flex: 1;
-  min-width: 320px;
-  max-width: 500px;
+  width: 100%;
+  max-width: 100%; /* Remove o limite antigo de 450px */
   background-color: #ffffff;
   border-radius: 14px;
   padding: 25px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border: 1px solid #eef2f5;
-  box-sizing: border-box;
 }
 
-/* Títulos dos painéis */
 .station h2 {
   color: #2c3e50;
-  font-size: 1.4rem;
-  margin-top: 0;
-  margin-bottom: 20px;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
   border-bottom: 2px solid #3498db;
   padding-bottom: 8px;
 }
 
-/* Box interno que organiza os conteúdos */
-.station-box {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-/* Área do ícone do Mapa/Localização */
-.map {
-  font-size: 3rem;
-  background-color: #e8f4fd;
-  padding: 20px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 0 2px rgba(52, 152, 219, 0.1);
-}
-
-/* Textos informativos de cada bloco */
-.info h3 {
-  color: #2c3e50;
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
-}
-
-.info p {
-  color: #5a6c7d;
-  margin: 6px 0;
-  font-size: 0.95rem;
-}
-
-/* Customização dos textos da seção de informações do veículo */
-.info-veiculo {
-  width: 100%;
+.painel-v-title {
+  color: #2c3e50 !important;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
 .info-veiculo p {
   color: #2c3e50;
-  margin: 10px 0;
-  font-size: 1rem;
+  margin: 8px 0;
+  font-size: 0.95rem;
   border-bottom: 1px dashed #eef2f5;
   padding-bottom: 6px;
 }
 
-/* Botões universais dos dois painéis */
 .station button {
   width: 100%;
   background-color: #3498db;
   color: #ffffff;
   border: none;
-  padding: 12px 18px;
+  padding: 12px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 0.95rem;
   margin-top: 15px;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: background-color 0.2s;
 }
 
-.station button:hover {
-  background-color: #2980b9;
-}
+.station button:hover { background-color: #2980b9; }
 
-.station button:active {
-  transform: scale(0.98);
+
+/* ============================================================ */
+/* MEDIA QUERIES (A MAGICA DA RESPONSIVIDADE) */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+  /* No celular, os cards ocupam a largura total disponível */
+  .card {
+    max-width: 100%;
+  }
+
+  .cards {
+    border-radius: 12px;
+    padding: 15px 10px;
+  }
+
+  /* Faz a estrutura interna do eletroposto virar uma coluna */
+  .station-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .map-wrapper {
+    flex: none;
+    width: 100%;
+    height: 180px;
+  }
+
+  .topbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
