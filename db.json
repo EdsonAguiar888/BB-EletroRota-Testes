@@ -4,36 +4,28 @@
       "nome": "2",
       "email": "2@2.com",
       "senha": "12345",
-      "id": "yFDYomrxaEg"
+      "id": "yFDYomrxaEg",
+      "veiculos": []
     },
     {
       "nome": "3",
       "email": "3@3.com",
       "senha": "12345",
-      "id": "Mw6WttWRGHU"
+      "id": "Mw6WttWRGHU",
+      "veiculos": []
     },
     {
       "nome": "4",
       "email": "4@4.com",
       "senha": "12345",
-      "veiculo": {
-        "marca": "byd",
-        "potencia": "150",
-        "bateriaAtual": "40"
-      },
-      "id": "JuPJH8W3d5A"
+      "id": "JuPJH8W3d5A",
+      "veiculos": []
     },
     {
       "nome": "Heitor Autusto dos Santos Aguiar",
       "email": "heitor@heitor.com",
       "senha": "12345",
       "id": "700PjTyYYE8",
-      "veiculo": {
-        "idVeiculo": "1",
-        "marca": "Byd",
-        "potencia": "300",
-        "bateriaAtual": "60"
-      },
       "veiculos": [
         {
           "idVeiculo": "1",
@@ -43,7 +35,7 @@
         },
         {
           "idVeiculo": "1779639630192",
-          "marca": "Corola",
+          "marca": "dddddddd",
           "potencia": "200",
           "bateriaAtual": "100"
         }
@@ -53,7 +45,8 @@
       "nome": "heitor",
       "email": "heitor@heitor.com",
       "senha": "12345",
-      "id": "Wn4AxNnPyhg"
+      "id": "Wn4AxNnPyhg",
+      "veiculos": []
     },
     {
       "nome": "1",
@@ -64,8 +57,8 @@
         {
           "idVeiculo": "1779638388502",
           "marca": "byd",
-          "potencia": "300",
-          "bateriaAtual": "92"
+          "potencia": "150",
+          "bateriaAtual": "100"
         },
         {
           "idVeiculo": "1779638782636",
@@ -83,41 +76,48 @@
       "veiculo": {
         "idVeiculo": "1779638388502",
         "marca": "byd",
-        "potencia": "300",
-        "bateriaAtual": "92"
+        "potencia": "150",
+        "bateriaAtual": "100"
       }
-    },
-    {
-      "nome": "Edson Aguiar",
-      "email": "edson@edson.com",
-      "senha": "12345",
-      "id": "OqMFz9WdOCE",
-      "veiculo": {
-        "idVeiculo": "1779631686448",
-        "marca": "chevrole",
-        "potencia": "333",
-        "bateriaAtual": "222"
-      },
-      "veiculos": [
-        {
-          "idVeiculo": "1779631686448",
-          "marca": "chevrole",
-          "potencia": "333",
-          "bateriaAtual": "222"
-        },
-        {
-          "idVeiculo": "1779631694037",
-          "marca": "byd",
-          "potencia": "3",
-          "bateriaAtual": "32"
-        }
-      ]
     },
     {
       "nome": "heitor Augusto",
       "email": "heitor@heitor.com",
       "senha": "12345",
-      "id": "8YfcotkM5KQ"
+      "id": "8YfcotkM5KQ",
+      "veiculos": []
+    },
+    {
+      "nome": "Edson Aguiar",
+      "email": "edson@edson.com",
+      "senha": "12345",
+      "id": "hD6gYQJZ_WU",
+      "veiculos": [
+        {
+          "idVeiculo": "1779649488020",
+          "marca": "Corola",
+          "potencia": "300",
+          "bateriaAtual": "100"
+        },
+        {
+          "idVeiculo": "1779649498580",
+          "marca": "Byd",
+          "potencia": "300",
+          "bateriaAtual": "66"
+        },
+        {
+          "idVeiculo": "1779649504940",
+          "marca": "tesla",
+          "potencia": "300",
+          "bateriaAtual": "90"
+        }
+      ],
+      "veiculo": {
+        "idVeiculo": "1779649498580",
+        "marca": "Byd",
+        "potencia": "300",
+        "bateriaAtual": "66"
+      }
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

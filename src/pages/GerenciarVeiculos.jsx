@@ -8,13 +8,13 @@ export default function GerenciaVeiculos() {
   // Estado para armazenar os veículos específicos do usuário logado
   const [veiculos, setVeiculos] = useState([]);
   const [usuarioLogado, setUsuarioLogado] = useState(null);
-  
+
   const [formData, setFormData] = useState({
     marca: '',
     potencia: '',
     bateriaAtual: ''
   });
-  
+
   const [editId, setEditId] = useState(null); // ID do veículo sendo editado
   const [mensagem, setMensagem] = useState('');
 
@@ -36,25 +36,25 @@ export default function GerenciaVeiculos() {
   // READ: Carrega apenas os veículos do usuário atual
   const carregarVeiculosDoUsuario = async (idUsuario) => {
     window.scrollTo({ top: 90, behavior: 'smooth' });
-    
-    
+
+
     try {
       const response = await fetch(`${API_URL}/${idUsuario}`);
       if (response.ok) {
         const usuarioCompleto = await response.json();
-        
+
         // Garante que se 'veiculos' não existir no banco ainda, vire um array vazio
-        const listaVeiculos = Array.isArray(usuarioCompleto.veiculos) 
-          ? usuarioCompleto.veiculos 
-          : (usuarioCompleto.veiculo ? [ { idVeiculo: "1", ...usuarioCompleto.veiculo } ] : []);
-        
+        const listaVeiculos = Array.isArray(usuarioCompleto.veiculos)
+          ? usuarioCompleto.veiculos
+          : (usuarioCompleto.veiculo ? [{ idVeiculo: "1", ...usuarioCompleto.veiculo }] : []);
+
         setVeiculos(listaVeiculos);
-        
-        
+
+
         // Atualiza o localStorage para manter sincronizado
         const sessaoAtualizada = { ...usuarioCompleto, veiculos: listaVeiculos };
         localStorage.setItem('usuarioLogado', JSON.stringify(sessaoAtualizada));
-        
+
       }
     } catch (err) {
       console.error('Erro ao conectar com a API:', err);
@@ -67,10 +67,10 @@ export default function GerenciaVeiculos() {
 
   // CREATE e UPDATE: Adiciona um novo veículo ou altera um existente na lista
   const handleSubmit = async (e) => {
-    
+
     e.preventDefault();
     if (!usuarioLogado) return;
-    
+
     setMensagem('Salvando...');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -78,8 +78,8 @@ export default function GerenciaVeiculos() {
 
     if (editId) {
       // Modo de Edição: Atualiza o veículo correspondente dentro da lista
-      listaNova = listaNova.map(v => 
-        v.idVeiculo === editId 
+      listaNova = listaNova.map(v =>
+        v.idVeiculo === editId
           ? { idVeiculo: editId, marca: formData.marca, potencia: formData.potencia, bateriaAtual: formData.bateriaAtual }
           : v
       );
@@ -96,7 +96,7 @@ export default function GerenciaVeiculos() {
 
     // Monta o payload mantendo os dados intactos do usuário e atualizando a lista de veículos
     const payload = {
-      
+
       ...usuarioLogado,
       veiculos: listaNova,
       veiculo: listaNova[0] || null // Mantém compatibilidade com páginas antigas usando o primeiro veículo
@@ -111,6 +111,20 @@ export default function GerenciaVeiculos() {
 
       if (response.ok) {
         setMensagem(editId ? 'Veículo atualizado com sucesso!' : 'Novo veículo cadastrado!');
+
+        if (typeof setUsuario === 'function') {
+          setUsuario(payload);
+        }
+
+        // Atualiza também o localStorage para segurança
+        localStorage.setItem('usuarioLogado', JSON.stringify(payload));
+
+        // Atualiza o estado global no App.jsx imediatamente
+        if (typeof setUsuario === 'function') {
+          setUsuario(payload);
+        }
+
+
         limparFormulario();
         carregarVeiculosDoUsuario(usuarioLogado.id);
         setTimeout(() => setMensagem(''), 3000);
@@ -128,7 +142,7 @@ export default function GerenciaVeiculos() {
       marca: veiculo.marca,
       potencia: veiculo.potencia,
       bateriaAtual: veiculo.bateriaAtual
-      
+
     });
 
 
@@ -157,6 +171,11 @@ export default function GerenciaVeiculos() {
 
       if (response.ok) {
         setMensagem('Veículo removido com sucesso.');
+
+
+
+
+
         carregarVeiculosDoUsuario(usuarioLogado.id);
       }
     } catch (err) {
