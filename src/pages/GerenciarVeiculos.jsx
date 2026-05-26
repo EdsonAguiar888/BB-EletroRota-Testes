@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import './GerenciarVeiculos.css'; // Mantém o seu arquivo de estilo existente
 
 
-
-
 export default function GerenciaVeiculos() {
   // Estado para armazenar os veículos específicos do usuário logado
   const [veiculos, setVeiculos] = useState([]);
@@ -95,11 +93,6 @@ export default function GerenciaVeiculos() {
     }
 
 
-
-
-
-
-
 // const payload = {
 //   ...usuarioLogado,
 //   // Se o carro editado for o mesmo que está ativo na Home, atualiza ele também!
@@ -110,27 +103,6 @@ export default function GerenciaVeiculos() {
 // };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Monta o payload mantendo os dados intactos do usuário e atualizando a lista de veículos
     const payload = {
 
@@ -138,23 +110,6 @@ export default function GerenciaVeiculos() {
       veiculos: listaNova,
       veiculo: listaNova[0] || null // Mantém compatibilidade com páginas antigas usando o primeiro veículo
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     try {
@@ -292,10 +247,10 @@ export default function GerenciaVeiculos() {
           {veiculos.length > 0 ? (
             veiculos.map((v, index) => (
               <tr key={v.idVeiculo || index}>
-                <td style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{v.marca}</td>
-                <td>{v.potencia}W</td>
-                <td>{v.bateriaAtual ? `${v.bateriaAtual}%` : 'N/A'}</td>
-                <td>
+                <td data-label="Marca:">{v.marca}</td>
+                <td data-label="Potência:">{v.potencia}W</td>
+                <td data-label="Bateria Atual:">{v.bateriaAtual ? `${v.bateriaAtual}%` : 'N/A'}</td>
+                <td data-label="Ações:">
                   <button onClick={() => handleEdit(v)} className="action-btn btn-edit">Editar</button>
                   <button onClick={() => handleDelete(v.idVeiculo)} className="action-btn btn-delete">Excluir</button>
                 </td>

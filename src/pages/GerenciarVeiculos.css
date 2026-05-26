@@ -1,12 +1,13 @@
-/* src/pages/GerenciarUsuario.css */
+/* src/pages/GerenciarVeiculos.css */
 
 .gerenciar-container {
   padding: 30px;
   max-width: 1000px;
-  margin: 30px 15%;
+  margin: 30px auto;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
 }
 
 .gerenciar-container h2 {
@@ -15,6 +16,7 @@
   border-bottom: 3px solid #3498db;
   padding-bottom: 10px;
   font-size: 1.8rem;
+  margin-top: 19px;
 }
 
 /* Formulário de Cadastro / Edição */
@@ -57,7 +59,8 @@
   margin-top: 5px;
 }
 
-.btn-group button, .action-btn {
+.btn-group button,
+.action-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
@@ -159,4 +162,150 @@
 
 .btn-delete:hover {
   background-color: #c0392b;
+}
+
+/* ── Responsividade ── */
+
+@media (max-width: 768px) {
+  .gerenciar-container {
+    padding: 16px;
+    margin: 20px;
+    border-radius: 10px;
+  }
+
+  .gerenciar-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+  }
+
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 10px 8px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 640px) {
+
+
+  .gerenciar-container {
+    margin: 10px auto;
+    padding: 16px;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: unset;
+    text-align: left;
+  }
+
+  .gerenciar-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .gerenciar-form {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .gerenciar-form input {
+    font-size: 0.95rem;
+  }
+
+  .btn-group {
+    gap: 8px;
+  }
+
+  .btn-group button {
+    font-size: 0.88rem;
+    padding: 10px 14px;
+  }
+
+  /* Cards em vez de tabela no mobile */
+  .usuarios-table thead {
+    display: none;
+  }
+
+  .usuarios-table,
+  .usuarios-table tbody,
+  .usuarios-table tr,
+  .usuarios-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .usuarios-table tr {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .usuarios-table td {
+    border: none;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-bottom: 1px dashed #eee;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    gap: 12px;
+  }
+
+  /* Labels automáticos via data-label no JSX */
+  .usuarios-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+
+  .usuarios-table td:last-child {
+    display: flex !important;
+    flex-direction: row;
+    align-items: stretch;
+    border-bottom: none;
+    padding-top: 10px;
+    gap: 8px;
+  }
+
+
+  .usuarios-table td:last-child::before {
+    display: none;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 6px;
+    width: auto !important;
+  }
+
+}
+
+@media (max-width: 380px) {
+  .gerenciar-container {
+    margin: 6px;
+    padding: 12px;
+  }
+
+  .gerenciar-container h2 {
+    font-size: 1.1rem;
+  }
 }

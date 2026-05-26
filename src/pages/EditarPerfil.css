@@ -1,0 +1,280 @@
+/* ── Base ── */
+.containerStyle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cardStyle {
+  display: flex;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.imageSectionStyle {
+  flex: 1;
+  background: #f8f9fa;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
+}
+
+.imageStyle {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 15px;
+}
+
+.imageSectionStyle h3 {
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+.infoSectionStyle {
+  flex: 1.2;
+  padding: 40px;
+}
+
+.formStyle {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.inputStyle {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.selectStyle {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #3498db;
+  font-size: 1rem;
+  background-color: #fdfefe;
+  cursor: pointer;
+  color: #2c3e50;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rowStyle {
+  display: flex;
+  gap: 15px;
+}
+
+.labelDestaque {
+  font-weight: bold;
+  color: #2980b9;
+}
+
+.mensagemSucesso {
+  color: green;
+  font-weight: bold;
+}
+
+.buttonGroupStyle {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.editButtonStyle {
+  flex: 1;
+  padding: 12px;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.deleteButtonStyle {
+  padding: 12px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* =========================================
+   Notebook (≤ 1280px)
+   ========================================= */
+@media (max-width: 1280px) {
+  .cardStyle {
+    max-width: 900px;
+  }
+
+  .imageSectionStyle {
+    padding: 32px;
+  }
+
+  .imageStyle {
+    max-width: 300px;
+  }
+
+  .infoSectionStyle {
+    padding: 32px;
+  }
+}
+
+/* =========================================
+   Tablet Grande (≤ 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+  .cardStyle {
+    max-width: 720px;
+  }
+
+  .imageSectionStyle {
+    padding: 28px;
+  }
+
+  .imageStyle {
+    max-width: 260px;
+  }
+
+  .infoSectionStyle {
+    padding: 28px;
+  }
+}
+
+/* =========================================
+   Tablet (≤ 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  .cardStyle {
+    flex-direction: column;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .imageSectionStyle {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    padding: 24px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .imageStyle {
+    max-width: 120px;
+  }
+
+  .infoSectionStyle {
+    padding: 24px;
+  }
+}
+
+/* =========================================
+   Celular Grande (≤ 480px)
+   ========================================= */
+@media (max-width: 480px) {
+  .containerStyle {
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .cardStyle {
+    flex-direction: column;
+    border-radius: 0;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+  .imageSectionStyle {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .imageStyle {
+    max-width: 80px;
+    border-radius: 10px;
+  }
+
+  .infoSectionStyle {
+    padding: 16px;
+  }
+
+  .rowStyle {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .buttonGroupStyle {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .editButtonStyle,
+  .deleteButtonStyle {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* =========================================
+   Celular Pequeno (≤ 360px)
+   ========================================= */
+@media (max-width: 360px) {
+  .imageSectionStyle {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .imageStyle {
+    max-width: 64px;
+  }
+
+  .infoSectionStyle {
+    padding: 12px;
+  }
+
+  .inputStyle {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .selectStyle {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .editButtonStyle,
+  .deleteButtonStyle {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
