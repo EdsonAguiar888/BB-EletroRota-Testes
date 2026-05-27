@@ -305,3 +305,309 @@ body {
     gap: 10px;
   }
 }
+
+
+@media (min-width: 1200px) {
+  /* No celular, os cards ocupam a largura total disponível */
+  
+  
+  .card {
+    background: #002D6A;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 130px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-decoration: none;
+  }
+  .cards {
+    
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    margin: 20px;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #f8fafc;
+}
+  }
+
+  
+
+
+
+
+
+
+/* Dados do painel do veiculo */
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap');
+
+/* ── Painel externo ── */
+.bb-panel {
+  font-family: 'Sora', sans-serif;
+  padding: 1.5rem 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* ── Cabeçalho com logo ── */
+.bb-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+
+.bb-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bb-section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.bb-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+/* ── Card principal ── */
+.bb-card {
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.bb-card-stripe {
+  height: 4px;
+  background: #003a8f;
+}
+
+.bb-card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+/* ── Header do card ── */
+.bb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.bb-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #555;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bb-title-icon {
+  font-size: 10px;
+  color: #003087;
+}
+
+/* ── Badge de status ── */
+.bb-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #EAF3DE;
+  color: #27500A;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.bb-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #639922;
+  flex-shrink: 0;
+}
+
+/* ── Grade de informações ── */
+.bb-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 1.25rem;
+}
+
+.bb-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bb-info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.bb-info-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.bb-info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* ── Seção de bateria ── */
+.bb-battery-section {
+  background: #f5f5f3;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.bb-battery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bb-battery-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+}
+
+.bb-battery-pct {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.bb-battery-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bb-battery-fill {
+  height: 100%;
+  background: #639922;
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+
+.bb-battery-fill.medium {
+  background: #BA7517;
+}
+
+.bb-battery-fill.low {
+  background: #A32D2D;
+}
+
+.bb-battery-status {
+  font-size: 11px;
+  color: #888;
+  margin: 6px 0 0;
+}
+
+/* ── Rodapé ── */
+.bb-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  color: #aaa;
+}
+
+.bb-footer-icon {
+  font-size: 13px;
+}
+
+/* ── Dark mode ── */
+@media (prefers-color-scheme: dark) {
+  .bb-section-title { color: #f0f0f0; }
+  .bb-section-label { color: #777; }
+
+  .bb-card {
+    background: #1c1c1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+  }
+
+  .bb-card-header { border-bottom-color: rgba(255, 255, 255, 0.08); }
+  .bb-card-title { color: #aaa; }
+
+  .bb-info-label { color: #666; }
+  .bb-info-value { color: #f0f0f0; }
+
+  .bb-battery-section { background: #2a2a2c; }
+  .bb-battery-label { color: #aaa; }
+  .bb-battery-pct { color: #f0f0f0; }
+  .bb-battery-track { background: rgba(255, 255, 255, 0.1); }
+  .bb-battery-status { color: #666; }
+
+  .bb-footer { border-top-color: rgba(255, 255, 255, 0.06); color: #555; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

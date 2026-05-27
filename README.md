@@ -8,6 +8,7 @@ Plataforma de Localização e Planejamento de carregamento para Carros Elétrico
 Paleta de cores:
 
 Amarelo: #ffdf00
+Amarelo: #efd731 
 Azul: #003a8f
 Azul claro: #1a73e8
 Azul para nomes: #2116b8

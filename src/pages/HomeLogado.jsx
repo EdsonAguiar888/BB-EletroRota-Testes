@@ -19,53 +19,36 @@ export default function HomeLogado({ usuario, setUsuario }) {
     : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
 
+  // 🔥 SUBSTITUA O SEU EFFECT ATUAL POR ESTE BLOCO ATUALIZADO:
+  useEffect(() => {
+    const buscarDadosHome = async () => {
+      if (!usuario?.id) return;
 
+      try {
+        const response = await fetch(`${API_URL}/${usuario.id}`);
+        if (response.ok) {
+          const dadosApi = await response.json();
 
+          // Compara se o veículo ativo mudou de marca ou de bateria em relação ao estado atual
+          const mudouMarca = dadosApi.veiculo?.marca !== usuario?.veiculo?.marca;
+          const mudouPotencia = dadosApi.veiculo?.potencia !== usuario?.veiculo?.potencia;
+          const mudouBateria = dadosApi.veiculo?.bateriaAtual !== usuario?.veiculo?.bateriaAtual;
+          const mudouQuantidade = dadosApi.veiculos?.length !== usuario?.veiculos?.length;
 
-
-
-
-
-
-
-// 🔥 SUBSTITUA O SEU EFFECT ATUAL POR ESTE BLOCO ATUALIZADO:
-useEffect(() => {
-  const buscarDadosHome = async () => {
-    if (!usuario?.id) return;
-
-    try {
-      const response = await fetch(`${API_URL}/${usuario.id}`);
-      if (response.ok) {
-        const dadosApi = await response.json();
-        
-        // Compara se o veículo ativo mudou de marca ou de bateria em relação ao estado atual
-        const mudouMarca = dadosApi.veiculo?.marca !== usuario?.veiculo?.marca;
-        const mudouPotencia = dadosApi.veiculo?.potencia !== usuario?.veiculo?.potencia;
-        const mudouBateria = dadosApi.veiculo?.bateriaAtual !== usuario?.veiculo?.bateriaAtual;
-        const mudouQuantidade = dadosApi.veiculos?.length !== usuario?.veiculos?.length;
-
-        // Se houver qualquer divergência real com o GerenciarVeiculos, força a atualização instantânea
-        if (mudouMarca || mudouPotencia || mudouBateria || mudouQuantidade) {
-          setUsuario(dadosApi);
-          localStorage.setItem('usuarioLogado', JSON.stringify(dadosApi));
+          // Se houver qualquer divergência real com o GerenciarVeiculos, força a atualização instantânea
+          if (mudouMarca || mudouPotencia || mudouBateria || mudouQuantidade) {
+            setUsuario(dadosApi);
+            localStorage.setItem('usuarioLogado', JSON.stringify(dadosApi));
+          }
         }
+      } catch (err) {
+        console.error("Erro ao sincronizar dados da HomeLogado:", err);
       }
-    } catch (err) {
-      console.error("Erro ao sincronizar dados da HomeLogado:", err);
-    }
-  };
+    };
 
-  buscarDadosHome();
-}, [usuario?.id, usuario?.veiculo?.marca, usuario?.veiculo?.bateriaAtual, usuario?.veiculos?.length]); 
-// 👆 Monitorando propriedades primitivas (strings/numbers), o React nunca entra em loop e atualiza instantaneamente!
-
-
-
-
-
-
-
-
+    buscarDadosHome();
+  }, [usuario?.id, usuario?.veiculo?.marca, usuario?.veiculo?.bateriaAtual, usuario?.veiculos?.length]);
+  // 👆 Monitorando propriedades primitivas (strings/numbers), o React nunca entra em loop e atualiza instantaneamente!
 
 
   const handleLogout = () => {
@@ -88,7 +71,7 @@ useEffect(() => {
         ...usuario.veiculo,
         bateriaAtual: novoValor
       },
-      veiculos: Array.isArray(usuario?.veiculos) 
+      veiculos: Array.isArray(usuario?.veiculos)
         ? usuario.veiculos.map(v => v.idVeiculo === usuario.veiculo?.idVeiculo ? { ...v, bateriaAtual: novoValor } : v)
         : []
     };
@@ -112,323 +95,191 @@ useEffect(() => {
   if (!usuario) return <p>Carregando...</p>;
 
 
- return (
-   <div>
-     {/* Exibição da Imagem */}
-     <div className="hero-image-container">
-       <img
-         src={imagemCarro}
-         alt="Carro elétrico do projeto bbEletroRota"
-         className="hero-image"
-       />
-     </div>
- 
-     {/* Seção de Cards de Menu */}
-     <section className="cards">
-       <a className="card" id="estacoes">
-         <h3>
-           <img src={imagemLocal} alt="Ícone Estações" className="card-icon" />
-           Encontre Estações de Carga
-         </h3>
-         <div className="divider"></div>
-         <p>Veja os pontos de recarga próximos.</p>
-       </a>
- 
-       <a className="card" id="autonomia">
-         <h3>
-           <img src={imagemCalculadora} alt="Ícone Autonomia" className="card-icon" />
-           Calculadora de Autonomia
-         </h3>
-         <div className="divider"></div>
-         <p>Calcule até onde você pode chegar.</p>
-       </a>
- 
-       <a className="card" id="viagem">
-         <h3>
-           <img src={imagemPlanejar} alt="Ícone Viagem" className="card-icon" />
-           Planejar Viagem
-         </h3>
-         <div className="divider"></div>
-         <p>Planeje sua rota com paradas.</p>
-       </a>
- 
-       <a className="card" id="cadastro" href="/gerenciar">
-         <h3>
-           <img src={imagemCarrinho} alt="Ícone Cadastro" className="card-icon" />
-           Cadastro do Meu Carro
-         </h3>
-         <div className="divider"></div>
-         <p>Salve seu veículo.</p>
-       </a>
-     </section>
- 
-     {/* Containers de Conteúdo Inferior */}
-     <div className="painel-container">
-       
-       {/* Bloco 1: Busca Eletroposto */}
-       <div className="station-container">
-         <div className="station-title">Estação Recomendada Mais Próxima</div>
- 
-         <div className="station-card">
-           <div className="map-wrapper">
-             <div className="map-placeholder">
-               <img src={imagemgps} alt="Mapa GPS" className="map-img" />
-             </div>
-           </div>
- 
-           <div className="details-wrapper">
-             <div className="station-name">Eletroposto Central</div>
- 
-             <div className="info-grid">
-               <div className="info-item">
-                 <span className="icon">🔌</span>
-                 <strong>3</strong> Carregadores Disponíveis
-               </div>
-               <div className="info-item">
-                 <span className="icon">⏱</span>
-                 <strong>2 Min</strong> de Espera Estimada
-               </div>
-               <div className="info-item">
-                 <span className="icon">📍</span>
-                 <strong>5,2 km</strong> Distância até o local
-               </div>
- 
-               <div className="action-wrapper">
-                 <button className="btn-navigate">
-                   Navegar até a Estação <span className="arrow">&gt;</span>
-                 </button>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
- 
-       {/* Bloco 2: Painel Principal do Veículo */}
-       <div className="station">
-         <h2>Painel Principal</h2>
-         <div className="station-box info-veiculo">
-           <div style={{ width: '100%' }}>
-             <h3 className="painel-v-title">Informações do Veículo</h3>
-             <p><strong>Usuário:</strong> Usuario</p>
-             <p><strong>Marca/Modelo:</strong> Modelo</p>
-             <p><strong>Potência:</strong> kW</p>
-             <p><strong>Bateria Atual:</strong> 0%</p>
-             <button>Simular Consumo (-10% bateria)</button>
-           </div>
-         </div>
-       </div>
- 
-     </div>
-   </div>
- );
- }
+  const veiculo = usuario?.veiculo;
+  const bateria = veiculo?.bateriaAtual ?? 0;
+
+  const getBateriaClasse = (pct) => {
+    if (pct > 50) return 'bb-battery-fill';
+    if (pct > 20) return 'bb-battery-fill medium';
+    return 'bb-battery-fill low';
+  };
+
+  const getBateriaLabel = (pct) => {
+    if (pct > 50) return 'Carga boa';
+    if (pct > 20) return 'Carga média';
+    return 'Carga baixa';
+  };
+
+
+  return (
+    <div>
+      {/* Exibição da Imagem */}
+      <div className="hero-image-container">
+        <img
+          src={imagemCarro}
+          alt="Carro elétrico do projeto bbEletroRota"
+          className="hero-image"
+        />
+      </div>
+
+      {/* Seção de Cards de Menu */}
+      <section className="cards">
+        <a className="card" id="estacoes">
+          <h3>
+            <img src={imagemLocal} alt="Ícone Estações" className="card-icon" />
+            Encontre Estações de Carga
+          </h3>
+          <div className="divider"></div>
+          <p>Veja os pontos de recarga próximos.</p>
+        </a>
+
+        <a className="card" id="autonomia">
+          <h3>
+            <img src={imagemCalculadora} alt="Ícone Autonomia" className="card-icon" />
+            Calculadora de Autonomia
+          </h3>
+          <div className="divider"></div>
+          <p>Calcule até onde você pode chegar.</p>
+        </a>
+
+        <a className="card" id="viagem">
+          <h3>
+            <img src={imagemPlanejar} alt="Ícone Viagem" className="card-icon" />
+            Planejar Viagem
+          </h3>
+          <div className="divider"></div>
+          <p>Planeje sua rota com paradas.</p>
+        </a>
+
+        <a className="card" id="cadastro" href="/gerenciar">
+          <h3>
+            <img src={imagemCarrinho} alt="Ícone Cadastro" className="card-icon" />
+            Cadastro do Meu Carro
+          </h3>
+          <div className="divider"></div>
+          <p>Salve seu veículo.</p>
+        </a>
+      </section>
+
+      {/* Containers de Conteúdo Inferior */}
+      <div className="painel-container">
+
+        {/* Bloco 1: Busca Eletroposto */}
+        <div className="station-container">
+          <div className="station-title">Estação Recomendada Mais Próxima</div>
+
+          <div className="station-card">
+            <div className="map-wrapper">
+              <div className="map-placeholder">
+                <img src={imagemgps} alt="Mapa GPS" className="map-img" />
+              </div>
+            </div>
+
+            <div className="details-wrapper">
+              <div className="station-name">Eletroposto Central</div>
+
+              <div className="info-grid">
+                <div className="info-item">
+                  <span className="icon">🔌</span>
+                  <strong>3</strong> Carregadores Disponíveis
+                </div>
+                <div className="info-item">
+                  <span className="icon">⏱</span>
+                  <strong>2 Min</strong> de Espera Estimada
+                </div>
+                <div className="info-item">
+                  <span className="icon">📍</span>
+                  <strong>5,2 km</strong> Distância até o local
+                </div>
+
+                <div className="action-wrapper">
+                  <button className="btn-navigate">
+                    Navegar até a Estação <span className="arrow">&gt;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 
-// import { useState } from 'react';
-// import { useNavigate, Link } from 'react-router-dom';
-
-// import './Home.css';
-// import imagemCarro from '../assets/imagemCarro.png';
-// import imagemgps from '../assets/imagemgps.png';
+        {/* Bloco 2: Painel Principal do Veículo */}
 
 
+        <div className="bb-panel">
+          <div className="bb-header">
 
+            <div className="bb-header-text">
+              <span className="bb-section-label">BB EletroRota</span>
+              <h2 className="bb-section-title">Veículo logado atual</h2>
+            </div>
+          </div>
 
-// export default function HomeLogado({ usuario, setUsuario }) {
-//   const navigate = useNavigate();
-//   const [bateria, setBateria] = useState(usuario.veiculo?.bateriaAtual || 0);
+          <div className="bb-card">
+            <div className="bb-card-stripe" />
+            <div className="bb-card-body">
 
-//   const irParaCadastro = () => {
-//     // Navega para o login, mas envia um estado interno dizendo "isRegister: true"
-//     navigate('/login', { state: { screen: 'register' } });
-//   };
+              <div className="bb-card-header">
+                <p className="bb-card-title">
+                  <span className="bb-title-icon" aria-hidden="true">&#9650;</span>
+                  Informações do veículo
+                </p>
+                <span className="bb-status-badge">
+                  <span className="bb-status-dot" />
+                  {veiculo?.marca ? 'Ativo' : 'Sem veículo'}
+                </span>
+              </div>
 
-//   const handleLogout = () => {
-//     localStorage.removeItem('usuarioLogado');
-//     setUsuario(null);
-//     navigate('/');
-//   };
+              <div className="bb-info-grid">
+                <div className="bb-info-item">
+                  <span className="bb-info-label">Usuário</span>
+                  <span className="bb-info-value">{usuario?.nome ?? '—'}</span>
+                </div>
+                <div className="bb-info-item">
+                  <span className="bb-info-label">Potência</span>
+                  <span className="bb-info-value">
+                    {veiculo?.potencia ? `${veiculo.potencia} kW` : 'N/A'}
+                  </span>
+                </div>
+                <div className="bb-info-item full-width">
+                  <span className="bb-info-label">Marca / Modelo</span>
+                  <span className="bb-info-value">
+                    {veiculo?.marca ?? 'Nenhum veículo ativo'}
+                  </span>
+                </div>
+              </div>
 
-//   if (!usuario) return null;
+              <div className="bb-battery-section">
+                <div className="bb-battery-header">
+                  <span className="bb-battery-label">
+                    Bateria atual
+                  </span>
+                  <span className="bb-battery-pct">{bateria}%</span>
+                </div>
+                <div className="bb-battery-track">
+                  <div
+                    className={getBateriaClasse(bateria)}
+                    style={{ width: `${bateria}%` }}
+                  />
+                </div>
+                <p className="bb-battery-status">{getBateriaLabel(bateria)}</p>
+              </div>
 
-//   //Display dados e botao inserir bateria atual
+              <div className="bb-footer">
+                <span className="bb-footer-icon" aria-hidden="true">&#128337;</span>
+                Última atualização: hoje
+              </div>
 
-//   const alterarBateria = async () => {
-//     // Exemplo: Simula o consumo da bateria reduzindo 10%, com limite mínimo em 0%
-//     const novoValor = Math.max(0, parseInt(bateria) - 10);
+            </div>
+          </div>
+        </div>
 
-//     // Atualiza o estado visual
-//     setBateria(novoValor);
+      </div>
+    </div>
+  );
+}
 
-//     // Prepara o objeto atualizado do usuário
-//     const usuarioAtualizado = {
-//       ...usuario,
-//       veiculo: {
-//         ...usuario.veiculo,
-//         bateriaAtual: novoValor
-//       }
-//     };
-
-//     try {
-//       // 1. Atualiza o JSON Server via método PUT
-
-
-
-
-//       await fetch(window.location.hostname === 'localhost'
-//         ? 'http://localhost:3000/usuarios'
-//         : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}', {
-
-
-
-//         // await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
-//         // await fetch(`http://localhost:3001/usuarios/${usuario.id}`, {
-
-          
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(usuarioAtualizado)
-//       });
-
-//       // 2. Atualiza o localStorage para persistir após F5
-//       localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
-
-//       // 3. Atualiza o estado global no App para refletir na Navbar
-//       setUsuario(usuarioAtualizado);
-//     } catch (error) {
-//       console.error('Erro ao atualizar a bateria:', error);
-//     }
-//   };
-
-//   // Se por algum motivo o usuário não existir na memória
-//   if (!usuario) return <p>Carregando...</p>;
-
-
-//   return (
-
-//     <div>
-
-//       {/* Exibição da Imagem */}
-//       <div style={{}}>
-//         <img
-//           src={imagemCarro}
-//           alt="Carro elétrico do projeto bbEletroRota"
-//           style={{
-//             maxWidth: '100%',
-//             width: '100%',
-//             height: 'auto',
-
-//             boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-//           }}
-//         />
-//       </div>
-
-//       {/* <h1>Logado</h1> */}
-
-//       <section className="cards">
-
-//         <a className="card" id="estacoes" >
-//           ⚡
-//           <h3>Encontre Estações de Carga</h3>
-//           <p>Veja os pontos de recarga próximos.</p>
-//         </a>
-
-//         <a className="card" id="autonomia" >
-//           🔋
-//           <h3>Calculadora de Autonomia</h3>
-//           <p>Calcule até onde você pode chegar.</p>
-//         </a>
-
-//         <a className="card" id="viagem">
-//           📍
-//           <h3>Planejar Viagem</h3>
-//           <p>Planeje sua rota com paradas.</p>
-//         </a>
-
-//         <a className="card" id="cadastro" href="/gerenciar" >
-//           🚗
-//           <h3>Cadastro do Meu Carro</h3>
-//           <p>Salve seu veículo.</p>
-//         </a>
-//       </section>
-
-
-
-//       <div className="painel-container">
-
-//         {/* Bloco 2: Busca Eletroposto mais proximo */}
-//         <div className="station-container">
-//           <div className="station-title">Estação Recomendada Mais Próxima</div>
-
-//           <div className="station-card">
-//             <div className="map-wrapper">
-//               <div className="map-placeholder">
-//                 <img
-//                   src={imagemgps}
-//                   alt="Carro elétrico do projeto bbEletroRota"
-//                   style={{
-//                     maxWidth: '100%',
-//                     width: '100%',
-//                     height: 'auto',
-//                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-//                   }}
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="details-wrapper">
-//               <div className="station-name">Eletroposto Central</div>
-
-//               <div className="info-grid">
-//                 <div className="info-item">
-//                   <span className="icon">🔌</span>
-//                   <strong>3</strong> Carregadores Disponíveis
-//                 </div>
-//                 <div className="info-item">
-//                   <span className="icon">⏱</span>
-//                   <strong>2 Min</strong> de Espera Estimada
-//                 </div>
-//                 <div className="info-item">
-//                   <span className="icon">📍</span>
-//                   <strong>5,2 km</strong> Distância até o local
-//                 </div>
-
-//                 <div className="action-wrapper">
-//                   <button className="btn-navigate">
-//                     Navegar até a Estação <span className="arrow">&gt;</span>
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-
-
-
-//         {/* Bloco 2: Painel Principal do Veículo */}
-//         <div className="station">
-//           <h2>Painel Principal</h2>
-//           <div className="station-box info-veiculo">
-//             <div style={{ width: '100%' }}>
-//               <h3 style={{ marginTop: '0', color: '#2c3e50', fontSize: '1.2rem' }}>Informações do Veículo</h3>
-
-//               <p><strong>Usuário:</strong> {usuario.nome}</p>
-//               <p><strong>Marca/Modelo:</strong> {usuario.veiculo?.marca || 'Não informada'}</p>
-//               <p><strong>Potência:</strong> {usuario.veiculo?.potencia || 'Não informada'}</p>
-//               <p><strong>Bateria Atual:</strong> {bateria}%</p>
-
-//               <button>
-//                 Simular Consumo (-10% bateria)
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 
 
