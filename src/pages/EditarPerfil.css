@@ -1,4 +1,4 @@
-/* ── Base ── */
+/*  Base */
 .containerStyle {
   width: 100%;
   height: 100%;
@@ -124,9 +124,7 @@
   font-weight: bold;
 }
 
-/* =========================================
-   Notebook (≤ 1280px)
-   ========================================= */
+/* Notebook (≤ 1280px)*/
 @media (max-width: 1280px) {
   .cardStyle {
     max-width: 900px;
@@ -145,9 +143,7 @@
   }
 }
 
-/* =========================================
-   Tablet Grande (≤ 1024px)
-   ========================================= */
+/* Tablet Grande (≤ 1024px) */
 @media (max-width: 1024px) {
   .cardStyle {
     max-width: 720px;
@@ -166,9 +162,7 @@
   }
 }
 
-/* =========================================
-   Tablet (≤ 768px)
-   ========================================= */
+/* Tablet (≤ 768px) */
 @media (max-width: 768px) {
   .cardStyle {
     flex-direction: column;
@@ -194,38 +188,46 @@
   }
 }
 
-/* =========================================
-   Celular Grande (≤ 480px)
-   ========================================= */
+/* Celular Grande (≤ 480px) */
 @media (max-width: 480px) {
   .containerStyle {
-    padding: 0;
-    align-items: flex-start;
+    padding: 0 !important;
   }
 
   .cardStyle {
-    flex-direction: column;
-    border-radius: 0;
-    min-height: 100vh;
-    box-shadow: none;
+    flex-direction: column !important;
+    border-radius: 0 !important;
+    min-height: 100vh !important;
+    box-shadow: none !important;
+    width: 100%  !important;
+    padding: 0 !important;
   }
 
   .imageSectionStyle {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    border-bottom: 1px solid #eee;
+    display: flex !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    padding: 0 !important;
   }
 
   .imageStyle {
-    max-width: 80px;
-    border-radius: 10px;
+    max-width: 100% !important; 
+    width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    border-radius: 0px !important;
+    display: block !important;
+    display: block !important;
+    margin: 0 auto !important;
+    align-items: stretch !important;
+  }
+
+  .imageSectionStyle h3 {
+    display: none !important;
   }
 
   .infoSectionStyle {
-    padding: 16px;
+   padding: 45px 16px 16px !important;
   }
 
   .rowStyle {
@@ -245,17 +247,17 @@
   }
 }
 
-/* =========================================
-   Celular Pequeno (≤ 360px)
-   ========================================= */
+/*Celular Pequeno (≤ 360px) */
 @media (max-width: 360px) {
   .imageSectionStyle {
-    padding: 12px;
-    gap: 12px;
+    padding: 0px;
+    flex-direction: column;
   }
 
   .imageStyle {
-    max-width: 64px;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 0px;
   }
 
   .infoSectionStyle {

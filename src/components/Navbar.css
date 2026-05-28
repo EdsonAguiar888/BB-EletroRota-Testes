@@ -8,6 +8,7 @@
   --bb-font: Arial, sans-serif;
   --bb-input: #144ce6;
   --bb-out: #315780;
+  --bb-out-vermelho: #c0392b;
 }
 
 .bb-header {
@@ -191,6 +192,8 @@
 .bb-mobile-toprow { display: none; }
 .bb-mobile-menu   { display: none; }
 .bb-hamburger     { display: none; }
+.bb-drawer { display: none; }     
+.bb-drawer-overlay { display: none; }
 
 /* NOTEBOOK*/
 @media (max-width: 1366px) and (min-width: 1025px) {
@@ -287,10 +290,14 @@
 
 @media (max-width: 768px) {
 
-  /* Esconde navbar completa */
   .bb-topbar > .bb-logo-area { display: none; }
   .bb-topnav                 { display: none; }
   .bb-topbar-right           { display: none; }
+
+  .bb-logo-img {
+    height: 100px;
+    width: auto; 
+  }
 
   .bb-topbar {
     padding: 0;
@@ -299,24 +306,23 @@
     align-items: stretch;
   }
 
-  /* Toprow: logo + hambúrguer */
+  /* Toprow mobile */
   .bb-mobile-toprow {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
+    justify-content: flex-end; 
+    padding: 0;
     height: 64px;
     background-color: var(--bb-yellow);
     box-sizing: border-box;
+    padding: 4px 8px;  /* reduza conforme necessário */
+    min-height: unset;
+    background: transparent;
+    width: 100%;
   }
 
-  .bb-mobile-toprow .bb-logo-area {
-    flex: unset;
-  }
-
-  .bb-mobile-toprow .bb-logo-img {
-    height: 52px;
-  }
+  .bb-mobile-toprow .bb-logo-area { flex: unset; }
+  .bb-mobile-toprow .bb-logo-img  { height: 44px; }
 
   .bb-hamburger {
     display: flex;
@@ -325,134 +331,183 @@
     cursor: pointer;
     font-size: 1.5rem;
     color: var(--bb-blue);
-    padding: 4px;
+    padding: 0px;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: fit-content;
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    top: 10px;
+    left: 23px;
   }
 
-  /* Menu dropdown */
-  .bb-mobile-menu {
-    display: none;
+  .bb-hamburger:focus,
+  .bb-hamburger:active,
+  .bb-hamburger:focus-visible {
+    outline: none;
+    box-shadow: none;
+    background: transparent
+
+  }
+
+  /* Overlay escuro */
+  .bb-drawer-overlay {        
+    display: block;           
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 998;
+  }
+
+  /* Drawer lateral */
+  .bb-drawer {               
+    display: flex;           
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 75vw;
+    max-width: 300px;
+    background: #fff;
+    z-index: 999;
     flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.18);
+  }
+
+  .bb-drawer.aberto {
+    transform: translateX(0);
+  }
+
+  /* Cabeçalho do drawer */
+  .bb-drawer-header {
+    display: flex;
+    gap: 12px;
     background-color: var(--bb-yellow);
-    padding: 12px 16px 20px;
-    gap: 0;
+    padding: 24px 16px;
+    min-width: 64px;
     box-sizing: border-box;
-  }
-
-  .bb-mobile-menu.aberto {
-    display: flex;
-  }
-
-  .bb-mobile-menu .bb-user-name {
-    font-size: 1.05rem;
-    color: var(--bb-blue);
-    padding: 14px 8px 20px;
-    white-space: normal;
-    display: flex;
     align-items: center;
-    gap: 8px;
-    min-height: 48px;
-  }
-
-  .bb-mobile-menu .bb-user-name strong {
-    font-size: 1.1rem;
-  }
-
-  .bb-mobile-menu .bb-search-wrapper {
-    margin-bottom: 16px;
-    padding: 9px;
-  }
-
-  .bb-mobile-menu .bb-search-wrapper .bb-search-form {
-    width: 100%;
-    height: 48px;
-    box-sizing: border-box;
-    background: rgba(247, 233, 165, 0.6);
-    border-radius: 10px;
-    justify-content: center;
-    padding: 0 16px;
-  }
-
-  .bb-mobile-menu .bb-search-wrapper .bb-search-inner {
-    justify-content: center;
-    width: auto;
-    flex: unset;
-  }
-
-  .bb-mobile-menu .bb-search-wrapper .bb-search-input {
-    width: 160px;
-    flex: unset;
-    font-size: 0.95rem;
+    position: relative;
     text-align: left;
   }
 
-  .bb-mobile-nav {
+  .bb-drawer-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bb-blue-dark);
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--bb-white);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 7.5px;
   }
 
-  .bb-mobile-nav a {
+  .bb-drawer-greeting {
+    flex: 1;
     color: var(--bb-blue);
-    text-decoration: none;
-    font-weight: 700;
     font-size: 1rem;
-    padding: 16px 0 37px;
-    border-bottom: 1px solid rgba(0, 56, 130, 0.15);
-    display: block;
+    white-space: nowrap;
+    margin-top: 7.5px;
   }
 
-  .bb-mobile-nav a:last-child {
-    border-bottom: none;
+  .bb-drawer-close {
+    background: none;
+    border: none;
+    color: var(--bb-out-vermelho);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0px;
+    line-height: 1;
+    position: absolute;
+    top: 1px;
+    right: 13px;
+    -webkit-tap-highlight-color: transparent;
+    width: fit-content;
+    align-self: flex-end;
+    margin-left: auto;
   }
 
-  .bb-mobile-actions {
-    margin-top: 5px;
-    margin-bottom: 10px;
+
+
+  /* Links de navegação */
+  .bb-drawer-nav {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    flex: 1;
+    padding: 8px 0;
+    overflow-y: auto;
   }
 
-  .bb-mobile-actions .bb-logout-btn {
-    position: static;
-    top: unset;
-    width: 100%;
-    justify-content: center;
+  .bb-drawer-nav a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.97rem;
+    font-weight: 600;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
   }
 
-  .bb-mobile-actions .bb-account-btn {
+  .bb-drawer-nav a:hover {
+    background: #f7f7f7;
+  }
+
+  .bb-drawer-nav a i {
+    color: var(--bb-blue);
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  /* Rodapé do menu para sair */
+  .bb-drawer-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .bb-drawer-logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    color: var(--bb-out-vermelho);
+    font-size: 0.97rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .bb-drawer-logout i {
+    font-size: 1.1rem;
+  }
+
+  .bb-drawer-footer .bb-account-btn {
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
   .acessar-desktop { display: none; }
   .acessar-mobile  { display: inline; }
 }
 
-/* CELULAR PEQUENO  */
+/* CELULAR PEQUENO */
 @media (max-width: 480px) {
   .bb-mobile-toprow {
     padding: 0 10px;
     height: 58px;
   }
 
-  .bb-mobile-toprow .bb-logo-img {
-    height: 44px;
-  }
-
-  .bb-hamburger {
-    font-size: 1.3rem;
-  }
-
-  .bb-mobile-menu .bb-search-wrapper .bb-search-input {
-    width: 130px;
-  }
-
-  .bb-mobile-nav a {
-    font-size: 0.95rem;
-    padding: 14px 0 30px;
-  }
+  .bb-mobile-toprow .bb-logo-img { height: 38px; }
+  .bb-hamburger { font-size: 1.3rem; }
 }
