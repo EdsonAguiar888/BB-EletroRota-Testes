@@ -14,11 +14,22 @@ function BotaoLogin() {
   );
 }
 
+function formatarNome(nomeCompleto) {
+  const partes = nomeCompleto.split(' ');
+  const primeiro = partes[0];
+  const segundo = partes[1];
+  
+  if (segundo) {
+    return `${primeiro} ${segundo[0].toUpperCase()}.`;
+  }
+  return primeiro;
+}
+
 function UsuarioLogado({ usuario, onLogout }) {
   return (
     <>
       <Link className="bb-user-name" to="/editarPerfil">
-        Bem vindo, <strong className="usuario">{usuario.nome}</strong>
+        Bem vindo, <strong className="usuario">{formatarNome(usuario.nome)}</strong>
       </Link>
       <button className="bb-logout-btn" onClick={onLogout}>Sair</button>
     </>
@@ -73,7 +84,7 @@ export default function Navbar({ usuario, setUsuario }) {
           <div className="bb-drawer-overlay" onClick={() => setAberto(false)} />
         )}
 
-        {/* ── Drawer lateral ── */}
+        {/* Drawer lateral */}
         <div className={`bb-drawer${aberto ? ' aberto' : ''}`}>
 
           {/* Cabeçalho do drawer */}
@@ -82,10 +93,10 @@ export default function Navbar({ usuario, setUsuario }) {
               <i className="fas fa-user"></i>
           </div>
           <span className="bb-drawer-greeting">
-              {usuario ? (
-              <>Bem vindo, <strong className="usuario">{usuario.nome.split(' ')[0]}</strong></>
-              ) : 'Bem vindo, visitante!'}
-          </span> 
+            {usuario ? (
+              <>Bem vindo, <strong className="usuario">{formatarNome(usuario.nome)}</strong></>
+            ) : 'Bem vindo, visitante!'}
+          </span>
             <button
               className="bb-drawer-close"
               onClick={() => setAberto(false)}

@@ -122,9 +122,11 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  width: auto;
+  flex: none;
 }
 
-/* Notebook (≤ 1280px)*/
+/* Notebook*/
 @media (max-width: 1280px) {
   .cardStyle {
     max-width: 900px;
@@ -143,7 +145,7 @@
   }
 }
 
-/* Tablet Grande (≤ 1024px) */
+/* Tablet Grande */
 @media (max-width: 1024px) {
   .cardStyle {
     max-width: 720px;
@@ -162,7 +164,7 @@
   }
 }
 
-/* Tablet (≤ 768px) */
+/* Tablet*/
 @media (max-width: 768px) {
   .cardStyle {
     flex-direction: column;
@@ -170,28 +172,54 @@
     border-radius: 16px;
   }
 
-  .imageSectionStyle {
-    border-right: none;
-    border-bottom: 1px solid #eee;
-    padding: 24px;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 20px;
+ .imageSectionStyle {
+    max-height: 95px !important;
+    min-height: 80px !important;
+    padding: 0 !important;
   }
 
   .imageStyle {
-    max-width: 120px;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 95px !important;
+    max-width: 100% !important;
+    max-height: 95px !important;
+    border-radius: 0 !important;
+    object-fit: cover !important;
   }
 
   .infoSectionStyle {
-    padding: 24px;
+    padding: 12px !important;
   }
+
+  .inputStyle,
+  .selectStyle {
+    font-size: 0.9rem !important;
+    padding: 8px !important;
+  }
+
+   .imageSectionStyle h3 {
+    /* display: block !important;
+    font-size: 0.85rem !important;
+    color: rgba(255,255,255,0.85) !important;
+    margin: 0 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    position: absolute !important;
+    bottom: 6px !important;
+    background: rgba(0,0,0,0.35) !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important; */
+    display: none !important;
+  }
+
 }
 
-/* Celular Grande (≤ 480px) */
+/* Celular Grande */
 @media (max-width: 480px) {
   .containerStyle {
     padding: 0 !important;
+    align-items: flex-start !important;
   }
 
   .cardStyle {
@@ -199,84 +227,81 @@
     border-radius: 0 !important;
     min-height: 100vh !important;
     box-shadow: none !important;
-    width: 100%  !important;
-    padding: 0 !important;
-  }
-
-  .imageSectionStyle {
-    display: flex !important;
-    overflow: hidden !important;
     width: 100% !important;
     padding: 0 !important;
   }
 
-  .imageStyle {
-    max-width: 100% !important; 
-    width: 100% !important;
-    min-width: 100% !important;
-    height: auto !important;
-    border-radius: 0px !important;
-    display: block !important;
-    display: block !important;
-    margin: 0 auto !important;
-    align-items: stretch !important;
-  }
-
-  .imageSectionStyle h3 {
-    display: none !important;
-  }
 
   .infoSectionStyle {
-   padding: 45px 16px 16px !important;
+    padding: 16px !important;
+  }
+
+  .formStyle {
+    gap: 10px !important;
+    margin-top: 10px !important;
   }
 
   .rowStyle {
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row !important;
+    gap: 8px !important;
   }
 
   .buttonGroupStyle {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
   }
 
-  .editButtonStyle,
+  .editButtonStyle {
+    flex: 1 !important;
+    padding: 12px !important;
+    white-space: nowrap !important;
+  }
+
   .deleteButtonStyle {
-    width: 100%;
-    text-align: center;
+    flex: 0 0 auto !important;
+    padding: 12px 16px !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    font-size: 0.82rem !important;
   }
 }
 
-/*Celular Pequeno (≤ 360px) */
+/* Celular Pequeno */
 @media (max-width: 360px) {
   .imageSectionStyle {
-    padding: 0px;
-    flex-direction: column;
+    max-height: 95px !important;
+    min-height: 80px !important;
+    padding: 0 !important;
   }
 
   .imageStyle {
-    max-width: 100%;
-    width: 100%;
-    border-radius: 0px;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 95px !important;
+    max-width: 100% !important;
+    max-height: 95px !important;
+    border-radius: 0 !important;
+    object-fit: cover !important;
   }
 
   .infoSectionStyle {
-    padding: 12px;
+    padding: 12px !important;
   }
 
-  .inputStyle {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
+  .inputStyle,
   .selectStyle {
-    font-size: 0.9rem;
-    padding: 8px;
+    font-size: 0.9rem !important;
+    padding: 8px !important;
   }
 
-  .editButtonStyle,
+  .editButtonStyle {
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+  }
+
   .deleteButtonStyle {
-    padding: 10px;
-    font-size: 0.9rem;
+    padding: 10px 12px !important;
+    font-size: 0.8rem !important;
   }
 }

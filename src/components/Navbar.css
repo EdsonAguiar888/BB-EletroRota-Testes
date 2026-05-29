@@ -32,18 +32,24 @@
   box-sizing: border-box;
 }
 
+.bb-logo-area,
+.bb-topnav,
+.bb-topbar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
 .bb-logo-area {
   justify-content: flex-start;
   gap: 10px;
   line-height: 1;
-  display: flex;
 }
 
 .bb-logo-img {
   height: 65px;
   width: auto;
   object-fit: contain;
-  border-radius: 0%;
   padding: 3px;
 }
 
@@ -65,22 +71,12 @@
 }
 
 .bb-topnav a:hover {
-  color: var(--bb-blue);
   border-bottom: 2px solid var(--bb-blue);
-}
-
-.bb-logo-area,
-.bb-topnav,
-.bb-topbar-right {
-  flex: 1;
-  display: flex;
-  align-items: center;
 }
 
 .bb-topbar-right {
   gap: 12px;
   justify-content: flex-end;
-  align-items: center;
   flex-direction: row;
 }
 
@@ -114,7 +110,6 @@
   width: 120px;
   flex: 1 1 0;
   min-width: 0;
-  text-align: flex-start;
 }
 
 .bb-search-input::placeholder {
@@ -187,35 +182,20 @@
 }
 
 /* Esconde mobile por padrão */
-.acessar-mobile   { display: none; }
+.acessar-mobile , .bb-mobile-toprow, .bb-mobile-menu,
+.bb-hamburger , .bb-drawer, .bb-drawer-overlay { display: none; }
+
 .acessar-desktop  { display: inline; }
-.bb-mobile-toprow { display: none; }
-.bb-mobile-menu   { display: none; }
-.bb-hamburger     { display: none; }
-.bb-drawer { display: none; }     
-.bb-drawer-overlay { display: none; }
 
 /* NOTEBOOK*/
 @media (max-width: 1366px) and (min-width: 1025px) {
-  .bb-topbar {
-    padding: 0 24px;
-    gap: 12px;
-  }
-
+  .bb-topbar { padding: 0 24px; gap: 12px; }
   .bb-topnav { gap: 16px;}
   .bb-topnav a { font-size: 0.85rem; }
   .bb-search-form { width: 180px; }
   .bb-user-name { font-size: 0.82rem;}
-  
-  .bb-logout-btn {
-    padding: 0 12px;
-    font-size: 0.78rem;
-  }
-
-  .bb-account-btn {
-    font-size: 0.72rem;
-    padding: 0 10px;
-  }
+  .bb-logout-btn { padding: 0 12px; font-size: 0.78rem; }
+  .bb-account-btn { font-size: 0.72rem; padding: 0 10px; }
 }
 
 /* tablete grande */
@@ -269,7 +249,16 @@
     font-size: 0.72rem;
     position: static;
     top: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: auto;
+    position: relative;
+    top: -5px;
   }
+
+  
 
   .bb-account-btn {
     height: 30px;
@@ -277,12 +266,9 @@
     font-size: 0.68rem;
   }
 
-  .acessar-desktop { display: none; }
   .acessar-mobile  { display: inline; }
 
-  .bb-mobile-toprow { display: none; }
-  .bb-mobile-menu   { display: none; }
-  .bb-hamburger     { display: none; }
+  .acessar-desktop { display: none; }
 }
 
 /* TABLET PEQUENO + CELULAR 
@@ -290,15 +276,9 @@
 
 @media (max-width: 768px) {
 
-  .bb-topbar > .bb-logo-area { display: none; }
-  .bb-topnav                 { display: none; }
-  .bb-topbar-right           { display: none; }
-
-  .bb-logo-img {
-    height: 100px;
-    width: auto; 
-  }
-
+  .bb-topbar > .bb-logo-area,
+  .bb-topnav, .bb-topbar-right { display: none; }
+  
   .bb-topbar {
     padding: 0;
     height: auto;
@@ -306,18 +286,13 @@
     align-items: stretch;
   }
 
-  /* Toprow mobile */
   .bb-mobile-toprow {
     display: flex;
     align-items: center;
     justify-content: flex-end; 
-    padding: 0;
     height: 64px;
-    background-color: var(--bb-yellow);
     box-sizing: border-box;
-    padding: 4px 8px;  /* reduza conforme necessário */
-    min-height: unset;
-    background: transparent;
+    padding: 4px 8px;  
     width: 100%;
   }
 
@@ -334,21 +309,20 @@
     padding: 0px;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     width: fit-content;
     -webkit-tap-highlight-color: transparent;
+    outline: none;
     position: absolute;
     top: 10px;
     left: 23px;
   }
 
+  .bb-hamburger:hover,
   .bb-hamburger:focus,
-  .bb-hamburger:active,
-  .bb-hamburger:focus-visible {
-    outline: none;
-    box-shadow: none;
-    background: transparent
-
+  .bb-hamburger:active {
+    background: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   /* Overlay escuro */
@@ -428,12 +402,24 @@
     top: 1px;
     right: 13px;
     -webkit-tap-highlight-color: transparent;
+    outline: none;
     width: fit-content;
     align-self: flex-end;
     margin-left: auto;
   }
 
+  .bb-drawer-close,
+  .bb-drawer-close:hover,
+  .bb-drawer-close:focus,
+  .bb-drawer-close:active {
+    color: var(--bb-out-vermelho) !important;
+    background: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
 
+  .bb-drawer-close i,
+  .bb-drawer-close i:hover { color: var(--bb-out-vermelho) !important; }
 
   /* Links de navegação */
   .bb-drawer-nav {
@@ -455,28 +441,42 @@
     padding: 16px 20px;
     border-bottom: 1px solid #f0f0f0;
     transition: background 0.15s;
+    outline: none;
+    border-left: none;
+    box-shadow: none;
   }
-
-  .bb-drawer-nav a:hover {
-    background: #f7f7f7;
-  }
-
+  .bb-drawer-nav a:hover { background: #f7f7f7; }
+  
   .bb-drawer-nav a i {
     color: var(--bb-blue);
     font-size: 1.1rem;
     width: 20px;
     text-align: center;
   }
-
-  /* Rodapé do menu para sair */
-  .bb-drawer-footer {
-    padding: 16px 20px;
-    border-top: 1px solid #eee;
+  
+  .bb-drawer-footer .bb-account-btn {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
   }
+  /* Rodapé do menu para sair */
+  .bb-drawer-footer { padding: 16px 20px; border-top: 1px solid #eee; }
+  
+  .bb-drawer-logout:hover,
+   .bb-drawer-logout:focus,
+   .bb-drawer-logout:focus-visible,
+   .bb-drawer-logout:active {
+     outline: none !important;
+     box-shadow: none !important;
+     background: none !important;
+     background-color: transparent !important;
+     -webkit-tap-highlight-color: transparent !important;
+   }
 
   .bb-drawer-logout {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     background: none;
     border: none;
@@ -487,27 +487,14 @@
     padding: 4px 0;
   }
 
-  .bb-drawer-logout i {
-    font-size: 1.1rem;
-  }
-
-  .bb-drawer-footer .bb-account-btn {
-    width: 100%;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
+  .bb-drawer-logout i { font-size: 1.1rem; }
   .acessar-desktop { display: none; }
   .acessar-mobile  { display: inline; }
 }
 
 /* CELULAR PEQUENO */
 @media (max-width: 480px) {
-  .bb-mobile-toprow {
-    padding: 0 10px;
-    height: 58px;
-  }
-
+  .bb-mobile-toprow { padding: 0 10px; height: 58px; }
   .bb-mobile-toprow .bb-logo-img { height: 38px; }
   .bb-hamburger { font-size: 1.3rem; }
 }
