@@ -108,7 +108,7 @@
 }
 
 .bb-search-input {
-  background: transparent important;
+  background: transparent !important;
   border: none !important;
   outline: none !important;
   color: var(--bb-blue-dark);
@@ -116,7 +116,7 @@
   width: 120px;
   flex: 1 1 0;
   min-width: 0;
-  text-align: flex-start; 
+  /* text-align: flex-start;  */
 }
 
 .bb-search-input::placeholder {
@@ -231,7 +231,7 @@
   }
   .bb-logo-text,
   .bb-logo-yellow {
-  font-size: 1.10rem important;
+  font-size: 1.10rem !important;
   }
 
   .bb-topnav {
