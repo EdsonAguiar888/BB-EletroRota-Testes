@@ -57,7 +57,8 @@
   margin-top: 5px;
 }
 
-.btn-group button, .action-btn {
+.btn-group button,
+.action-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;

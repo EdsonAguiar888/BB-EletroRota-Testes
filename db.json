@@ -108,21 +108,27 @@
         {
           "idVeiculo": "1779649488020",
           "marca": "Corola",
-          "potencia": "1000",
-          "bateriaAtual": "89"
+          "potencia": "300",
+          "bateriaAtual": "100"
         },
         {
-          "idVeiculo": "1779820375514",
-          "marca": "Toyota Corola azul d",
-          "potencia": "120",
-          "bateriaAtual": "100"
+          "idVeiculo": "1779649498580",
+          "marca": "Byd",
+          "potencia": "300",
+          "bateriaAtual": "6"
+        },
+        {
+          "idVeiculo": "1779649504940",
+          "marca": "tesla",
+          "potencia": "300",
+          "bateriaAtual": "90"
         }
       ],
       "veiculo": {
-        "idVeiculo": "1779820375514",
-        "marca": "Toyota Corola azul d",
-        "potencia": "120",
-        "bateriaAtual": "100"
+        "idVeiculo": "1779649498580",
+        "marca": "Byd",
+        "potencia": "300",
+        "bateriaAtual": "6"
       }
     },
     {

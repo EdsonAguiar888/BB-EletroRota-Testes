@@ -120,11 +120,6 @@ export default function Home({ usuario, setUsuario }) {
 
 
 
-
-
-
-
-
         {/* Bloco 2: Painel Principal do Veículo */}
 
         <div className="bb-panel">

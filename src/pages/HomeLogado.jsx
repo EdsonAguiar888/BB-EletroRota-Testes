@@ -13,7 +13,8 @@ export default function HomeLogado({ usuario, setUsuario }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // URL corrigida com as barras explícitas para evitar erros de concatenação
+  
+  // API SIMULADA MOCKAPAPI E SERVIDOR LOCAL PARA PERSISTÊNCIA DE DADOS
   const API_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3000/usuarios'
     : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';

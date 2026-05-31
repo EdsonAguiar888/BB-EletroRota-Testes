@@ -115,7 +115,7 @@
   width: 120px;
   flex: 1 1 0;
   min-width: 0;
-  text-align: flex-start; 
+  /* text-align: flex-start;  */
 }
 
 .bb-search-input::placeholder {

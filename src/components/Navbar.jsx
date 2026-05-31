@@ -5,9 +5,6 @@ import BarraBusca from './Busca';
 import './Navbar.css';
 
 
-
-
-
 function BotaoLogin() {
   return (
     <Link to="/login" className="bb-account-btn">
