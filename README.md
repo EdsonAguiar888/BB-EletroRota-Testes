@@ -3,23 +3,12 @@ Plataforma de Localização e Planejamento de carregamento para Carros Elétrico
 
 ## Necessario para rodar o sistema:
 
-Abre o cmd e digita o npx para subir o servidor e "CTRL + c" para derrubar o servidor. 
 
-``` json
-npx json-server --watch db.json
-
-```
-
-Abre um novo cmd e roda o sistema React. "CTRL + c" para derrubar o servidor.
-
-``` json
-npm run dev
-
-```
 
 Paleta de cores:
 
 Amarelo: #ffdf00
+Amarelo: #efd731 
 Azul: #003a8f
 Azul claro: #1a73e8
 Azul para nomes: #2116b8

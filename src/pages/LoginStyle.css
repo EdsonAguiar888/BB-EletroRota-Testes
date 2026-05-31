@@ -71,7 +71,7 @@ body {
     background: white;
     padding: 40px;
     border-radius: 12px;
-    shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
 }
 
@@ -92,6 +92,7 @@ input {
     border-radius: 4px;
     font-size: 16px;
     transition: border 0.3s;
+    color-scheme: light; 
 }
 
 input:focus {
@@ -126,7 +127,7 @@ button:hover { background-color: #1557b0; }
 
 .bt-irParaHome{
     position: absolute;
-    marginTop: '10px';    
+    margin-top: '10px';    
     position : 'absolute';
     background:' #ffdf00 ';
     color: 'blue';

@@ -151,7 +151,7 @@ export default function Auth({ onLoginSuccess }) {
           <div className="grupo-input">
             <label htmlFor="email">E-mail</label>
             <div className="input-sem-icone">
-              <input type="email" id="email" name="email" placeholder="seu@email.com" value={formData.email} onChange={handleChange} required />
+              <input type="email" id="email" name="email" placeholder="seu@email.com" maxLength= "254" value={formData.email} onChange={handleChange} required />
             </div>
           </div>
 
@@ -202,7 +202,7 @@ export default function Auth({ onLoginSuccess }) {
           <div className="grupo-input2">
             <label htmlFor="emailCadastro">E-mail</label>
             <div className="input-sem-icone">
-              <input type="email" id="emailCadastro" name="email" placeholder="seu@email.com" value={formData.email} onChange={handleChange} required />
+              <input type="email" id="emailCadastro" name="email" placeholder="seu@email.com" maxLength= "254" value={formData.email} onChange={handleChange} required />
             </div>
           </div>
 
