@@ -41,7 +41,7 @@ export default function Navbar({ usuario, setUsuario }) {
   };
 
   return (
-    <header className="bb-header">
+    <header className="bb-navbar-header">
       <div className="bb-topbar">
 
         <div className="bb-logo-area">

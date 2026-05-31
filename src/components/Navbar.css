@@ -1,57 +1,311 @@
-.btn-logout{
-   
-    text-decoration: none;
-    background:#1a73e8 ;    
-    padding: 8px 15px;
-    borderRadius: 5px;
-    cursor: pointer;
-    fontWeight: bold;
-    margin: auto;
-    width: 80px;   
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
-    color: white;
-    border: none;   
-    font-weight: bold;
-    cursor: pointer;
-    
-    
-    }
-    
-    .btn-logout .btn-login :hover { background-color: #1557b0; }
-
-.btn-login{
-     text-decoration: none;
-    background:#1a73e8 ;    
-    padding: 8px 15px;
-    borderRadius: 5px;
-    cursor: pointer;
-    fontWeight: bold;
-    margin: auto;
-    width: 80px;  
-
-    text-decoration: none;
-    width: 80px;;
-    
+:root {
+  --bb-blue: #003882;
+  --bb-blue-dark: #002a63;
+  --bb-yellow: #ffdf00;
+  --bb-white: #ffffff;
+  --bb-font: Arial, sans-serif;
+  --bb-input: #144ce6;
+  --bb-out: #315780;
 }
 
-a{
-
-    text-decoration: none;
-    color: white;
-    width: 250px;
+.bb-navbar-header {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: block;
 }
 
-a usuariologado{
-    width: 40px;
-    height: 15px;
-    text-align: end;
-    background: black;
+.bb-navbar-header + * {
+  margin-top: 0;
 }
 
-.usuariologado-container{
+.bb-topbar {
+  background-color: var(--bb-yellow);
+  display: flex;
+  align-items: center;
+  padding: 0 56px;
+  font-family: var(--bb-font);
+  height: 90px;
+  box-sizing: border-box;
+  width: 100%;
+
+}
+
+.bb-logo-area {
+  justify-content: flex-start;
+  gap: 10px;
+  line-height: 1;
+  display: flex;
+}
+
+.bb-logo-img {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 0%;
+  padding: 3px;
+}
+
+.bb-topnav {
+  gap: 43px;
+  justify-content: center;
+}
+
+.bb-topnav a {
+  color: var(--bb-blue);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom 0.2s;
+  white-space: nowrap;
+}
+
+.bb-topnav a:hover {
+  color: var(--bb-blue);
+  border-bottom: 2px solid var(--bb-blue);
+}
+
+.bb-logo-area,
+.bb-topnav,
+.bb-topbar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Grupo Direito */
+.bb-topbar-right {
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+}
+
+.bb-search-form {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  width: 220px;
+  background: transparent;
+  border: 1px solid var(--bb-blue);
+  border-radius: 8px;
+  gap: 8px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  justify-content: center;
+  background: rgba(247, 233, 165, 0.45);
+}
+
+.bb-search-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.bb-search-input {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--bb-blue-dark);
+  font-size: 0.78rem;
+  width: 120px;
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: flex-start; 
+}
+
+.bb-search-input::placeholder {
+  color: var(--bb-blue);
+  opacity: 0.7;
+}
+
+.bb-search-form .fas.fa-search {
+  color: var(--bb-blue);
+}
+
+.bb-account-btn {
+  background-color: var(--bb-blue);
+  color: var(--bb-white) !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  height: 36px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.bb-account-btn:hover {
+  background-color: var(--bb-input);
+}
+
+.bb-user-name {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--bb-blue);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.usuario:hover {
+  color: var(--bb-input);
+}
+
+.bb-logout-btn {
+  background-color: var(--bb-blue);
+  color: var(--bb-white);
+  border: none;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: background 0.2s;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; 
+  top: -5px;
+  flex-shrink: 0;
+  width: auto;
+}
+
+.bb-logout-btn:hover {
+  background-color: var(--bb-out);
+}
+
+/* Desktop: texto completo, esconde "Login" */
+.acessar-mobile { display: none; }
+.acessar-desktop { display: inline; }
+
+
+/*---------------- Resposividade ------------------ */
+
+/* NOTEBOOKS */
+@media (max-width: 1366px) and (min-width: 861px) {
+  .bb-topbar { padding: 0 24px; gap: 12px; }
+  .bb-topnav { gap: 16px; }
+  .bb-topnav a { font-size: 0.92rem; }
+  .bb-search-form { width: 180px; }
+  .bb-logo-text { font-size: 1.1rem; }
+}
+
+/* TABLET E MOBILE */
+@media (max-width: 860px) {
+
+  .bb-topbar {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 16px 28px 16px;
+    gap: 8px;
+    align-items: stretch;
+    position: relative;
+    overflow: visible;
+  }
+
+  .bb-logo-area {
+    padding-bottom: 0;
+    justify-content: center;
+    flex: unset;
+    width: 100%;
+    padding-right: 80px;
+    padding-left: 0;
+  }
+  
+  .bb-logo-img {
+    height: 48px;  
+  }
+  .bb-logo-text,
+  .bb-logo-yellow {
+  font-size: 1.10rem !important;
+  }
+
+  .bb-topnav {
+    flex: unset;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 56, 130, 0.15);
+    border-bottom: 1px solid rgba(0, 56, 130, 0.15);
+  }
+
+  .bb-topnav a {
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-bottom 0.2s;
+  }
+
+  .bb-topnav a:hover {
+    color: var(--bb-blue-dark);
+    border-bottom: 2px solid var(--bb-blue-dark);
+  }
+
+  /* Direita: coluna, busca e nome empilhados */
+  .bb-topbar-right {
+    position: static;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-width: unset;
+  }
+
+  /* Busca largura total */
+  .bb-topbar-right .bb-search-form {
     display: flex;
-    width: 60px;
-    height: 15px;
-    text-align: end;
-    background: black;
+    width: 100%;
+    border-radius: 20px;
+    height: 34px;
+  }
+
+  /* Nome centralizado */
+  .bb-topbar-right .bb-user-name {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 10px;
+  }
+
+  /* Login e Sair: pequenos no canto superior direito */
+  .bb-topbar-right .bb-account-btn,
+  .bb-topbar-right .bb-logout-btn {
+    position: absolute;
+    right: 16px;
+    width: auto;
+    padding: 0 14px;
+    height: 30px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .bb-topbar-right .bb-account-btn {top: 17px;}
+  .bb-topbar-right .bb-logout-btn {top: 8px;}
+
+
+  /* Mobile: esconde texto longo, mostra "Login" */
+  .acessar-desktop { display: none; }
+  .acessar-mobile { display: inline; }
+}
+
+/* MOBILE PEQUENO */
+@media (max-width: 480px) {
+  .bb-topbar { padding: 10px 12px; }
+  .bb-logo-text, .bb-logo-yellow { font-size: 0.95rem; }
+  .bb-topnav { gap: 12px; }
+  .bb-topnav a { font-size: 0.75rem; }
 }
