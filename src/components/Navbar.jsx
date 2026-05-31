@@ -78,6 +78,16 @@ export default function Navbar({ usuario, setUsuario }) {
           </button>
 
           <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" /> {/*###*/}
+
+              {usuario && (
+                <span 
+                  className="bb-user-name-mobile" 
+                  to="/editarPerfil"
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                >
+                  <i className="fas fa-user"></i> {formatarNome(usuario.nome)}
+                </span>
+              )}
         </div>
 
         {aberto && (

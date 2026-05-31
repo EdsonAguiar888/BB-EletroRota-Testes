@@ -280,41 +280,120 @@
   .bb-topnav, .bb-topbar-right { display: none; }
   
   .bb-topbar {
-    padding: 0;
+    padding: 0px 12px 0px 32px;
     height: auto;
     flex-direction: column;
     align-items: stretch;
+    padding-bottom: 8px;
   }
 
-  .bb-mobile-toprow {
+  /* .bb-mobile-toprow {
     display: flex;
     align-items: center;
-    justify-content: flex-end; 
+    justify-content: space-between; 
     height: 64px;
-    box-sizing: border-box;
-    padding: 4px 8px;  
+    /* box-sizing: border-box; */
+    /* padding: 4px 8px;  
     width: 100%;
-  }
+    position: relative;
+    flex-wrap: nowrap;
+  } */ 
 
   .bb-mobile-toprow .bb-logo-area { flex: unset; }
-  .bb-mobile-toprow .bb-logo-img  { height: 44px; }
+  .bb-mobile-toprow .bb-logo-img {
+    position: static !important;
+    left: unset !important;
+    transform: none!important;
+    height: 22px;
+  }
+
+
+  .bb-logo-img {
+    left: unset !important;
+    width: 190px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bb-user-name-mobile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--bb-blue);
+    font-size: 0.79rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    flex: 1;
+    justify-content: flex-start;
+    padding-left: 0;
+  }
+
+
+.bb-mobile-toprow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0px;
+  width: 100%;
+  position: relative;
+  flex-wrap: nowrap;
+}
+
+  .bb-mobile-toprow-top {
+    display: contents; /* dissolve o wrapper, filhos ficam direto no toprow */
+  }
+
+  .bb-mobile-toprow .bb-logo-img {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 18.5px;
+    margin-left: -8px;
+  }
+
+  .bb-user-name-mobile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--bb-blue);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    margin-left: auto !important;
+    flex: unset !important;
+    margin-top: 16px;
+
+  }
+
+
+  .bb-mobile-toprow-top .bb-hamburger {
+    display: flex !important;
+  }
 
   .bb-hamburger {
-    display: flex;
+    display: flex !important;
+    position: static !important;
+    top: unset !important;
+    left: unset !important;
+    flex-shrink: 0;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
     color: var(--bb-blue);
-    padding: 0px;
+    padding: 0;
     align-items: center;
     justify-content: center;
     width: fit-content;
     -webkit-tap-highlight-color: transparent;
     outline: none;
-    position: absolute;
-    top: 10px;
-    left: 23px;
+    margin-left: -12px;
+    margin-top: 19px;
+
   }
 
   .bb-hamburger:hover,

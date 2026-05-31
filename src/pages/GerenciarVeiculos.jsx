@@ -244,9 +244,9 @@ export default function GerenciaVeiculos() {
           {veiculos.length > 0 ? (
             veiculos.map((v, index) => (
               <tr key={v.idVeiculo || index}>
-                <td style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{v.marca}</td>
-                <td>{v.potencia} kW</td>
-                <td>{v.bateriaAtual ? `${v.bateriaAtual}%` : 'N/A'}</td>
+                <td data-label="Marca: " style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{v.marca}</td>
+                <td data-label="Potência: ">{v.potencia} kW</td>
+                <td data-label="Bateria Atual: ">{v.bateriaAtual ? `${v.bateriaAtual}%` : 'N/A'}</td>
                 <td>
                   <button onClick={() => handleEdit(v)} className="action-btn btn-edit">Editar</button>
                   <button onClick={() => handleDelete(v.idVeiculo)} className="action-btn btn-delete">Excluir</button>
