@@ -3,7 +3,6 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import './Home.css';
 import imagemCarro from '../assets/imagemCarro.png';
-import imagemgps from '../assets/imagemgps.png';
 import imagemLocal from '../assets/imgLocal.png';
 import imagemPlanejar from '../assets/imgPlanejar.png';
 import imagemCalculadora from '../assets/imgCalculadora.png';
@@ -13,9 +12,8 @@ export default function HomeLogado({ usuario, setUsuario }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-  // API SIMULADA MOCKAPAPI E SERVIDOR LOCAL PARA PERSISTÊNCIA DE DADOS
-  const API_URL = window.location.hostname === 'localhost'
+  // URL corrigida com as barras explícitas para evitar erros de concatenação
+  const API_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? 'http://localhost:3000/usuarios'
     : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
@@ -125,41 +123,41 @@ export default function HomeLogado({ usuario, setUsuario }) {
 
       {/* Seção de Cards de Menu */}
       <section className="cards">
-        <a className="card" id="estacoes">
+        <Link to="/otimizador" className="card" id="estacoes">
           <h3>
             <img src={imagemLocal} alt="Ícone Estações" className="card-icon" />
             Encontre Estações de Carga
           </h3>
           <div className="divider"></div>
           <p>Veja os pontos de recarga próximos.</p>
-        </a>
+        </Link>
 
-        <a className="card" id="autonomia">
+        <Link to="/calculadora" className="card" id="autonomia">
           <h3>
             <img src={imagemCalculadora} alt="Ícone Autonomia" className="card-icon" />
             Calculadora de Autonomia
           </h3>
           <div className="divider"></div>
           <p>Calcule até onde você pode chegar.</p>
-        </a>
+        </Link>
 
-        <a className="card" id="viagem">
+        <Link to="/planejador" className="card" id="viagem">
           <h3>
             <img src={imagemPlanejar} alt="Ícone Viagem" className="card-icon" />
             Planejar Viagem
           </h3>
           <div className="divider"></div>
           <p>Planeje sua rota com paradas.</p>
-        </a>
+        </Link>
 
-        <a className="card" id="cadastro" href="/gerenciar">
+        <Link to="/gerenciar" className="card" id="cadastro">
           <h3>
             <img src={imagemCarrinho} alt="Ícone Cadastro" className="card-icon" />
             Cadastro do Meu Carro
           </h3>
           <div className="divider"></div>
           <p>Salve seu veículo.</p>
-        </a>
+        </Link>
       </section>
 
       {/* Containers de Conteúdo Inferior */}
@@ -167,40 +165,55 @@ export default function HomeLogado({ usuario, setUsuario }) {
 
         {/* Bloco 1: Busca Eletroposto */}
         <div className="station-container">
-          <div className="station-title">Estação Recomendada Mais Próxima</div>
+          <div className="station-title">Rota otimizada para recarga</div>
 
-          <div className="station-card">
+          <Link to="/otimizador" className="station-card optimizer-preview-card" aria-label="Abrir otimizador de rotas">
             <div className="map-wrapper">
-              <div className="map-placeholder">
-                <img src={imagemgps} alt="Mapa GPS" className="map-img" />
+              <div className="optimizer-mini-map" aria-hidden="true">
+                <span className="mini-map-road mini-map-road-main" />
+                <span className="mini-map-road mini-map-road-cross" />
+                <span className="mini-route-line mini-route-line-a" />
+                <span className="mini-route-line mini-route-line-b" />
+                <span className="mini-route-line mini-route-line-c" />
+                <span className="mini-marker mini-origin" />
+                <span className="mini-marker mini-station" />
+                <span className="mini-marker mini-destination" />
               </div>
             </div>
 
             <div className="details-wrapper">
-              <div className="station-name">Eletroposto Central</div>
+              <div className="station-name">Prévia do otimizador de rota</div>
+              <p className="optimizer-preview-copy">
+                Compare os postos próximos e veja qual rota tende a carregar seu carro mais rápido.
+              </p>
 
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="icon">🔌</span>
-                  <strong>3</strong> Carregadores Disponíveis
-                </div>
-                <div className="info-item">
-                  <span className="icon">⏱</span>
-                  <strong>2 Min</strong> de Espera Estimada
-                </div>
-                <div className="info-item">
-                  <span className="icon">📍</span>
-                  <strong>5,2 km</strong> Distância até o local
+              <div className="optimizer-preview-panel">
+                <div className="optimizer-preview-top">
+                  <span className="optimizer-badge">Localização atual</span>
+                  <strong>Rota otimizada pronta</strong>
                 </div>
 
-                <div className="action-wrapper">
-                  <button className="btn-navigate">
-                    Navegar até a Estação <span className="arrow">&gt;</span>
-                  </button>
+                <div className="optimizer-metrics">
+                  <span><strong>Posto sugerido</strong>Eletroposto Recife Antigo</span>
+                  <span><strong>Tempo total</strong>20 min</span>
+                  <span><strong>Economia</strong>22 min</span>
+                </div>
+
+                <div className="optimizer-criteria">
+                  <span>Distância</span>
+                  <span>Fila</span>
+                  <span>Potência</span>
+                  <span>Bateria</span>
                 </div>
               </div>
+
+              <div className="action-wrapper">
+                <span className="btn-navigate">
+                  Abrir otimizador de rota <span className="arrow">&gt;</span>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
 
 
@@ -280,8 +293,3 @@ export default function HomeLogado({ usuario, setUsuario }) {
     </div>
   );
 }
-
-
-
-
-

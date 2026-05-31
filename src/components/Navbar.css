@@ -10,14 +10,14 @@
   --bb-out: #315780;
 }
 
-.bb-header {
+.bb-navbar-header {
   margin: 0;
   padding: 0;
   line-height: 1;
   display: block;
 }
 
-.bb-header + * {
+.bb-navbar-header + * {
   margin-top: 0;
 }
 
@@ -29,6 +29,7 @@
   font-family: var(--bb-font);
   height: 90px;
   box-sizing: border-box;
+  width: 100%;
 
 }
 
@@ -107,7 +108,7 @@
 }
 
 .bb-search-input {
-  background: transparent !important;
+  background: transparent important;
   border: none !important;
   outline: none !important;
   color: var(--bb-blue-dark);
@@ -115,7 +116,7 @@
   width: 120px;
   flex: 1 1 0;
   min-width: 0;
-  /* text-align: flex-start;  */
+  text-align: flex-start; 
 }
 
 .bb-search-input::placeholder {
@@ -129,7 +130,7 @@
 
 .bb-account-btn {
   background-color: var(--bb-blue);
-  color: var(--bb-white) !important;
+  color: var(--bb-white) important;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -230,7 +231,7 @@
   }
   .bb-logo-text,
   .bb-logo-yellow {
-  font-size: 1.10rem !important;
+  font-size: 1.10rem important;
   }
 
   .bb-topnav {
