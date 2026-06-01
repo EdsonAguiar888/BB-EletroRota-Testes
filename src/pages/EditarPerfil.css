@@ -1,3 +1,18 @@
+:root {
+  --bb-blue: #3498db;        /* Azul principal (botões, destaques) */
+  --bb-blue-meia-boca: #2980b9;  /* Azul um pouco mais escuro que para mim é a mesma coisa */
+  --bb-blue-dark-gray: #2c3e50;      /* Azul escuro para textos principais e títulos */
+  --bb-delete: #e74c3c;         /* Vermelho para o botão deletar */
+  --bb-danger: #c0392b;   /* Vermelho hover que para mim é a mesma coisa */
+  --bb-success: #008000;        /* Verde para a mensagem de sucesso */
+  --bb-white: #ffffff;          /* O branco do card*/
+  --bb-background: #f8f9fa;     /* Cinza bem claro para o fundo da página ou seções */
+  --bb-border: #eeeeee;         /* Cor das bordas finas, não é branco puro como o ffff, mas é menos cinza do que o de cima*/
+  --bb-input-border: #cccccc;   /* Cor da borda dos inputs neutros */
+  --bb-shadow-card: 0 10px 30px #0000001a; /* Guardando a sombra inteira */
+}
+
+
 /*  Base */
 .containerStyle {
   width: 100%;
@@ -10,9 +25,9 @@
 
 .cardStyle {
   display: flex;
-  background: #fff;
+  background: var(--bb-white);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: var(--bb-shadow-card);
   overflow: hidden;
   max-width: 1000px;
   width: 100%;
@@ -20,13 +35,13 @@
 
 .imageSectionStyle {
   flex: 1;
-  background: #f8f9fa;
+  background: var(--bb-background);
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--bb-border);
 }
 
 .imageStyle {
@@ -37,7 +52,7 @@
 }
 
 .imageSectionStyle h3 {
-  color: #2c3e50;
+  color: var(--bb-blue-dark-gray);
   margin-top: 20px;
 }
 
@@ -63,7 +78,7 @@
 .inputStyle {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bb-input-border);
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -72,11 +87,11 @@
 .selectStyle {
   padding: 10px;
   border-radius: 8px;
-  border: 2px solid #3498db;
+  border: 2px solid var(--bb-blue);
   font-size: 1rem;
   background-color: #fdfefe;
   cursor: pointer;
-  color: #2c3e50;
+  color: var(--bb-blue-dark-gray);
   font-weight: 600;
   width: 100%;
   box-sizing: border-box;
@@ -89,11 +104,11 @@
 
 .labelDestaque {
   font-weight: bold;
-  color: #2980b9;
+  color: var(--bb-blue-meia-boca);
 }
 
 .mensagemSucesso {
-  color: green;
+  color: var(--bb-success);
   font-weight: bold;
 }
 
@@ -106,8 +121,8 @@
 .editButtonStyle {
   flex: 1;
   padding: 12px;
-  background: #3498db;
-  color: #fff;
+  background: var(--bb-blue);
+  color: var(--bb-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -116,15 +131,17 @@
 
 .deleteButtonStyle {
   padding: 12px;
-  background: #e74c3c;
-  color: #fff;
+  background: var(--bb-delete);
+  color: var(--bb-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  width: auto;
+  flex: none;
 }
 
-/* Notebook (≤ 1280px)*/
+/* Notebook*/
 @media (max-width: 1280px) {
   .cardStyle {
     max-width: 900px;
@@ -143,26 +160,16 @@
   }
 }
 
-/* Tablet Grande (≤ 1024px) */
+/* Tablet Grande */
 @media (max-width: 1024px) {
-  .cardStyle {
-    max-width: 720px;
-  }
-
-  .imageSectionStyle {
-    padding: 28px;
-  }
-
-  .imageStyle {
-    max-width: 260px;
-  }
-
-  .infoSectionStyle {
-    padding: 28px;
-  }
+  
+  .cardStyle { max-width: 720px; }
+  .imageSectionStyle { padding: 28px; }
+  .imageStyle { max-width: 260px; }
+  .infoSectionStyle { padding: 28px; }
 }
 
-/* Tablet (≤ 768px) */
+/* Tablet*/
 @media (max-width: 768px) {
   .cardStyle {
     flex-direction: column;
@@ -170,28 +177,54 @@
     border-radius: 16px;
   }
 
-  .imageSectionStyle {
-    border-right: none;
-    border-bottom: 1px solid #eee;
-    padding: 24px;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 20px;
+ .imageSectionStyle {
+    max-height: 95px !important;
+    min-height: 80px !important;
+    padding: 0 !important;
   }
 
   .imageStyle {
-    max-width: 120px;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 95px !important;
+    max-width: 100% !important;
+    max-height: 95px !important;
+    border-radius: 0 !important;
+    object-fit: cover !important;
   }
 
   .infoSectionStyle {
-    padding: 24px;
+    padding: 12px !important;
   }
+
+  .inputStyle,
+  .selectStyle {
+    font-size: 0.9rem !important;
+    padding: 8px !important;
+  }
+
+   .imageSectionStyle h3 {
+    /* display: block !important;
+    font-size: 0.85rem !important;
+    color: rgba(255,255,255,0.85) !important;
+    margin: 0 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    position: absolute !important;
+    bottom: 6px !important;
+    background: rgba(0,0,0,0.35) !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important; */
+    display: none !important;
+  }
+
 }
 
-/* Celular Grande (≤ 480px) */
+/* Celular Grande */
 @media (max-width: 480px) {
   .containerStyle {
     padding: 0 !important;
+    align-items: flex-start !important;
   }
 
   .cardStyle {
@@ -199,84 +232,81 @@
     border-radius: 0 !important;
     min-height: 100vh !important;
     box-shadow: none !important;
-    width: 100%  !important;
-    padding: 0 !important;
-  }
-
-  .imageSectionStyle {
-    display: flex !important;
-    overflow: hidden !important;
     width: 100% !important;
     padding: 0 !important;
   }
 
-  .imageStyle {
-    max-width: 100% !important; 
-    width: 100% !important;
-    min-width: 100% !important;
-    height: auto !important;
-    border-radius: 0px !important;
-    display: block !important;
-    display: block !important;
-    margin: 0 auto !important;
-    align-items: stretch !important;
-  }
-
-  .imageSectionStyle h3 {
-    display: none !important;
-  }
 
   .infoSectionStyle {
-   padding: 45px 16px 16px !important;
+    padding: 16px !important;
+  }
+
+  .formStyle {
+    gap: 10px !important;
+    margin-top: 10px !important;
   }
 
   .rowStyle {
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row !important;
+    gap: 8px !important;
   }
 
   .buttonGroupStyle {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
   }
 
-  .editButtonStyle,
+  .editButtonStyle {
+    flex: 1 !important;
+    padding: 12px !important;
+    white-space: nowrap !important;
+  }
+
   .deleteButtonStyle {
-    width: 100%;
-    text-align: center;
+    flex: 0 0 auto !important;
+    padding: 12px 16px !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    font-size: 0.82rem !important;
   }
 }
 
-/*Celular Pequeno (≤ 360px) */
+/* Celular Pequeno */
 @media (max-width: 360px) {
   .imageSectionStyle {
-    padding: 0px;
-    flex-direction: column;
+    max-height: 95px !important;
+    min-height: 80px !important;
+    padding: 0 !important;
   }
 
   .imageStyle {
-    max-width: 100%;
-    width: 100%;
-    border-radius: 0px;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 95px !important;
+    max-width: 100% !important;
+    max-height: 95px !important;
+    border-radius: 0 !important;
+    object-fit: cover !important;
   }
 
   .infoSectionStyle {
-    padding: 12px;
+    padding: 12px !important;
   }
 
-  .inputStyle {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
+  .inputStyle,
   .selectStyle {
-    font-size: 0.9rem;
-    padding: 8px;
+    font-size: 0.9rem !important;
+    padding: 8px !important;
   }
 
-  .editButtonStyle,
+  .editButtonStyle {
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+  }
+
   .deleteButtonStyle {
-    padding: 10px;
-    font-size: 0.9rem;
+    padding: 10px 12px !important;
+    font-size: 0.8rem !important;
   }
 }

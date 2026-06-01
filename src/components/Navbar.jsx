@@ -14,11 +14,24 @@ function BotaoLogin() {
   );
 }
 
+
+function formatarNome(nomeCompleto) {
+  const partes = nomeCompleto.split(' ');
+  const primeiro = partes[0];
+  const segundo = partes[1];
+  
+  if (segundo) {
+    return `${primeiro} ${segundo[0].toUpperCase()}.`;
+  }
+  return primeiro;
+}
+
+// aqui é para exibir o nome do usuário logado, formatando para mostrar apenas o primeiro nome e a inicial do segundo nome (se houver). Exemplo: "João Silva" vira "João S." e "Maria" permanece "Maria".
 function UsuarioLogado({ usuario, onLogout }) {
   return (
     <>
       <Link className="bb-user-name" to="/editarPerfil">
-        Bem vindo, <strong className="usuario">{usuario.nome}</strong>
+        Bem vindo, <strong className="usuario">{formatarNome(usuario.nome)}</strong>
       </Link>
       <button className="bb-logout-btn" onClick={onLogout}>Sair</button>
     </>
@@ -37,17 +50,18 @@ export default function Navbar({ usuario, setUsuario }) {
   };
 
   return (
-    <header className="bb-header">
+    <header className="bb-navebar-header">
       <div className="bb-topbar">
 
         {/*  Desktop */}
         <div className="bb-logo-area">
           <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
         </div>
+
         <nav className="bb-topnav">
           <Link to="/">Início</Link>
           <Link to="/gerenciar">Gerenciar Veículos</Link>
-          <Link to="/mapas">Mapas</Link>
+          <Link to="/otimizador">Mapas</Link>
         </nav>
         <div className="bb-topbar-right">
           <BarraBusca />
@@ -66,14 +80,24 @@ export default function Navbar({ usuario, setUsuario }) {
             <i className="fas fa-bars"></i>
           </button>
 
-          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" /> {/*###*/}
+          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" /> 
+
+              {usuario && (
+                <span 
+                  className="bb-user-name-mobile" 
+                  to="/editarPerfil"
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                >
+                  <i className="fas fa-user"></i> {formatarNome(usuario.nome)}
+                </span>
+              )}
         </div>
 
         {aberto && (
           <div className="bb-drawer-overlay" onClick={() => setAberto(false)} />
         )}
 
-        {/* ── Drawer lateral ── */}
+        {/* Drawer lateral */}
         <div className={`bb-drawer${aberto ? ' aberto' : ''}`}>
 
           {/* Cabeçalho do drawer */}
@@ -82,10 +106,10 @@ export default function Navbar({ usuario, setUsuario }) {
               <i className="fas fa-user"></i>
           </div>
           <span className="bb-drawer-greeting">
-              {usuario ? (
-              <>Bem vindo, <strong className="usuario">{usuario.nome.split(' ')[0]}</strong></>
-              ) : 'Bem vindo, visitante!'}
-          </span> 
+            {usuario ? (
+              <>Bem vindo, <strong className="usuario">{formatarNome(usuario.nome)}</strong></>
+            ) : 'Bem vindo, visitante!'}
+          </span>
             <button
               className="bb-drawer-close"
               onClick={() => setAberto(false)}
