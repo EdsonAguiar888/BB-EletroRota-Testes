@@ -11,6 +11,9 @@ export default function Auth({ onLoginSuccess }) {
   const [mensagem, setMensagem] = useState({ texto: '', tipo: '' });
   const [errosCampos, setErrosCampos] = useState({}); // Para feedback visual nos inputs
   const location = useLocation();
+  const apiUsuariosUrl = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? 'http://localhost:3000/usuarios'
+    : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
   const handleChange = (e) => {
     // Mantém a atualização controlada do estado
@@ -40,9 +43,7 @@ export default function Auth({ onLoginSuccess }) {
 
     try {
       if (isLogin) {
-        const resp = await fetch(window.location.hostname === 'localhost'
-          ? 'http://localhost:3000/usuarios'
-          : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
+        const resp = await fetch(apiUsuariosUrl);
 
         const usuarios = await resp.json();
 
@@ -63,9 +64,7 @@ export default function Auth({ onLoginSuccess }) {
         }
       } else {
         // Lógica de Cadastro (POST)
-        const resp = await fetch(window.location.hostname === 'localhost'
-          ? 'http://localhost:3000/usuarios'
-          : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
+        const resp = await fetch(apiUsuariosUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)

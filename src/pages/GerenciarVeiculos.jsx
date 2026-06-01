@@ -20,10 +20,7 @@ export default function GerenciaVeiculos() {
   // Estado opcional para você pintar as bordas dos inputs de vermelho se quiser
   const [errosCampos, setErrosCampos] = useState({}); 
 
-  const API_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:3000/usuarios'
-    : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
-
+ 
   useEffect(() => {
     const dadosSessao = JSON.parse(localStorage.getItem('usuarioLogado'));
     if (dadosSessao) {
@@ -445,9 +442,6 @@ export default function GerenciaVeiculos() {
 //         setMensagem('Veículo removido com sucesso.');
 
 
-
-
-
 //         carregarVeiculosDoUsuario(usuarioLogado.id);
 //       }
 //     } catch (err) {
@@ -471,15 +465,12 @@ export default function GerenciaVeiculos() {
 //       {usuarioLogado && <p style={{ color: '#555' }}>Olá, <strong>{usuarioLogado.nome}</strong>! Gerencie a frota dos seus veículos elétricos abaixo.</p>}
 
 
-
-
 //       {/* Formulário focado estritamente em dados de veículos */}
 //       <form onSubmit={handleSubmit} className="gerenciar-form">
 //         <label className="form-label">{editId ? 'Editar Veículo:' : 'Cadastrar Novo Veículo:'}</label>
 //         <input name="marca" value={formData.marca} onChange={handleChange} placeholder="Marca (ex: Tesla, BYD, Chevrolet)" required />
 //         <input name="potencia" value={formData.potencia} onChange={handleChange} placeholder="Potência (ex: 200 kW)" required />
 //         <input name="bateriaAtual" value={formData.bateriaAtual} onChange={handleChange} placeholder="Bateria Atual (%)" required />
-
 
 
 //         <div className="btn-group">

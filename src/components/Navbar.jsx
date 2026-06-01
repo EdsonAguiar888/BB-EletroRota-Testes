@@ -14,6 +14,7 @@ function BotaoLogin() {
   );
 }
 
+
 function formatarNome(nomeCompleto) {
   const partes = nomeCompleto.split(' ');
   const primeiro = partes[0];
@@ -25,6 +26,7 @@ function formatarNome(nomeCompleto) {
   return primeiro;
 }
 
+// aqui é para exibir o nome do usuário logado, formatando para mostrar apenas o primeiro nome e a inicial do segundo nome (se houver). Exemplo: "João Silva" vira "João S." e "Maria" permanece "Maria".
 function UsuarioLogado({ usuario, onLogout }) {
   return (
     <>
@@ -48,17 +50,18 @@ export default function Navbar({ usuario, setUsuario }) {
   };
 
   return (
-    <header className="bb-header">
+    <header className="bb-navebar-header">
       <div className="bb-topbar">
 
         {/*  Desktop */}
         <div className="bb-logo-area">
           <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" />
         </div>
+
         <nav className="bb-topnav">
           <Link to="/">Início</Link>
           <Link to="/gerenciar">Gerenciar Veículos</Link>
-          <Link to="/mapas">Mapas</Link>
+          <Link to="/otimizador">Mapas</Link>
         </nav>
         <div className="bb-topbar-right">
           <BarraBusca />
@@ -77,7 +80,7 @@ export default function Navbar({ usuario, setUsuario }) {
             <i className="fas fa-bars"></i>
           </button>
 
-          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" /> {/*###*/}
+          <img src={LogoImg} alt="Logo BB EletroRota" className="bb-logo-img" /> 
 
               {usuario && (
                 <span 

@@ -1,3 +1,18 @@
+:root {
+  --bb-blue: #3498db;        /* Azul principal (botões, destaques) */
+  --bb-blue-meia-boca: #2980b9;  /* Azul um pouco mais escuro que para mim é a mesma coisa */
+  --bb-blue-dark-gray: #2c3e50;      /* Azul escuro para textos principais e títulos */
+  --bb-delete: #e74c3c;         /* Vermelho para o botão deletar */
+  --bb-danger: #c0392b;   /* Vermelho hover que para mim é a mesma coisa */
+  --bb-success: #008000;        /* Verde para a mensagem de sucesso */
+  --bb-white: #ffffff;          /* O branco do card*/
+  --bb-background: #f8f9fa;     /* Cinza bem claro para o fundo da página ou seções */
+  --bb-border: #eeeeee;         /* Cor das bordas finas, não é branco puro como o ffff, mas é menos cinza do que o de cima*/
+  --bb-input-border: #cccccc;   /* Cor da borda dos inputs neutros */
+  --bb-shadow-card: 0 10px 30px #0000001a; /* Guardando a sombra inteira */
+}
+
+
 /*  Base */
 .containerStyle {
   width: 100%;
@@ -10,9 +25,9 @@
 
 .cardStyle {
   display: flex;
-  background: #fff;
+  background: var(--bb-white);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: var(--bb-shadow-card);
   overflow: hidden;
   max-width: 1000px;
   width: 100%;
@@ -20,13 +35,13 @@
 
 .imageSectionStyle {
   flex: 1;
-  background: #f8f9fa;
+  background: var(--bb-background);
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--bb-border);
 }
 
 .imageStyle {
@@ -37,7 +52,7 @@
 }
 
 .imageSectionStyle h3 {
-  color: #2c3e50;
+  color: var(--bb-blue-dark-gray);
   margin-top: 20px;
 }
 
@@ -63,7 +78,7 @@
 .inputStyle {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bb-input-border);
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -72,11 +87,11 @@
 .selectStyle {
   padding: 10px;
   border-radius: 8px;
-  border: 2px solid #3498db;
+  border: 2px solid var(--bb-blue);
   font-size: 1rem;
   background-color: #fdfefe;
   cursor: pointer;
-  color: #2c3e50;
+  color: var(--bb-blue-dark-gray);
   font-weight: 600;
   width: 100%;
   box-sizing: border-box;
@@ -89,11 +104,11 @@
 
 .labelDestaque {
   font-weight: bold;
-  color: #2980b9;
+  color: var(--bb-blue-meia-boca);
 }
 
 .mensagemSucesso {
-  color: green;
+  color: var(--bb-success);
   font-weight: bold;
 }
 
@@ -106,8 +121,8 @@
 .editButtonStyle {
   flex: 1;
   padding: 12px;
-  background: #3498db;
-  color: #fff;
+  background: var(--bb-blue);
+  color: var(--bb-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -116,8 +131,8 @@
 
 .deleteButtonStyle {
   padding: 12px;
-  background: #e74c3c;
-  color: #fff;
+  background: var(--bb-delete);
+  color: var(--bb-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -147,21 +162,11 @@
 
 /* Tablet Grande */
 @media (max-width: 1024px) {
-  .cardStyle {
-    max-width: 720px;
-  }
-
-  .imageSectionStyle {
-    padding: 28px;
-  }
-
-  .imageStyle {
-    max-width: 260px;
-  }
-
-  .infoSectionStyle {
-    padding: 28px;
-  }
+  
+  .cardStyle { max-width: 720px; }
+  .imageSectionStyle { padding: 28px; }
+  .imageStyle { max-width: 260px; }
+  .infoSectionStyle { padding: 28px; }
 }
 
 /* Tablet*/

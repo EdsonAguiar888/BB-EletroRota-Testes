@@ -11,14 +11,14 @@
   --bb-out-vermelho: #c0392b;
 }
 
-.bb-header {
+.bb-navebar-header{
   margin: 0;
   padding: 0;
   line-height: 1;
   display: block;
 }
 
-.bb-header + * {
+.bb-navbar-header + * {
   margin-top: 0;
 }
 
