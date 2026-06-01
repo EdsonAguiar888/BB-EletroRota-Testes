@@ -158,62 +158,6 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     }
   };
 
-  // // Função para ATUALIZAR (EDITAR) - Interceptada pelas validações
-  // const handleUpdate = async (e) => {
-  //   e.preventDefault();
-
-  //   // --- EXECUÇÃO DA VALIDAÇÃO ANTES DE ENVIAR AS ALTERAÇÕES ---
-  //   const errosValida = validarPerfilVeiculo(formData);
-
-  //   if (Object.keys(errosValida).length > 0) {
-  //     setErrosCampos(errosValida);
-  //     const primeiroErro = Object.values(errosValida)[0];
-  //     setMensagem(`Erro: ${primeiroErro}`);
-  //     return; // Trava o PUT aqui
-  //   }
-
-  //   const listaVeiculosAtualizada = listaVeiculos.map(v => {
-  //     if (v.idVeiculo === veiculoSelecionadoId) {
-  //       return {
-  //         ...v,
-  //         marca: formData.marca,
-  //         potencia: formData.potencia,
-  //         bateriaAtual: formData.bateriaAtual
-  //       };
-  //     }
-  //     return v;
-  //   });
-
-  //   const usuarioAtualizado = {
-  //     ...usuario,
-  //     nome: formData.nome,
-  //     email: formData.email,
-  //     veiculo: {
-  //       idVeiculo: veiculoSelecionadoId,
-  //       marca: formData.marca,
-  //       potencia: formData.potencia,
-  //       bateriaAtual: formData.bateriaAtual
-  //     },
-  //     veiculos: listaVeiculosAtualizada.length > 0 ? listaVeiculosAtualizada : [{ idVeiculo: Date.now().toString(), marca: formData.marca, potencia: formData.potencia, bateriaAtual: formData.bateriaAtual }]
-  //   };
-
-  //   try {
-  //     const response = await fetch(`${API_URL}/${usuario.id}`, {
-  //       method: 'PUT',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(usuarioAtualizado)
-  //     });
-
-  //     if (response.ok) {
-  //       localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
-  //       setUsuario(usuarioAtualizado);
-  //       setMensagem('Perfil atualizado com sucesso!');
-  //       setTimeout(() => setMensagem(''), 3000);
-  //     }
-  //   } catch (error) {
-  //     setMensagem('Erro ao atualizar perfil.');
-  //   }
-  // };
   
   const handleDelete = async () => {
     if (!window.confirm('TEM CERTEZA? Isso excluirá sua conta permanentemente.')) return;
