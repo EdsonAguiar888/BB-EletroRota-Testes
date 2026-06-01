@@ -130,11 +130,11 @@ export default function Auth({ onLoginSuccess }) {
   };
 
   return (
-    <main className={`container-login ${!isLogin ? 'modo-cadastro' : ''}`}>
+    <div className={`container-login ${!isLogin ? 'modo-cadastro' : ''}`}>
       {/* LADO ÁREA DE LOGIN */}
       <section className="area-login">
         {/* Seletor superior (Entrar / Criar Conta) */}
-        <div className="seletor-superior">
+        <div className="seletor-login">
           <button type="button" className="btn-ativo" id="btn-login">Entrar</button>
           <button type="button" className="btn-inativo" id="btn-cadastro" onClick={toggleToCadastro}>Criar Conta</button>
         </div>
@@ -151,7 +151,7 @@ export default function Auth({ onLoginSuccess }) {
           <div className="grupo-input">
             <label htmlFor="email">E-mail</label>
             <div className="input-sem-icone">
-              <input type="email" id="email" name="email" placeholder="seu@email.com" value={formData.email} onChange={handleChange} required />
+              <input type="email" id="email" name="email" placeholder="seu@email.com" maxLength= "254" value={formData.email} onChange={handleChange} required />
             </div>
           </div>
 
@@ -181,7 +181,7 @@ export default function Auth({ onLoginSuccess }) {
 
       {/* LADO ÁREA DE CADASTRO */}
       <section className="area-cadastro" id="area-cadastro">
-        <div className="seletor-superior">
+        <div className="seletor-cadastro">
           <button type="button" className="btn-inativo" id="voltar-login" onClick={toggleToLogin}>Entrar</button>
           <button type="button" className="btn-ativo">Criar Conta</button>
         </div>
@@ -202,7 +202,7 @@ export default function Auth({ onLoginSuccess }) {
           <div className="grupo-input2">
             <label htmlFor="emailCadastro">E-mail</label>
             <div className="input-sem-icone">
-              <input type="email" id="emailCadastro" name="email" placeholder="seu@email.com" value={formData.email} onChange={handleChange} required />
+              <input type="email" id="emailCadastro" name="email" placeholder="seu@email.com" maxLength= "254" value={formData.email} onChange={handleChange} required />
             </div>
           </div>
 
@@ -232,7 +232,7 @@ export default function Auth({ onLoginSuccess }) {
         {/* Espaço para a Logo exportada do Figma */}
         <div className="logo">
           <img src={logo} alt="Logo BBEletroRota" className="logo-svg" />
-          <span className="logo-texto">BB EletroRota</span>
+          <span className="logo-texto">BBEletroRota</span>
         </div>
 
         {/* Textos da direita */}
@@ -250,6 +250,6 @@ export default function Auth({ onLoginSuccess }) {
           </div>
         </footer>
       </section>
-    </main>
+    </div>
   );
 }

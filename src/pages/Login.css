@@ -51,7 +51,7 @@ body {
 }
 
 /* seletor superior (Toggle) Entrar / Criar Conta */
-.seletor-superior {
+.seletor-login {
     background-color: #f3f4f6;
     border-radius: 8px;
     display: flex;
@@ -61,8 +61,21 @@ body {
     /* Adicione esta linha */
     z-index: 1000;
     /* Adicione esta linha */
-    top: 65px;
-    bottom: 52;
+    top: 55px;
+}
+
+.seletor-cadastro {
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    margin-bottom: 70px;
+    padding: 5px;
+    position: relative;
+    /* Adicione esta linha */
+    z-index: 1000;
+    /* Adicione esta linha */
+    top: 85px;
+    bottom: 25px;
 }
 
 .btn-ativo {
@@ -200,8 +213,8 @@ body {
     transition: 0.3s;
     background-color: #0038a8;
     color: floralwhite;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 40px;
 }
 
 .btn-enter:hover {
@@ -241,7 +254,7 @@ body {
 
 /* Textos iniciais do cadastro */
 .texto-cadastro {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     margin-top: 30px;
     color: #6b7280;
     font-size: 16px;
@@ -282,8 +295,8 @@ body {
     transition: 0.3s;
     background-color: #0038a8;
     color: floralwhite;
-    margin-top: 25px;
-    margin-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 70px;
 }
 
 .btn-criar-conta:hover {
@@ -320,16 +333,16 @@ body {
     /* Distância da esquerda da tela azul */
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 25.32px;
+    gap: 8px;
+    font-size: 25.32px; /*tamanho do texto da logo*/
     font-weight: bolder;
     z-index: 20;
     /* Garante que ela fique sempre visível por cima de tudo */
 }
 
 .logo-svg {
-    height: 140px;
-    width: 140px;
+    height: 200px;
+    width: 180px;
 }
 
 /* Textos Principais Direita */
