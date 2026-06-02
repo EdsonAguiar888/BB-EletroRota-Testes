@@ -1237,183 +1237,133 @@ body {
   font-weight: 700;
 }
 
-@media (max-width: 1050px) {
-  .bb-planner-shell {
-    grid-template-columns: 1fr;
-  }
+
 
   .bb-calculator-grid {
     grid-template-columns: 1fr;
   }
-}
 
 
-/* AJUSTES_MAPA_PONTOS_BATERIA */
-.bb-map-options {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 12px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--bb-border);
-  background: #ffffff;
-}
 
-.bb-map-options .bb-field {
-  margin-bottom: 0;
-}
-
-.bb-map-options .bb-range-row {
-  align-items: center;
-}
-
-.bb-points-list {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--bb-border);
-  max-height: 270px;
-  overflow-y: auto;
-  scrollbar-color: #ffffff #e5e7eb;
-  scrollbar-width: thin;
-}
-
-.bb-points-list::-webkit-scrollbar {
-  width: 10px;
-}
-
-.bb-points-list::-webkit-scrollbar-track {
-  background: #e5e7eb;
-}
-
-.bb-points-list::-webkit-scrollbar-thumb {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 999px;
-}
-
-.bb-points-list-top {
-  flex: 1;
-  max-height: none;
-  min-height: 0;
-  margin-top: 0;
-  margin-bottom: 18px;
-  padding-top: 0;
-  padding-bottom: 16px;
-  border-top: 0;
-  border-bottom: 1px solid var(--bb-border);
-}
-
-.bb-route-info-list-only .bb-points-list-top {
-  flex: 1;
-  max-height: none;
-  margin-bottom: 0;
-}
-
-.bb-point-button {
-  width: 100%;
-  text-align: left;
-  background: #fff;
-  border: 1px solid #eef2f7;
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  color: var(--bb-text);
-}
-
-.bb-point-button.active {
-  border-color: var(--bb-blue-2);
-  background: #eff6ff;
-}
-
-.bb-point-button strong {
-  display: block;
-  color: var(--bb-blue);
-  margin-bottom: 4px;
-}
-
-.bb-point-button span {
-  color: var(--bb-muted);
-  font-size: 12px;
-}
-
-
-/* AJUSTES_HISTORICO_ROTAS */
-.bb-history-list {
-  margin-top: 12px;
-  display: grid;
-  gap: 8px;
-  max-height: 180px;
-  overflow-y: auto;
-  scrollbar-color: #ffffff #e5e7eb;
-  scrollbar-width: thin;
-}
-
-.bb-history-item {
-  border: 1px solid #e5edf7;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 10px 12px;
-  color: var(--bb-text);
-  font-size: 13px;
-}
-
-.bb-history-item strong {
-  display: block;
-  color: var(--bb-blue);
-  margin-bottom: 4px;
-}
-
-.bb-history-item span {
-  display: block;
-  color: var(--bb-muted);
-  line-height: 1.4;
-}
-
-@media (max-width: 1050px) {
- 
-  /* Hero: fundo vira overlay sobre imagem centralizada */
-  .bb-hero {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .86)),
-      url("../assets/imagemCarro.png") center / cover no-repeat;
+  /* AJUSTES_MAPA_PONTOS_BATERIA */
+  .bb-map-options {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--bb-border);
+    background: #ffffff;
   }
- 
-  /* Conteúdo do hero ocupa largura total */
-  .bb-hero-content {
-    width: 100%;
-    min-width: 0;
-    padding: 45px 22px;
+
+  .bb-map-options .bb-field {
+    margin-bottom: 0;
   }
- 
-  /* Grids viram coluna única */
-  .bb-main,
-  .bb-map-layout,
-  .bb-planner-shell {
-    grid-template-columns: 1fr;
-  }
- 
-  /* Route info: borda esquerda vira borda superior */
-  .bb-route-info {
-    border-left: 0;
-    border-top: 1px solid var(--bb-border);
-  }
- 
-  /* Tabs de navegação viram coluna única */
-  .bb-tabs-nav {
-    grid-template-columns: 1fr;
-  }
- 
-  /* Campo de busca ocupa largura total */
-  .bb-search {
-    width: 100%;
-  }
- 
-  /* Cabeçalho do mapa vira coluna */
-  .bb-map-head {
+
+  .bb-map-options .bb-range-row {
     align-items: center;
-    flex-direction: column;
   }
 
-}
- 
+  .bb-points-list {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--bb-border);
+    max-height: 270px;
+    overflow-y: auto;
+    scrollbar-color: #ffffff #e5e7eb;
+    scrollbar-width: thin;
+  }
+
+  .bb-points-list::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .bb-points-list::-webkit-scrollbar-track {
+    background: #e5e7eb;
+  }
+
+  .bb-points-list::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+  }
+
+  .bb-points-list-top {
+    flex: 1;
+    max-height: none;
+    min-height: 0;
+    margin-top: 0;
+    margin-bottom: 18px;
+    padding-top: 0;
+    padding-bottom: 16px;
+    border-top: 0;
+    border-bottom: 1px solid var(--bb-border);
+  }
+
+  .bb-route-info-list-only .bb-points-list-top {
+    flex: 1;
+    max-height: none;
+    margin-bottom: 0;
+  }
+
+  .bb-point-button {
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #eef2f7;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: var(--bb-text);
+  }
+
+  .bb-point-button.active {
+    border-color: var(--bb-blue-2);
+    background: #eff6ff;
+  }
+
+  .bb-point-button strong {
+    display: block;
+    color: var(--bb-blue);
+    margin-bottom: 4px;
+  }
+
+  .bb-point-button span {
+    color: var(--bb-muted);
+    font-size: 12px;
+  }
+
+
+  /* AJUSTES_HISTORICO_ROTAS */
+  .bb-history-list {
+    margin-top: 12px;
+    display: grid;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    scrollbar-color: #ffffff #e5e7eb;
+    scrollbar-width: thin;
+  }
+
+  .bb-history-item {
+    border: 1px solid #e5edf7;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: var(--bb-text);
+    font-size: 13px;
+  }
+
+  .bb-history-item strong {
+    display: block;
+    color: var(--bb-blue);
+    margin-bottom: 4px;
+  }
+
+  .bb-history-item span {
+    display: block;
+    color: var(--bb-muted);
+    line-height: 1.4;
+  }
+
 
