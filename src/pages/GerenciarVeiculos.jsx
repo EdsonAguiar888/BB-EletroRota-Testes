@@ -20,7 +20,10 @@ export default function GerenciaVeiculos() {
   // Estado opcional para você pintar as bordas dos inputs de vermelho se quiser
   const [errosCampos, setErrosCampos] = useState({}); 
 
- 
+  const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/usuarios' 
+    : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
+    
   useEffect(() => {
     const dadosSessao = JSON.parse(localStorage.getItem('usuarioLogado'));
     if (dadosSessao) {

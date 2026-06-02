@@ -37,6 +37,8 @@ body {
   height: auto;
 }
 
+/* forca o modo claro para evitar que o sistema aplique um tema escuro automaticamente */
+
 *, *::before, *::after {
   color-scheme: light;
 }
@@ -796,31 +798,6 @@ body {
   font-size: 13px;
 }
 
-/* ── Dark mode ── */
-/* @media (prefers-color-scheme: dark) {
-  .bb-section-title { color: #f0f0f0; }
-  .bb-section-label { color: #777; }
-
-  .bb-card {
-    background: #1c1c1e;
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: none;
-  }
-
-  .bb-card-header { border-bottom-color: rgba(255, 255, 255, 0.08); }
-  .bb-card-title { color: #aaa; }
-
-  .bb-info-label { color: #666; }
-  .bb-info-value { color: #f0f0f0; }
-
-  .bb-battery-section { background: #2a2a2c; }
-  .bb-battery-label { color: #aaa; }
-  .bb-battery-pct { color: #f0f0f0; }
-  .bb-battery-track { background: rgba(255, 255, 255, 0.1); }
-  .bb-battery-status { color: #666; }
-
-  .bb-footer { border-top-color: rgba(255, 255, 255, 0.06); color: #555; }
-} */
 
 
 

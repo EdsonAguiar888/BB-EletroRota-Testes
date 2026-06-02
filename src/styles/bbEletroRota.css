@@ -1369,3 +1369,51 @@ body {
   line-height: 1.4;
 }
 
+@media (max-width: 1050px) {
+ 
+  /* Hero: fundo vira overlay sobre imagem centralizada */
+  .bb-hero {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .86)),
+      url("../assets/imagemCarro.png") center / cover no-repeat;
+  }
+ 
+  /* Conteúdo do hero ocupa largura total */
+  .bb-hero-content {
+    width: 100%;
+    min-width: 0;
+    padding: 45px 22px;
+  }
+ 
+  /* Grids viram coluna única */
+  .bb-main,
+  .bb-map-layout,
+  .bb-planner-shell {
+    grid-template-columns: 1fr;
+  }
+ 
+  /* Route info: borda esquerda vira borda superior */
+  .bb-route-info {
+    border-left: 0;
+    border-top: 1px solid var(--bb-border);
+  }
+ 
+  /* Tabs de navegação viram coluna única */
+  .bb-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+ 
+  /* Campo de busca ocupa largura total */
+  .bb-search {
+    width: 100%;
+  }
+ 
+  /* Cabeçalho do mapa vira coluna */
+  .bb-map-head {
+    align-items: center;
+    flex-direction: column;
+  }
+
+}
+ 
+
