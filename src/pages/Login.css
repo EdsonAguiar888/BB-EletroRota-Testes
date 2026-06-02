@@ -51,61 +51,40 @@ body {
 }
 
 /* seletor superior (Toggle) Entrar / Criar Conta */
-.seletor-login {
+.seletor-area-login {
     background-color: #f3f4f6;
     border-radius: 8px;
     display: flex;
-    margin-bottom: 70px;
-    padding: 5px;
+    margin-bottom: 20px;
     position: relative;
-    /* Adicione esta linha */
-    z-index: 1000;
-    /* Adicione esta linha */
+    justify-content: center;
     top: 55px;
+    order: 1;
 }
 
-.seletor-cadastro {
-    background-color: #f3f4f6;
-    border-radius: 8px;
+.seletor-area-cadastro {
+    background-color: transparent; /* Remove fundos cinzas antigos */
     display: flex;
-    margin-bottom: 70px;
-    padding: 5px;
+    align-items: center;
+    justify-content: flex-start; /* Alinha no começo da área branca */
+    gap: 10px; /* Espaço sutil entre o texto e o botão */
+    margin-bottom: 20px;
     position: relative;
-    /* Adicione esta linha */
-    z-index: 1000;
-    /* Adicione esta linha */
-    top: 85px;
-    bottom: 25px;
-}
-
-.btn-ativo {
-    flex: 1;
-    margin: 0;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s, color 0.3s;
-    /* Suaviza animações de hover */
-    background-color: #ffd600;
-    /* Amarelo do BB */
-    color: #0038a8;
-    /* Azul do BB */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    top: 5px;
+    order: 1;
 }
 
 .btn-inativo {
     background-color: transparent;
     color: #6b7280;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    flex: 1;
     border: none;
     cursor: pointer;
+    padding: 10px  20px;
+    width: auto;
 }
 
 /* Efeito de hover no botão "Criar Conta" solicitado */
@@ -296,22 +275,60 @@ body {
     background-color: #0038a8;
     color: floralwhite;
     margin-top: 30px;
-    margin-bottom: 70px;
+    margin-bottom: 10px;
 }
 
 .btn-criar-conta:hover {
     background-color: #00297a;
 }
 
+
+/* Configuração base do botão de voltar */
+.btn-voltar-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Garante que ele fique acima de tudo */
+    background: transparent;
+    border: 1px solid #cfd8dc;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151; /* Cor cinza escuro para combinar com os textos */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+
+  .btn-voltar-home:hover {
+    background-color: #f3f4f6; /* Efeito hover sutil */
+    border-color: #9ca3af;
+  }
+  
+  /* =======================================================
+     MÁGICA DO CSS: Alinhamento automático com a área branca
+     ======================================================= */
+  
+  /* Quando o container NÃO tem .modo-cadastro (Tela de Login -> Área branca na ESQUERDA) */
+  .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
+    left: 20px;
+    right: auto;
+  }
+  
+  /* Quando o container TEM .modo-cadastro (Tela de Cadastro -> Área branca na DIREITA) */
+  .container-login.modo-cadastro ~ .btn-voltar-home {
+    right: 20px;
+    left: auto;
+  }
+
 /* ==========================================
    LAADO (BRANDING) COM LOGO 
    ========================================== */
 .area-branding {
-    flex: 1;
-    /* Ocupa a outra metade */
-    /* Caminho relativo ao CSS: Vite resolve e serve o ficheiro em src/assets */
+    flex: 1; /* Ocupa a outra metade */
     background-image: url(../assets/Container.png);
-    background-size: cover;
+    background-size: cover; /*ocupar toda o espaço da metade*/
     background-position: center;
     padding: 80px 90px;
     color: white;
@@ -394,4 +411,80 @@ body {
 
 .links-rodape a:hover {
     color: white;
+}
+
+/* ==========================================
+   MEDIA QUERIES (ADAPTAÇÃO MOBILE E RESPONSIVIDADE)
+   ========================================== */
+
+   @media (max-width: 1024px) {
+    .area-login, .area-cadastro {
+        padding: 40px;
+    }
+    .textos-branding h2 {
+        font-size: 32px;
+    }
+}
+
+/* Mudanças focadas no Mobile com o Branding no topo */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .container-login {
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column; /* Coloca o branding no topo e o formulário embaixo */
+    }
+
+    /* Transforma a área de branding azul em um cabeçalho para o celular */
+    .area-branding {
+        flex: none;
+        width: 100%;
+        height: 160px; /* Altura compacta para o topo */
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Oculta os textos longos e o rodapé no mobile para não poluir a tela */
+    .textos-branding, .rodape-branding {
+        display: none !important;
+    }
+
+    /* Centraliza a Logo e reduz o tamanho dela para caber no cabeçalho */
+    .logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        flex-direction: row;
+        gap: 8px;
+        font-size: 20px;
+    }
+
+    .logo-svg {
+        height: 60px; /* Logo menor e mais delicada no celular */
+        width: 60px;
+    }
+
+    /* Ajustes dos formulários abaixo do topo azul */
+    .area-login, .area-cadastro {
+        padding: 30px 24px;
+        width: 100%;
+    }
+
+    .textos-boas-vindas, .texto-cadastro {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .textos-boas-vindas h1, .texto-cadastro{
+        font-size: 26px;
+    }
+
+    .grupo-input .input-sem-icone input,
+    .grupo-input2 .input-sem-icone input {
+        padding: 12px 16px;
+    }
 }
