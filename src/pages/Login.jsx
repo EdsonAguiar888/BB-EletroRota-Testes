@@ -1,18 +1,50 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { validarAuth, emailJaCadastrado } from '../components/Validacoes';
 import "./Login.css";
-import logo from "../assets/BBEletroRota-Logo.svg";
+import logo from "../assets/BBEletroRota-logo.svg";
+
+function MensagemErroCampo({ campo, errosCampos }) {
+  if (!errosCampos[campo]) return null;
+  return (
+    <span className="mensagem-erro-campo" role="alert">
+      {errosCampos[campo]}
+    </span>
+  );
+}
 
 export default function Auth({ onLoginSuccess }) {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ nome: '', email: '', senha: '', confirmaSenha: '' });
   const [mensagem, setMensagem] = useState({ texto: '', tipo: '' });
+  const [errosCampos, setErrosCampos] = useState({});
+
+  const isApiLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const API_URL = isApiLocal
+    ? 'http://localhost:3000/usuarios'
+    : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errosCampos[name]) {
+      setErrosCampos((prev) => ({ ...prev, [name]: null }));
+    }
   };
+
+  const aplicarErrosValidacao = (erros) => {
+    setErrosCampos(erros);
+    const primeiroErro = Object.values(erros)[0];
+    if (primeiroErro) {
+      setMensagem({ texto: primeiroErro, tipo: 'error' });
+    }
+    return Object.keys(erros).length === 0;
+  };
+
+  const classeInput = (nomeCampo) =>
+    errosCampos[nomeCampo] ? 'input-com-erro' : '';
 
   const estiloMensagem = {
     marginTop: '12px',
@@ -28,20 +60,31 @@ export default function Auth({ onLoginSuccess }) {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setErrosCampos({});
+
+    const erros = validarAuth(formData, true);
+    if (!aplicarErrosValidacao(erros)) return;
+
     setMensagem({ texto: 'Validando...', tipo: '' });
 
     try {
-      // const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios');
-      const resp = await fetch('http://localhost:3000/usuarios');
+      const resp = await fetch(API_URL);
       if (!resp.ok) {
-        setMensagem({ texto: 'Servidor indisponível. Inicie o json-server na porta 3000.', tipo: 'error' });
+        setMensagem({
+          texto: isApiLocal
+            ? 'Servidor indisponível. Inicie o json-server na porta 3000.'
+            : 'Servidor indisponível. Tente novamente mais tarde.',
+          tipo: 'error',
+        });
         return;
       }
 
       const usuarios = await resp.json();
-      const usuarioEncontrado = usuarios.find(u =>
-        u.email.toLowerCase().trim() === formData.email.toLowerCase().trim() &&
-        u.senha === formData.senha
+      const emailLogin = formData.email.toLowerCase().trim();
+      const usuarioEncontrado = usuarios.find(
+        (u) =>
+          (u.email || '').toLowerCase().trim() === emailLogin &&
+          u.senha === formData.senha
       );
 
       if (usuarioEncontrado) {
@@ -53,7 +96,9 @@ export default function Auth({ onLoginSuccess }) {
       }
     } catch {
       setMensagem({
-        texto: 'Erro de conexão. Rode: npx json-server --watch db.json',
+        texto: isApiLocal
+          ? 'Erro de conexão. Rode: npx json-server --watch db.json'
+          : 'Erro de conexão com o servidor. Verifique sua internet.',
         tipo: 'error',
       });
     }
@@ -61,16 +106,36 @@ export default function Auth({ onLoginSuccess }) {
 
   const handleCadastroSubmit = async (e) => {
     e.preventDefault();
+    setErrosCampos({});
+
+    const erros = validarAuth(formData, false);
+    if (!aplicarErrosValidacao(erros)) return;
+
     setMensagem({ texto: 'Criando conta...', tipo: '' });
 
-    if (formData.senha !== formData.confirmaSenha) {
-      setMensagem({ texto: 'Senhas não coincidem.', tipo: 'error' });
-      return;
-    }
-
     try {
-      // const resp = await fetch('https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios', {
-      const resp = await fetch('http://localhost:3000/usuarios', {
+      const respLista = await fetch(API_URL);
+      if (!respLista.ok) {
+        setMensagem({
+          texto: isApiLocal
+            ? 'Servidor indisponível. Inicie o json-server na porta 3000.'
+            : 'Servidor indisponível. Tente novamente mais tarde.',
+          tipo: 'error',
+        });
+        return;
+      }
+
+      const usuarios = await respLista.json();
+      const emailNormalizado = formData.email.toLowerCase().trim();
+
+      if (emailJaCadastrado(emailNormalizado, usuarios)) {
+        const msg = 'Este e-mail já está cadastrado. Use outro ou faça login.';
+        setErrosCampos({ email: msg });
+        setMensagem({ texto: msg, tipo: 'error' });
+        return;
+      }
+
+      const resp = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -107,6 +172,7 @@ export default function Auth({ onLoginSuccess }) {
         confirmaSenha: '',
       });
 
+      setErrosCampos({});
       setIsLogin(true);
       setMensagem({
         texto: 'Conta criada! Faça login com seu e-mail e senha.',
@@ -114,7 +180,9 @@ export default function Auth({ onLoginSuccess }) {
       });
     } catch {
       setMensagem({
-        texto: 'Erro de conexão. Rode: npx json-server --watch db.json',
+        texto: isApiLocal
+          ? 'Erro de conexão. Rode: npx json-server --watch db.json'
+          : 'Erro de conexão com o servidor. Verifique sua internet.',
         tipo: 'error',
       });
     }
@@ -123,22 +191,20 @@ export default function Auth({ onLoginSuccess }) {
   const toggleToCadastro = () => {
     setIsLogin(false);
     setMensagem({ texto: '', tipo: '' });
+    setErrosCampos({});
   };
 
   const toggleToLogin = () => {
     setIsLogin(true);
     setMensagem({ texto: '', tipo: '' });
+    setErrosCampos({});
   };
 
   return (
-    <>
+    <div className="pagina-login">
       <div className={`container-login ${!isLogin ? 'modo-cadastro' : ''}`}>
         {/* LADO ÁREA DE LOGIN */}
         <section className="area-login">
-          <div className="seletor-area-login">
-            <button type="button" className="btn-inativo" id="btn-cadastro" onClick={toggleToCadastro}>Criar Conta</button>
-          </div>
-
           <div className="textos-boas-vindas">
             <h1>Bem-vindo de volta</h1>
             <p>Entre com suas credenciais</p>
@@ -148,15 +214,17 @@ export default function Auth({ onLoginSuccess }) {
             <div className="grupo-input">
               <label htmlFor="email">E-mail</label>
               <div className="input-sem-icone">
-                <input type="email" id="email" name="email" placeholder="seu@email.com" maxLength="254" value={formData.email} onChange={handleChange} required />
+                <input type="email" id="email" name="email" className={classeInput('email')} placeholder="seu@email.com" maxLength={30} value={formData.email} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="email" errosCampos={errosCampos} />
             </div>
 
             <div className="grupo-input">
               <label htmlFor="senha">Senha</label>
               <div className="input-sem-icone">
-                <input type="password" id="senha" name="senha" placeholder="••••••" value={formData.senha} onChange={handleChange} required />
+                <input type="password" id="senha" name="senha" className={classeInput('senha')} placeholder="••••••" maxLength={6} value={formData.senha} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="senha" errosCampos={errosCampos} />
             </div>
 
             <div className="opcoes-extras">
@@ -169,16 +237,14 @@ export default function Auth({ onLoginSuccess }) {
             <button type="submit" className="btn-enter">Entrar</button>
           </form>
           {mensagem.texto && isLogin && <p style={estiloMensagem}>{mensagem.texto}</p>}
+
+          <div className="seletor-area-login">
+            <button type="button" className="btn-inativo" id="btn-cadastro" onClick={toggleToCadastro}>Criar Conta</button>
+          </div>
         </section>
 
         {/* LADO ÁREA DE CADASTRO */}
         <section className="area-cadastro" id="area-cadastro">
-          {/* TEXTO ADICIONADO DIRETAMENTE AQUI LADO A LADO COM O BOTÃO */}
-          <div className="seletor-area-cadastro">
-            <span className="texto-possui-conta">Já possui uma conta?</span>
-            <button type="button" className="btn-inativo" id="voltar-login" onClick={toggleToLogin}>Entrar</button>
-          </div>
-
           <div className="texto-cadastro">
             <h1>Crie sua conta</h1>
             <p>Preencha os dados abaixo</p>
@@ -188,34 +254,43 @@ export default function Auth({ onLoginSuccess }) {
             <div className="grupo-input2">
               <label htmlFor="nome">Nome completo</label>
               <div className="input-sem-icone">
-                <input type="text" id="nome" name="nome" placeholder="Seu nome" value={formData.nome} onChange={handleChange} required />
+                <input type="text" id="nome" name="nome" className={classeInput('nome')} placeholder="Seu nome" maxLength={40} value={formData.nome} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="nome" errosCampos={errosCampos} />
             </div>
 
             <div className="grupo-input2">
               <label htmlFor="emailCadastro">E-mail</label>
               <div className="input-sem-icone">
-                <input type="email" id="emailCadastro" name="email" placeholder="seu@email.com" maxLength="254" value={formData.email} onChange={handleChange} required />
+                <input type="email" id="emailCadastro" name="email" className={classeInput('email')} placeholder="seu@email.com" maxLength={30} value={formData.email} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="email" errosCampos={errosCampos} />
             </div>
 
             <div className="grupo-input2">
               <label htmlFor="senhaCadastro">Senha</label>
               <div className="input-sem-icone">
-                <input type="password" id="senhaCadastro" name="senha" placeholder="••••••••" value={formData.senha} onChange={handleChange} required />
+                <input type="password" id="senhaCadastro" name="senha" className={classeInput('senha')} placeholder="••••••" maxLength={6} value={formData.senha} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="senha" errosCampos={errosCampos} />
             </div>
 
             <div className="grupo-input2">
               <label htmlFor="confirma-senha">Confirmar senha</label>
               <div className="input-sem-icone">
-                <input type="password" id="confirma-senha" name="confirmaSenha" placeholder="••••••••" value={formData.confirmaSenha} onChange={handleChange} required />
+                <input type="password" id="confirma-senha" name="confirmaSenha" className={classeInput('confirmaSenha')} placeholder="••••••" maxLength={6} value={formData.confirmaSenha} onChange={handleChange} required />
               </div>
+              <MensagemErroCampo campo="confirmaSenha" errosCampos={errosCampos} />
             </div>
 
             <button type="submit" className="btn-criar-conta">Criar conta</button>
           </form>
           {mensagem.texto && !isLogin && <p style={estiloMensagem}>{mensagem.texto}</p>}
+
+          <div className="seletor-area-cadastro">
+            <span className="texto-possui-conta">Já possui uma conta?</span>
+            <button type="button" className="btn-inativo" id="voltar-login" onClick={toggleToLogin}>Entrar</button>
+          </div>
         </section>
 
         {/* LADO BRANDING / LOGO */}
@@ -248,6 +323,6 @@ export default function Auth({ onLoginSuccess }) {
       >
         ✕ Voltar para Home
       </button>
-    </>
+    </div>
   );
 }

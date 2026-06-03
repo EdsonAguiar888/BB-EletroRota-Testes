@@ -770,7 +770,7 @@ body {
 }
 
 /* ── Dark mode ── */
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   .bb-section-title { color: #f0f0f0; }
   .bb-section-label { color: #777; }
 
