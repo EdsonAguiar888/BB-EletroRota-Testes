@@ -6,6 +6,7 @@ import HomeLogado from './pages/HomeLogado';
 import GerenciarUsuarios from './pages/GerenciarUsuarios';
 import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
+import Busca from './pages/BuscaPag'
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -31,6 +32,8 @@ function App() {
         
         {/* Rotas estruturadas com o Layout */}
         <Route element={<Layout usuario={usuario} setUsuario={setUsuario} />}>
+
+        <Route path="/busca" element={<Busca />} />
           
           {/* Rota Home com exibição dinâmica */}
           <Route 

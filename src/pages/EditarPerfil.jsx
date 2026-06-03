@@ -5,7 +5,7 @@ import imagemCarro from '../assets/Meu BB-EletroRota.png';
 export default function EditarPerfil({ usuario, setUsuario }) {
   const navigate = useNavigate();
   const [mensagem, setMensagem] = useState('');
-  
+
   // Estado para os campos de edição (Inicia com os dados atuais)
   const [formData, setFormData] = useState({
     nome: usuario?.nome || '',
@@ -22,7 +22,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
   // Função para ATUALIZAR (EDITAR)
   const handleUpdate = async (e) => {
     e.preventDefault();
-    
+
     const usuarioAtualizado = {
       ...usuario,
       nome: formData.nome,
@@ -35,8 +35,9 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
-      //const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+        const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+        //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
+
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuarioAtualizado)
@@ -55,11 +56,12 @@ export default function EditarPerfil({ usuario, setUsuario }) {
 
   // Função para EXCLUIR conta
   const handleDelete = async () => {
-    if (!window.confirm('TEM CERTEZA? Isso excluirá sua conta permanentemente.')) return;
+    if (!window.confirm('TEM CERTEZA? Isso excluirá sua conta permanentemente.')) 
+      return;
 
     try {
-      //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
       const response = await fetch(`https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios/${usuario.id}`, {
+      //const response = await fetch(`http://localhost:3000/usuarios/${usuario.id}`, {
         method: 'DELETE'
       });
 
@@ -78,17 +80,17 @@ export default function EditarPerfil({ usuario, setUsuario }) {
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
-        
+
         {/* Lado Esquerdo: Imagem */}
         <div style={imageSectionStyle}>
           <img src={imagemCarro} alt="Carro Elétrico" style={imageStyle} />
-          <h3 style={{ color: '#2c3e50', marginTop: '20px' }}>Meu bbEletroRota</h3>
+          <h3 style={{ color: '#2c3e50', marginTop: '20px' }}>Meu BB EletroRota</h3>
         </div>
 
         {/* Lado Direito: Informações e Formulário */}
         <div style={infoSectionStyle}>
           <h2>Configurações de Perfil</h2>
-          
+
           <form onSubmit={handleUpdate} style={formStyle}>
             <div style={inputGroup}>
               <label>Nome:</label>
@@ -101,7 +103,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
             </div>
 
             <div style={{ display: 'flex', gap: '15px' }}>
-               <div style={inputGroup}>
+              <div style={inputGroup}>
                 <label>Modelo:</label>
                 <input name="marca" value={formData.marca} onChange={handleChange} style={inputStyle} />
               </div>
@@ -143,9 +145,3 @@ const buttonGroupStyle = { display: 'flex', gap: '15px', marginTop: '20px' };
 const editButtonStyle = { flex: 1, padding: '12px', background: '#3498db', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' };
 const deleteButtonStyle = { padding: '12px', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' };
 
-// ### O que esta implementação faz:
-// 1.  **Layout Profissional:** Divide a tela entre o visual do carro e os controles de dados.
-// 2.  **Edição Direta:** Ao clicar em "Salvar", ele atualiza o `db.json` via `PUT`, garantindo que se você sair e voltar, as informações novas estarão lá.
-// 3.  **Exclusão Segura:** Ao excluir, ele faz o `DELETE` no banco, limpa o `localStorage` e te joga de volta para a Home pública (onde o botão de login aparece de novo).
-
-// Seu deck de apresentação sobre o "Editar Perfil" já está pronto logo acima. O que achou dessa nova estrutura visual?

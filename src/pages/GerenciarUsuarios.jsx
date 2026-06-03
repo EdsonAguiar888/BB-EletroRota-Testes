@@ -1,4 +1,7 @@
+
+
 import { useState, useEffect } from 'react';
+import './GerenciarUsuarios.css'; // Importação do novo arquivo de estilo
 
 export default function GerenciarUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -10,11 +13,11 @@ export default function GerenciarUsuarios() {
     potencia: '',
     bateriaAtual: ''
   });
+  
   const [editId, setEditId] = useState(null);
   const [mensagem, setMensagem] = useState('');
-
-  const API_URL = 'http://localhost:3000/usuarios';
-  //const API_URL = 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
+  const API_URL = 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
+  //const API_URL = 'http://localhost:3000/usuarios';
 
   useEffect(() => {
     carregarUsuarios();
@@ -22,11 +25,24 @@ export default function GerenciarUsuarios() {
 
   // 1. READ: Carrega os usuários
   const carregarUsuarios = async () => {
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+       })
+
+
     try {
       const response = await fetch(API_URL);
       if (response.ok) {
         const data = await response.json();
         setUsuarios(data);
+
+      
+
+
+
+
       }
     } catch (err) {
       console.error('Erro ao conectar com a API:', err);
@@ -41,6 +57,12 @@ export default function GerenciarUsuarios() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensagem('Salvando...');
+
+    // Ao clicar o botao salva e leva a pagina ao topo
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+       })
 
     const payload = {
       nome: formData.nome,
@@ -60,6 +82,7 @@ export default function GerenciarUsuarios() {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
+      
         });
 
         if (response.ok) {
@@ -87,6 +110,13 @@ export default function GerenciarUsuarios() {
 
   // Prepara o formulário para edição
   const handleEdit = (usuario) => {
+
+     // Ao clicar o botao editar e leva a pagina ao topo deixando 100 abaixo da navbar 
+    window.scrollTo({
+        top: 100,
+        behavior: 'smooth'
+       })
+
     setEditId(usuario.id);
     setFormData({
       nome: usuario.nome,
@@ -131,34 +161,41 @@ export default function GerenciarUsuarios() {
   };
 
   return (
-
-
-    <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
-   
-
+    <div className="gerenciar-container">
       <h2>Gerenciamento de Usuários e Veículos</h2>
 
       {/* Formulário de Cadastro e Edição */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '30px' }}>
+      <form onSubmit={handleSubmit} className="gerenciar-form">
         <input name="nome" value={formData.nome} onChange={handleChange} placeholder="Nome" required />
         <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="E-mail" required />
         <input name="senha" type="password" value={formData.senha} onChange={handleChange} placeholder="Senha" required />
-        
-        <label style={{ marginTop: '10px', fontWeight: 'bold' }}>Dados do Veículo:</label>
+
+        <label className="form-label">Dados do Veículo:</label>
         <input name="marca" value={formData.marca} onChange={handleChange} placeholder="Marca (ex: Tesla, Chevrolet)" required />
         <input name="potencia" value={formData.potencia} onChange={handleChange} placeholder="Potência (ex: 200 kW)" required />
         <input name="bateriaAtual" value={formData.bateriaAtual} onChange={handleChange} placeholder="Bateria Atual (%)" required />
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button type="submit">{editId ? 'Atualizar Usuário' : 'Criar Usuário'}</button>
-          {editId && <button type="button" onClick={limparFormulario} style={{ backgroundColor: '#6c757d', color: 'white' }}>Cancelar</button>}
+        <div className="btn-group">
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" type="submit" className="btn-submit">
+            {editId ? 'Atualizar Usuário' : 'Criar Usuário'}
+          </button>
+          {editId && (
+            <button type="button" onClick={limparFormulario} className="btn-cancel">
+              Cancelar
+            </button>
+          )}
         </div>
       </form>
 
-      {mensagem && <p style={{ color: mensagem.includes('Erro') ? 'red' : 'green' }}>{mensagem}</p>}
+      {/* Mensagem de Feedback Visual Dinâmica */}
+      {mensagem && (
+        <p className={`mensagem-status ${mensagem.includes('Erro') ? 'mensagem-erro' : 'mensagem-sucesso'}`}>
+          {mensagem}
+        </p>
+      )}
 
       {/* Tabela de Usuários Registrados */}
-      <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', marginTop: '20px' }}>
+      <table className="usuarios-table">
         <thead>
           <tr>
             <th>Nome</th>
@@ -174,13 +211,12 @@ export default function GerenciarUsuarios() {
             <tr key={u.id}>
               <td>{u.nome}</td>
               <td>{u.email}</td>
-              {/* Dados do veículo separados em colunas independentes */}
               <td>{u.veiculo?.marca || 'N/A'}</td>
               <td>{u.veiculo?.potencia || 'N/A'}</td>
               <td>{u.veiculo?.bateriaAtual ? `${u.veiculo.bateriaAtual}%` : 'N/A'}</td>
               <td>
-                <button onClick={() => handleEdit(u)} style={{ marginRight: '5px' }}>Editar</button>
-                <button onClick={() => handleDelete(u.id)} style={{ color: 'red' }}>Excluir</button>
+                <button onClick={() => handleEdit(u)} className="action-btn btn-edit">Editar</button>
+                <button onClick={() => handleDelete(u.id)} className="action-btn btn-delete">Excluir</button>
               </td>
             </tr>
           ))}
@@ -189,3 +225,4 @@ export default function GerenciarUsuarios() {
     </div>
   );
 }
+
