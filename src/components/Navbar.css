@@ -178,7 +178,7 @@
   flex-shrink: 0;
   width: auto;
   position: relative;
-  top: -5px;
+  top: -3px;
 }
 
 .bb-logout-btn:hover {

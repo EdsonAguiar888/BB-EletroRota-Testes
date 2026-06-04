@@ -1,9 +1,11 @@
-/* src/pages/GerenciarVeiculos.css */
-
+/* =========================================
+   ESTILOS BASE (Desktop / Monitores Grandes)
+   Acima de 1441px
+========================================= */
 .gerenciar-container {
   padding: 30px;
-  max-width: auto;
-  margin: 30px 20.9%;
+  max-width: 1200px; /* Adicionado um max-width para não esticar ao infinito em telas ultrawide */
+  margin: 30px auto; /* Centraliza perfeitamente no lugar dos 20.9% fixos */
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -35,7 +37,7 @@
   border-radius: 6px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gerenciar-form input:focus {
@@ -47,7 +49,7 @@
   margin-top: 10px;
   font-weight: bold;
   color: #2c3e50;
-  font-size: 20px;
+  font-size: 1.1rem;
 }
 
 /* Grupo de botões */
@@ -59,13 +61,18 @@
 
 .btn-group button,
 .action-btn {
-  padding: 10px 20px;
+  padding: 12px 20px; /* Aumentado levemente para melhorar o clique (UX) */
   border: none;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
   font-size: 0.95rem;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-group button:active,
+.action-btn:active {
+  transform: scale(0.98); /* Feedback tátil ao clicar */
 }
 
 .btn-submit {
@@ -110,10 +117,15 @@
 }
 
 /* Tabela de Dados */
+.table-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .usuarios-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   background-color: #f1f4f6;
   border-radius: 8px;
   overflow: hidden;
@@ -134,12 +146,11 @@
   font-size: 0.95rem;
 }
 
-
 /* Botões de Ação na Tabela */
 .btn-edit {
   background-color: #3498db;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 0.85rem;
   margin-right: 5px;
 }
@@ -151,7 +162,7 @@
 .btn-delete {
   background-color: #e74c3c;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 0.85rem;
 }
 
@@ -159,70 +170,55 @@
   background-color: #c0392b;
 }
 
-@media (max-width: 768px) {
+/* =========================================
+   RESPONSIVIDADE PADRONIZADA
+========================================= */
+
+/* 1. Smartphone (até 767px) - Tabela vira Cards */
+@media (max-width: 767px) {
   .gerenciar-container {
+    margin: 15px auto;
     padding: 16px;
-    margin: 20px;
+    max-width: 100%;
+    width: 92%; /* Dá um respiro nas laterais */
+    box-sizing: border-box;
     border-radius: 10px;
   }
 
   .gerenciar-container h2 {
-    font-size: 1.4rem;
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 8px;
-    border: 1px solid var(--bb-table-border);
-  }
-
-  .usuarios-table th,
-  .usuarios-table td {
-    padding: 10px 8px;
-    font-size: 0.88rem;
-  }
-}
-
-@media (max-width: 640px) {
-
-
-  .gerenciar-container {
-    margin: 10px auto;
-    padding: 16px;
-    max-width: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: unset;
-    text-align: left;
-  }
-
-  .gerenciar-container h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 16px;
   }
 
   .gerenciar-form {
-    padding: 14px;
-    gap: 8px;
+    padding: 16px;
+    gap: 10px;
   }
 
   .gerenciar-form input {
     font-size: 0.95rem;
+    padding: 12px; /* Touch target maior para os dedos */
   }
 
   .btn-group {
-    gap: 8px;
+    flex-direction: column; /* Empilha os botões para melhor clique no celular */
+    gap: 10px;
   }
 
   .btn-group button {
-    font-size: 0.88rem;
-    padding: 10px 14px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 14px;
   }
 
   /* Cards em vez de tabela no mobile */
+  .table-wrapper {
+    overflow: visible;
+    border: none;
+  }
+
   .usuarios-table thead {
-    display: none;
+    display: none; /* Esconde o cabeçalho */
   }
 
   .usuarios-table,
@@ -235,66 +231,105 @@
   }
 
   .usuarios-table tr {
-    background:  #f1f4f6;
+    background: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    padding: 12px;
+    padding: 16px;
+    margin-bottom: 15px; /* Espaço entre os cards */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   }
 
   .usuarios-table td {
     border: none;
     padding: 8px 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center; /* Centraliza label e texto */
     word-break: break-word;
-    overflow-wrap: break-word;
     gap: 12px;
+    border-bottom: 1px solid #eeeeee;
   }
 
   /* Labels automáticos via data-label no JSX */
   .usuarios-table td::before {
     content: attr(data-label);
     font-weight: bold;
-    font-size: 0.82rem;
+    color: #2c3e50;
+    font-size: 0.85rem;
     flex-shrink: 0;
-    min-width: 80px;
+    min-width: 90px;
   }
 
+  /* A última célula (botões) */
   .usuarios-table td:last-child {
     display: flex !important;
     flex-direction: row;
     align-items: stretch;
     border-bottom: none;
-    padding-top: 10px;
-    gap: 8px;
+    padding-top: 15px;
+    gap: 10px;
   }
-
 
   .usuarios-table td:last-child::before {
     display: none;
   }
 
-  .btn-edit,
-  .btn-delete {
+  .btn-edit, .btn-delete {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     font-size: 0.9rem;
     text-align: center;
     border-radius: 6px;
-    width: auto !important;
+    margin: 0; /* Reseta margem no mobile */
   }
-
 }
 
+/* Celular muito pequeno (Ajustes finos) */
 @media (max-width: 380px) {
   .gerenciar-container {
-    margin: 6px;
+    width: 96%;
     padding: 12px;
   }
-
-  .gerenciar-container h2 {
-    font-size: 1.1rem;
+  .usuarios-table td {
+    flex-direction: column; /* Empilha label e valor se a tela for muito fina */
+    align-items: flex-start;
+    gap: 4px;
   }
+}
+
+/* 2. Tablet (768px até 1024px) - Mantém tabela, mas permite Scroll horizontal */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .gerenciar-container {
+    margin: 30px 5%; /* Margem fluida no tablet */
+    padding: 24px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Scroll suave no iPad */
+    border: 1px solid #dee2e6;
+  }
+
+  .usuarios-table {
+    min-width: 700px; /* Força o scroll se a tabela for muito larga */
+  }
+
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 3. Notebook (1025px até 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .gerenciar-container {
+    margin: 30px 10%; /* Cria um espaço lateral elegante */
+  }
+}
+
+/* 4. Monitores Grandes (Acima de 1441px) */
+@media (min-width: 1441px) {
+  /* O código BASE (max-width: 1200px) já garante que fique perfeito no meio da tela */
 }
