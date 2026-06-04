@@ -1101,43 +1101,6 @@ body {
   font-weight: 700;
 }
 
-@media (max-width: 1050px) {
-  .bb-hero {
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
-      url("../assets/imagemCarro.png") center / cover no-repeat;
-  }
-
-  .bb-hero-content {
-    width: 100%;
-    min-width: 0;
-    padding: 45px 22px;
-  }
-
-  .bb-main,
-  .bb-map-layout,
-  .bb-planner-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .bb-route-info {
-    border-left: 0;
-    border-top: 1px solid var(--bb-border);
-  }
-
-  .bb-tabs-nav {
-    grid-template-columns: 1fr;
-  }
-
-  .bb-search {
-    width: 100%;
-  }
-
-  .bb-map-head {
-    align-items: stretch;
-    flex-direction: column;
-  }
-}
 
 
 /* AJUSTES_PLANEJADOR_COMPLETO */
@@ -1238,15 +1201,7 @@ body {
   font-weight: 700;
 }
 
-@media (max-width: 1050px) {
-  .bb-planner-shell {
-    grid-template-columns: 1fr;
-  }
 
-  .bb-calculator-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 
 /* AJUSTES_MAPA_PONTOS_BATERIA */
@@ -1337,12 +1292,6 @@ body {
   font-size: 12px;
 }
 
-@media (max-width: 1050px) {
-  .bb-map-options {
-    grid-template-columns: 1fr;
-  }
-}
-
 
 /* AJUSTES_HISTORICO_ROTAS */
 .bb-history-list {
@@ -1374,4 +1323,54 @@ body {
   display: block;
   color: var(--bb-muted);
   line-height: 1.4;
+}
+
+@media (max-width: 1050px) {
+  .bb-hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+      url("../assets/imagemCarro.png") center / cover no-repeat;
+  }
+
+  .bb-hero-content {
+    width: 100%;
+    min-width: 0;
+    padding: 45px 22px;
+  }
+
+  .bb-main,
+  .bb-map-layout,
+  .bb-planner-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-route-info {
+    border-left: 0;
+    border-top: 1px solid var(--bb-border);
+  }
+
+  .bb-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-search {
+    width: 100%;
+  }
+
+  .bb-map-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .bb-planner-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-calculator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-map-options {
+    grid-template-columns: 1fr;
+  }
 }
