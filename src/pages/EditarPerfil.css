@@ -1,10 +1,10 @@
-/* Colocamos as variáveis dentro da classe principal em vez do :root 
-   para que as cores afetem APENAS os elementos desta página */
+/* ESTILOS BASE (Desktop/Geral) */
+
 .perfil-container {
   --bb-blue: #3498db;        
   --bb-blue-meia-boca: #2980b9;  
   --bb-blue-dark-gray: #2c3e50;      
-  --bb-delete: #e74c3c;         
+  --bb-delete: #e74c3c;        
   --bb-danger: #c0392b;   
   --bb-success: #008000;        
   --bb-white: #ffffff;          
@@ -23,6 +23,7 @@
 
 .perfil-card {
   display: flex;
+  flex-direction: row; /* Força lado a lado no PC */
   background: var(--bb-white);
   border-radius: 20px;
   box-shadow: var(--bb-shadow-card);
@@ -34,24 +35,29 @@
 .perfil-image-section {
   flex: 1;
   background: var(--bb-background);
-  padding: 40px;
+  padding: 40px; /* Voltou o fundo cinza em volta da imagem */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-right: 1px solid var(--bb-border);
+  overflow: hidden;
 }
 
 .perfil-image {
   width: 100%;
   max-width: 350px;
   height: auto;
-  border-radius: 15px;
+  border-radius: 15px; /* Arredonda a imagem no PC */
+  object-fit: contain; /* Não estica a imagem */
+  object-position: center;
+  transform: none; /* Tira o zoom no PC para ver o carro inteiro */
 }
 
 .perfil-image-section h3 {
   color: var(--bb-blue-dark-gray);
   margin-top: 20px;
+  display: block; /* Volta o título no PC */
 }
 
 .perfil-info-section {
@@ -61,13 +67,13 @@
 
 .perfil-info-section h2 {
   color: var(--bb-blue-dark-gray);
+  margin-bottom: 25px;
 }
 
 .perfil-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 20px;
 }
 
 .perfil-input-group {
@@ -81,7 +87,8 @@
   color: var(--bb-blue-dark-gray);
 }
 
-.perfil-input {
+.perfil-input, 
+.perfil-select {
   padding: 10px;
   border-radius: 8px;
   border: 1px solid var(--bb-input-border);
@@ -92,16 +99,11 @@
 }
 
 .perfil-select {
-  padding: 10px;
-  border-radius: 8px;
   border: 2px solid var(--bb-blue);
-  font-size: 1rem;
   background-color: #fdfefe;
   cursor: pointer;
   color: var(--bb-blue-dark-gray);
   font-weight: 600;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .perfil-row {
@@ -125,153 +127,124 @@
   margin-top: 20px;
 }
 
-.perfil-btn-edit {
-  flex: 1;
+/* Agrupamento de estilos repetidos dos botões */
+.perfil-btn-edit, 
+.perfil-btn-delete {
   padding: 12px;
-  background: var(--bb-blue);
   color: var(--bb-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+}
+
+.perfil-btn-edit {
+  flex: 1;
+  background: var(--bb-blue);
 }
 
 .perfil-btn-delete {
-  padding: 12px;
-  background: var(--bb-delete);
-  color: var(--bb-white);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  width: auto;
   flex: none;
+  width: auto;
+  background: var(--bb-delete);
 }
 
-/* Responsividade */
-@media (max-width: 1280px) {
-  .perfil-card { max-width: 900px; }
-  .perfil-image-section { padding: 34px; }
-  .perfil-image { max-width: 300px; }
-  .perfil-info-section { padding: 32px; }
+/* =========================================
+   Tablet (iPad, etc)
+========================================= */
+@media (max-width: 1024px) { 
+  /* Deixa fluido! Vai preencher a tela inteira com um pouco de margem */
+  .perfil-image-section, 
+  .perfil-info-section { 
+    padding: 30px; 
+  }
 }
 
-@media (max-width: 1024px) {
-  .perfil-card { max-width: 720px; }
-  .perfil-image-section { padding: 28px; }
-  .perfil-image { max-width: 260px; }
-  .perfil-info-section { padding: 28px; }
-}
-
-@media (max-width: 768px) {
-  .perfil-card {
-    flex-direction: column;
-    max-width: 100%;
-    border-radius: 16px;
-
-  }
-  .perfil-image-section {
-    max-height: 180px !important;
-    min-height: 80px !important;
-    padding: 0 !important;
-  }
-  .perfil-image {
-    width: 100% !important;
-    min-width: 100% !important;
-    height: 95px !important;
-    max-width: 100% !important;
-    max-height: 95px !important;
-    border-radius: 0 !important;
-    object-fit: cover !important;
-  }
-  .perfil-info-section { padding: 12px !important; }
-  .perfil-input, .perfil-select {
-    font-size: 0.9rem !important;
-    padding: 8px !important;
-  }
-  .perfil-image-section h3 { display: none !important; }
-}
-
-@media (max-width: 480px) {
+/*
+   Smartphone */
+@media (max-width: 767px) {
   .perfil-container {
     padding: 0 !important;
-    align-items: flex-start !important;
   }
+  
   .perfil-card {
-    flex-direction: column !important;
+    flex-direction: column !important; /* Coloca a imagem em cima do form */
     border-radius: 0 !important;
     min-height: 100vh !important;
     box-shadow: none !important;
-    width: 100% !important;
+    max-width: 100%;
     padding: 0 !important;
   }
-  .perfil-info-section { padding: 16px !important; }
-  .perfil-form {
-    gap: 10px !important;
-    margin-top: 10px !important;
-  }
-  .perfil-row {
-    flex-direction: row !important;
-    gap: 8px !important;
-  }
-  .perfil-btn-group {
-    flex-direction: row !important;
-    gap: 10px !important;
-    margin-top: 12px !important;
-  }
-  .perfil-btn-edit {
-    flex: 1 !important;
-    padding: 12px !important;
-    white-space: nowrap !important;
-  }
-  .perfil-btn-delete {
-    flex: 0 0 auto !important;
-    padding: 12px 16px !important;
-    width: auto !important;
-    white-space: nowrap !important;
-    font-size: 0.82rem !important;
-  }
-}
 
-@media (max-width: 360px) {
   .perfil-image-section {
     max-height: 180px !important;
     min-height: 150px !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    border-right: none !important;
+    background: transparent !important; /* Tira o fundo cinza da imagem no celular */
   }
 
   .perfil-image {
-    width: 100% !important;
     min-width: 100% !important;
     height: 180px !important;
-    max-width: 190% !important;
+    max-width: 100% !important; 
     max-height: 180px !important;
-    border-radius: 0px!important;
+    border-radius: 0px !important;
     object-fit: cover !important;
-    object-position: center bottom !important; 
-    transform: scale(1.10) !important; /* Aumenta um pouco a imagem para garantir que preencha o espaço */
-
+    object-position: center 103% !important; 
+    transform: scale(1.05) !important; 
   }
 
-  .perfil-info-section { padding: 30px 15px 15px 15px !important; }
-  .perfil-input, .perfil-select {
+  .perfil-image-section h3 { 
+    display: none !important; 
+  }
+
+  .perfil-info-section { 
+    padding: 30px 15px 15px 15px !important; 
+  }
+
+  .perfil-info-section h2 {
+    text-align: center;  
+  }
+
+  .perfil-form {
+    gap: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  .perfil-row {
+    flex-direction: row !important;
+    gap: 8px !important;
+  }
+
+  .perfil-input, 
+  .perfil-select {
     font-size: 0.9rem !important;
     padding: 8px !important;
     margin-bottom: 8px !important;
     margin-top: 3px !important;
   }
 
-  .perfil-info-section h2 {
-    color: var(--bb-blue-dark-gray);
-    margin-bottom: 25px; /* <--- ADICIONE ESTA LINHA: Dá um respiro abaixo do título */
-    text-align: center;  /* Opcional: Garante que o título fique bem centralizado */
+  .perfil-btn-group {
+    flex-direction: row !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
   }
+
+  /* Agrupamento de estilos de botões no mobile */
+  .perfil-btn-edit, 
+  .perfil-btn-delete {
+    white-space: nowrap !important;
+  }
+
   .perfil-btn-edit {
+    flex: 1 !important;
     padding: 10px !important;
     font-size: 0.85rem !important;
   }
+
   .perfil-btn-delete {
+    flex: 0 0 auto !important;
     padding: 10px 12px !important;
     font-size: 0.8rem !important;
   }
