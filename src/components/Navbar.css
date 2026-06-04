@@ -11,7 +11,11 @@
   --bb-out-vermelho: #c0392b;
 }
 
-.bb-navebar-header{
+/* =========================================
+   ESTILOS BASE (Desktop/Monitor Grande)
+   Acima de 1441px
+========================================= */
+.bb-navebar-header {
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -181,209 +185,103 @@
   background-color: var(--bb-out);
 }
 
-/* Esconde mobile por padrão */
-.acessar-mobile , .bb-mobile-toprow, .bb-mobile-menu,
-.bb-hamburger , .bb-drawer, .bb-drawer-overlay { display: none; }
-
-.acessar-desktop  { display: inline; }
-
-/* NOTEBOOK*/
-@media (max-width: 1366px) and (min-width: 1025px) {
-  .bb-topbar { padding: 0 24px; gap: 12px; }
-  .bb-topnav { gap: 16px;}
-  .bb-topnav a { font-size: 0.85rem; }
-  .bb-search-form { width: 180px; }
-  .bb-user-name { font-size: 0.82rem;}
-  .bb-logout-btn { padding: 0 12px; font-size: 0.78rem; }
-  .bb-account-btn { font-size: 0.72rem; padding: 0 10px; }
+/* Esconde mobile por padrão no Desktop */
+.acessar-mobile, .bb-mobile-toprow, .bb-mobile-menu,
+.bb-hamburger, .bb-drawer, .bb-drawer-overlay { 
+  display: none; 
 }
 
-/* tablete grande */
-
-@media (max-width: 1024px) and (min-width: 769px) {
-  .bb-topbar {
-    padding: 0 12px;
-    height: 65px;
-    gap: 6px;
-  }
-
-  .bb-topbar-right {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .bb-topnav {
-    gap: 8px;
-    padding-left: 0;
-    flex: unset;
-  }
-
-  .bb-topnav a {
-    font-size: 0.72rem;
-  }
-
-  .bb-logo-img {
-    height: 44px;
-  }
-
-  .bb-search-form {
-    width: 120px;
-    height: 30px;
-    padding: 0 8px;
-  }
-
-  .bb-search-input {
-    width: 60px;
-    font-size: 0.68rem;
-  }
-
-  .bb-user-name {
-    font-size: 0.7rem;
-    white-space: nowrap;
-  }
-
-  .bb-logout-btn {
-    height: 30px;
-    padding: 0 10px;
-    font-size: 0.72rem;
-    position: static;
-    top: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: auto;
-    position: relative;
-    top: -5px;
-  }
-
-  
-
-  .bb-account-btn {
-    height: 30px;
-    padding: 0 8px;
-    font-size: 0.68rem;
-  }
-
-  .acessar-mobile  { display: inline; }
-
-  .acessar-desktop { display: none; }
+.acessar-desktop { 
+  display: inline; 
 }
 
-/* TABLET PEQUENO + CELULAR 
-  hambúrguer, menu dropdown */
 
-@media (max-width: 768px) {
+/* =========================================
+   RESPONSIVIDADE PADRONIZADA
+========================================= */
 
+/* 1. Smartphone (até 767px) */
+@media (max-width: 767px) {
   .bb-topbar > .bb-logo-area,
-  .bb-topnav, .bb-topbar-right { display: none; }
+  .bb-topnav, 
+  .bb-topbar-right { 
+    display: none; 
+  }
   
   .bb-topbar {
-    padding: 0px 12px 0px 32px;
+    padding: 0px 12px 8px 24px;
     height: auto;
     flex-direction: column;
     align-items: stretch;
-    padding-bottom: 8px;
   }
 
-  /* .bb-mobile-toprow {
+  .bb-mobile-toprow {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     height: 64px;
-    /* box-sizing: border-box; */
-    /* padding: 4px 8px;  
+    padding: 0px;
     width: 100%;
     position: relative;
     flex-wrap: nowrap;
-  } */ 
-
-  .bb-mobile-toprow .bb-logo-area { flex: unset; }
-  .bb-mobile-toprow .bb-logo-img {
-    position: static !important;
-    left: unset !important;
-    transform: none!important;
-    height: 22px;
   }
 
-
-  .bb-logo-img {
-    left: unset !important;
-    width: 190px;
-    padding: 0;
-    margin: 0;
+  .bb-mobile-toprow .bb-logo-area { 
+    flex: unset; 
   }
-
-  .bb-user-name-mobile {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--bb-blue);
-    font-size: 0.79rem;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    flex: 1;
-    justify-content: flex-start;
-    padding-left: 0;
-  }
-
-
-.bb-mobile-toprow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  padding: 0px;
-  width: 100%;
-  position: relative;
-  flex-wrap: nowrap;
-}
 
   .bb-mobile-toprow-top {
-    display: contents; /* dissolve o wrapper, filhos ficam direto no toprow */
+    display: contents; 
+  }
+
+  /* Logo do Mobile Centralizada e com tamanho bom */
+  .bb-logo-img {
+    left: unset !important;
+    width: auto;
+    padding: 0;
+    margin: 0;
   }
 
   .bb-mobile-toprow .bb-logo-img {
     position: absolute !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin-top: 18.5px;
-    margin-left: -8px;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    height: 40px !important; /* Tamanho adaptado para celular */
+    margin: 0 !important;
   }
 
+  /* Nome de usuário na barra mobile */
   .bb-user-name-mobile {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 6px;
     color: var(--bb-blue);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
+    padding-left: 0;
     margin-left: auto !important;
     flex: unset !important;
-    margin-top: 16px;
-
+    margin-top: 10px;
   }
 
-
-  .bb-mobile-toprow-top .bb-hamburger {
-    display: flex !important;
-  }
-
+  .bb-mobile-toprow-top .bb-hamburger,
   .bb-hamburger {
     display: flex !important;
+  }
+
+  /* Botão Menu Hamburguer */
+  .bb-hamburger {
     position: static !important;
-    top: unset !important;
-    left: unset !important;
     flex-shrink: 0;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: var(--bb-blue);
     padding: 0;
     align-items: center;
@@ -392,28 +290,29 @@
     -webkit-tap-highlight-color: transparent;
     outline: none;
     margin-left: -12px;
-    margin-top: 19px;
-
+    margin-top: 12px;
   }
 
-  .bb-hamburger:hover,
-  .bb-hamburger:focus,
-  .bb-hamburger:active {
+  .bb-hamburger:hover, .bb-hamburger:focus, .bb-hamburger:active,
+  .bb-drawer-close:hover, .bb-drawer-close:focus, .bb-drawer-close:active,
+  .bb-drawer-logout:hover, .bb-drawer-logout:focus, .bb-drawer-logout:active {
     background: none !important;
+    background-color: transparent !important;
     outline: none !important;
     box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Overlay escuro */
+  /* Menu Lateral Overlay */
   .bb-drawer-overlay {        
-    display: block;           
+    display: block;          
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.45);
     z-index: 998;
   }
 
-  /* Drawer lateral */
+  /* Menu Lateral Gaveta */
   .bb-drawer {               
     display: flex;           
     position: fixed;
@@ -434,7 +333,7 @@
     transform: translateX(0);
   }
 
-  /* Cabeçalho do drawer */
+  /* Menu Lateral Cabeçalho */
   .bb-drawer-header {
     display: flex;
     gap: 12px;
@@ -458,7 +357,6 @@
     color: var(--bb-white);
     font-size: 1.3rem;
     flex-shrink: 0;
-    margin-top: 7.5px;
   }
 
   .bb-drawer-greeting {
@@ -466,41 +364,25 @@
     color: var(--bb-blue);
     font-size: 1rem;
     white-space: nowrap;
-    margin-top: 7.5px;
   }
 
   .bb-drawer-close {
     background: none;
     border: none;
     color: var(--bb-out-vermelho);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: pointer;
     padding: 0px;
-    line-height: 1;
     position: absolute;
-    top: 1px;
-    right: 13px;
+    top: 8px;
+    right: 12px;
     -webkit-tap-highlight-color: transparent;
     outline: none;
-    width: fit-content;
-    align-self: flex-end;
-    margin-left: auto;
   }
 
-  .bb-drawer-close,
-  .bb-drawer-close:hover,
-  .bb-drawer-close:focus,
-  .bb-drawer-close:active {
-    color: var(--bb-out-vermelho) !important;
-    background: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-  }
+  .bb-drawer-close i { color: var(--bb-out-vermelho) !important; }
 
-  .bb-drawer-close i,
-  .bb-drawer-close i:hover { color: var(--bb-out-vermelho) !important; }
-
-  /* Links de navegação */
+  /* Menu Lateral Links */
   .bb-drawer-nav {
     display: flex;
     flex-direction: column;
@@ -515,15 +397,12 @@
     gap: 14px;
     color: #333;
     text-decoration: none;
-    font-size: 0.97rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: 16px 20px;
     border-bottom: 1px solid #f0f0f0;
-    transition: background 0.15s;
-    outline: none;
-    border-left: none;
-    box-shadow: none;
   }
+
   .bb-drawer-nav a:hover { background: #f7f7f7; }
   
   .bb-drawer-nav a i {
@@ -533,24 +412,18 @@
     text-align: center;
   }
   
+  /* Menu Lateral Rodapé */
+  .bb-drawer-footer { 
+    padding: 16px 20px; 
+    border-top: 1px solid #eee; 
+  }
+
   .bb-drawer-footer .bb-account-btn {
     width: 100%;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 15px;
   }
-  /* Rodapé do menu para sair */
-  .bb-drawer-footer { padding: 16px 20px; border-top: 1px solid #eee; }
-  
-  .bb-drawer-logout:hover,
-   .bb-drawer-logout:focus,
-   .bb-drawer-logout:focus-visible,
-   .bb-drawer-logout:active {
-     outline: none !important;
-     box-shadow: none !important;
-     background: none !important;
-     background-color: transparent !important;
-     -webkit-tap-highlight-color: transparent !important;
-   }
 
   .bb-drawer-logout {
     display: flex;
@@ -563,21 +436,95 @@
     font-size: 0.97rem;
     font-weight: 700;
     cursor: pointer;
-    padding: 4px 0;
+    width: 100%;
+    padding: 8px 0;
   }
 
-  .bb-drawer-logout i { font-size: 1.1rem; }
   .acessar-desktop { display: none; }
   .acessar-mobile  { display: inline; }
 }
 
-/* CELULAR PEQUENO */
-@media (max-width: 480px) {
-  .bb-mobile-toprow { padding: 0 10px; height: 58px; }
-  .bb-mobile-toprow .bb-logo-img { height: 38px; }
-  .bb-hamburger { font-size: 1.3rem; }
+/* 2. Tablet (768px até 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .bb-topbar {
+    padding: 0 16px;
+    height: 75px; /* Mais altura para a logo respirar */
+    gap: 8px;
+  }
+
+  .bb-topbar-right {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .bb-topnav {
+    gap: 12px;
+    padding-left: 20px;
+  }
+
+  .bb-topnav a {
+    font-size: 0.85rem; /* Fonte aumentada e legível */
+  }
+
+  .bb-logo-img {
+    height: 50px; /* Logo aumentada para não ficar sumida */
+  }
+
+  .bb-search-form {
+    width: 150px;
+    height: 32px;
+  }
+
+  .bb-search-input {
+    font-size: 0.75rem;
+  }
+
+  .bb-user-name {
+    font-size: 0.8rem;
+  }
+
+  .bb-logout-btn {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    top: 0;
+  }
+
+  .bb-account-btn {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 0.75rem;
+  }
+
+  .acessar-mobile { display: inline; }
+  .acessar-desktop { display: none; }
 }
 
+/* 3. Notebook (1025px até 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .bb-topbar { 
+    padding: 0 32px; 
+    gap: 15px; 
+  }
+  .bb-topnav { 
+    padding-left: 50px;
+    gap: 24px; 
+  }
+  .bb-topnav a { 
+    font-size: 0.85rem; 
+  }
+  .bb-logo-img {
+    height: 60px;
+  }
+  .bb-search-form { 
+    width: 190px; 
+  }
+  .bb-user-name { 
+    font-size: 0.85rem; 
+  }
+}
 
-
-
+/* 4. Monitores Grandes (Acima de 1441px) */
+@media (min-width: 1441px) {
+  /* Usa automaticamente o código BASE lá do topo do arquivo */
+}
