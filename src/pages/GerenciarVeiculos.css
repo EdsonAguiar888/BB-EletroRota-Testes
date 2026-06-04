@@ -1,7 +1,4 @@
-/* =========================================
-   ESTILOS BASE (Desktop / Monitores Grandes)
-   Acima de 1441px
-========================================= */
+ */
 .gerenciar-container {
   padding: 30px;
   max-width: 1200px; /* Adicionado um max-width para não esticar ao infinito em telas ultrawide */
