@@ -1,5 +1,4 @@
-
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './Home.css';
 import imagemCarro from '../assets/imagemCarro.png';
@@ -9,21 +8,21 @@ import imagemPlanejar from '../assets/imgPlanejar.png';
 import imagemCalculadora from '../assets/imgCalculadora.png';
 import imagemCarrinho from '../assets/imgCarrinho.png';
 
+import imagemgps from '../assets/imagemgps.png';
 
-export default function Home({ usuario, setUsuario }) {
-  const navigate = useNavigate();
+function getBateriaClasse(pct) {
+  if (pct > 50) return 'bb-battery-fill';
+  if (pct > 20) return 'bb-battery-fill medium';
+  return 'bb-battery-fill low';
+}
 
-  const irParaCadastro = () => {
-    // Navega para o login, mas envia um estado interno dizendo "isRegister: true"
-    navigate('/login', { state: { screen: 'register' } });
-  };
+function getBateriaLabel(pct) {
+  if (pct > 50) return 'Carga boa';
+  if (pct > 20) return 'Carga média';
+  return 'Carga baixa';
+}
 
-  const handleLogout = () => {
-    localStorage.removeItem('usuarioLogado');
-    setUsuario(null);
-    navigate('/home');
-  };
-
+export default function Home({ usuario }) {
   return (
     <div>
       {/* Exibição da Imagem */}
@@ -84,7 +83,10 @@ export default function Home({ usuario, setUsuario }) {
           <div className="station-title">Rota otimizada para recarga</div>
 
           <Link to="/otimizador" className="station-card optimizer-preview-card" aria-label="Abrir otimizador de rotas">
-            <div className="map-wrapper">
+            
+            <img src={imagemgps} style={{ height: '170px',  width: '250px' }} alt="Ícone Estações" className="card-icon" />
+            
+            {/* <div className="map-wrapper">
               <div className="optimizer-mini-map" aria-hidden="true">
                 <span className="mini-map-road mini-map-road-main" />
                 <span className="mini-map-road mini-map-road-cross" />
@@ -95,7 +97,7 @@ export default function Home({ usuario, setUsuario }) {
                 <span className="mini-marker mini-station" />
                 <span className="mini-marker mini-destination" />
               </div>
-            </div>
+            </div> */}
 
             <div className="details-wrapper">
               <div className="station-name">Prévia do otimizador de rota</div>
@@ -197,12 +199,12 @@ export default function Home({ usuario, setUsuario }) {
                 </div>
                 <div className="bb-battery-track">
                   <div
-                    className={typeof getBateriaClasse === 'function' ? getBateriaClasse(usuario?.veiculo?.bateriaAtual || 0) : 'bb-battery-bar'}
+                    className={getBateriaClasse(usuario?.veiculo?.bateriaAtual || 0)}
                     style={{ width: `${usuario?.veiculo?.bateriaAtual ?? 0}%` }}
                   />
                 </div>
                 <p className="bb-battery-status">
-                  {typeof getBateriaLabel === 'function' ? getBateriaLabel(usuario?.veiculo?.bateriaAtual || 0) : ''}
+                  {getBateriaLabel(usuario?.veiculo?.bateriaAtual || 0)}
                 </p>
               </div>
 

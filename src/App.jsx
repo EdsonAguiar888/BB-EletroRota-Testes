@@ -14,8 +14,13 @@ const CalculadoraAutonomia = lazy(() => import('./pages/CalculadoraAutonomia'));
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
-    const salvo = localStorage.getItem('usuarioLogado');
-    return salvo ? JSON.parse(salvo) : null;
+    try {
+      const salvo = localStorage.getItem('usuarioLogado');
+      return salvo ? JSON.parse(salvo) : null;
+    } catch {
+      localStorage.removeItem('usuarioLogado');
+      return null;
+    }
   });
 
   const handleLogin = (dados) => {

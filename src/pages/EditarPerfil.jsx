@@ -4,7 +4,7 @@ import imagemCarro from '../assets/Meu BB-EletroRota.png';
 import './EditarPerfil.css';
 
 // Importando a função específica para validação de perfil unificado
-import { validarPerfilVeiculo } from '../components/Validacoes'; 
+import { validarPerfilVeiculo } from '../components/Validacoes';
 
 export default function EditarPerfil({ usuario, setUsuario }) {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     bateriaAtual: usuario?.veiculo?.bateriaAtual || ''
   });
 
+  // API SIMULADA MOCKAPAPI E SERVIDOR LOCAL PARA PERSISTÊNCIA DE DADOS
   const API_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3000/usuarios'
     : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
@@ -82,9 +83,12 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     }
   };
 
+
+
 // Função para ATUALIZAR (EDITAR) - Corrigida para forçar a atualização imediata
   const handleUpdate = async (e) => {
     e.preventDefault();
+    
 
     // --- EXECUÇÃO DA VALIDAÇÃO ANTES DE ENVIAR AS ALTERAÇÕES ---
     const errosValida = validarPerfilVeiculo(formData);
@@ -93,9 +97,10 @@ export default function EditarPerfil({ usuario, setUsuario }) {
       setErrosCampos(errosValida);
       const primeiroErro = Object.values(errosValida)[0];
       setMensagem(`Erro: ${primeiroErro}`);
+      
       return; 
     }
-
+    
     setMensagem('Salvando...');
 
     // Garantindo tipos de dados corretos (Garante número onde deve ser número)
@@ -105,6 +110,7 @@ export default function EditarPerfil({ usuario, setUsuario }) {
 
     // Atualiza o carro específico dentro da lista geral de veículos
     const listaVeiculosAtualizada = listaVeiculos.map(v => {
+      
       if (v.idVeiculo === veiculoSelecionadoId) {
         return {
           ...v,
@@ -131,12 +137,14 @@ export default function EditarPerfil({ usuario, setUsuario }) {
         ? listaVeiculosAtualizada 
         : [{ idVeiculo: Date.now().toString(), marca: marcaFormatada, potencia: potenciaFormatada, bateriaAtual: bateriaFormatada }]
     };
+   
 
     try {
       const response = await fetch(`${API_URL}/${usuario.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuarioAtualizado)
+        
       });
       if (response.ok) {
         // 1. Atualiza o LocalStorage primeiro
@@ -150,6 +158,9 @@ export default function EditarPerfil({ usuario, setUsuario }) {
 
         setMensagem('Perfil atualizado com sucesso!');
         setTimeout(() => setMensagem(''), 3000);
+        window.scrollTo({ top: 50, behavior: 'smooth' });
+        
+        
       } else {
         setMensagem('Erro ao salvar as alterações no servidor.');
       }
@@ -158,9 +169,13 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     }
   };
 
-  
+
+  // Funcao excluir
+
   const handleDelete = async () => {
-    if (!window.confirm('TEM CERTEZA? Isso excluirá sua conta permanentemente.')) return;
+    if (!window.confirm('TEM CERTEZA? Isso excluirá sua conta permanentemente.'))
+      return;
+    
     try {
       const response = await fetch(`${API_URL}/${usuario.id}`, { method: 'DELETE' });
       if (response.ok) {
