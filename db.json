@@ -106,19 +106,6 @@
       "id": "hD6gYQJZ_WU",
       "veiculos": [
         {
-<<<<<<< HEAD
-          "idVeiculo": "1780175162123",
-          "marca": "Byd",
-          "potencia": "200",
-          "bateriaAtual": "100"
-        }
-      ],
-      "veiculo": {
-        "idVeiculo": "1780175162123",
-        "marca": "Byd",
-        "potencia": "200",
-        "bateriaAtual": "100"
-=======
           "idVeiculo": "1779649488020",
           "marca": "Corola",
           "potencia": "300",
@@ -142,7 +129,6 @@
         "marca": "Byd",
         "potencia": "300",
         "bateriaAtual": "6"
->>>>>>> fd94bc81aab984fc06bd1cff85b6c74cf228d6dd
       }
     },
     {

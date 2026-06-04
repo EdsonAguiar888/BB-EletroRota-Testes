@@ -1,29 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap');
 
-:root {
-  --bb-blue: #3498db;
-  --bb-blue-dark: #002d6a;    
-  --bb-blue-light-dark: #003366;   
-  --bb-blue-accent: #0038a8; 
-
-  --text-main: #2c3e50;        
-  --text-dark: #1a1a1a;
-  --text-muted: #555555;        
-  --text-light-muted: #888888;
-
-  --status-success: #159947;     
-
-  --bb-yellow: #ffdf00;         
-  --bb-yellow-hover: #ffd000;    
-  --bb-yellow-border: #e6b800;   
-
-  --bg-card-light: #f8fafc;      
-  --bb-white: #ffffff; 
-  --border-neutral: #e2e8f0;    
-  --border-dashed: #eef2f5;
-}
-
-
 * {
   margin: 0;
   padding: 0;
@@ -35,12 +11,6 @@ body {
   background: #f5f5f5;
   width: 100%;
   height: auto;
-}
-
-/* forca o modo claro para evitar que o sistema aplique um tema escuro automaticamente */
-
-*, *::before, *::after {
-  color-scheme: light;
 }
 
 /* Imagem do Topo */
@@ -58,7 +28,7 @@ body {
 
 /* Topbar original mantida */
 .topbar {
-  background: var(--bb-yellow);
+  background: #ffdf00;
   display: flex;
   justify-content: space-between;
   padding: 15px 70px;
@@ -91,13 +61,13 @@ body {
   gap: 20px;
   padding: 20px;
   border-radius: 20px; /* Reduzido de 100px para não deformar em telas menores */
-  background-color: var(--bg-card-light);
+  background-color: #f8fafc;
 }
 
 /* Elemento Card Individual */
 /* Elemento Card Individual - Mais compacto e com altura controlada */
 .card {
-  background: var(--bb-blue-dark);
+  background: #002D6A;
   border-radius: 10px;
   width: 100%;
   max-width: 300px; /* Largura ideal para caberem 4 lado a lado no PC */
@@ -169,26 +139,27 @@ body {
 .station-container {
   width: 100%;
   max-width: 100%; /* Remove o limite antigo de 700px */
-  background-color: var(--bg-card-light);
+  background-color: #f1f5f8;
+  /* background-color: #f8fafc; */
   padding: 25px;
   border-radius: 14px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .station-title {
-  color: var(--bb-blue-light-dark);
+  color: #003366;
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 15px;
-  border-bottom: 1px solid var(--border-neutral);
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 10px;
 }
 
 .station-card {
   display: flex;
   gap: 20px;
-  background-color: var(--bb-white);
-  border: 1px solid var(--border-neutral);
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 15px;
   align-items: center;
@@ -285,7 +256,7 @@ body {
   display: block;
   height: 7px;
   border-radius: 999px;
-  background: var(--bb-blue-accent);
+  background: #0038a8;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.82);
 }
 
@@ -315,7 +286,7 @@ body {
   z-index: 3;
   width: 17px;
   height: 17px;
-  border: 3px solid var(--bb-white);
+  border: 3px solid #ffffff;
   border-radius: 999px;
   box-shadow: 0 5px 12px rgba(0, 45, 106, 0.24);
 }
@@ -323,7 +294,7 @@ body {
 .mini-origin {
   left: 24px;
   top: 83px;
-  background: var(--bb-blue-accent);
+  background: #0038a8;
 }
 
 .mini-station {
@@ -335,7 +306,7 @@ body {
 .mini-destination {
   right: 18px;
   top: 56px;
-  background: var(--status-success);
+  background: #159947;
 }
 
 .details-wrapper {
@@ -346,7 +317,7 @@ body {
 }
 
 .station-name {
-  color: var(--bb-blue-light-dark);
+  color: #003366;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -363,7 +334,7 @@ body {
   gap: 10px;
   padding: 12px;
   border: 1px solid #d8e2ef;
-  border-left: 4px solid var(--bb-blue-accent);
+  border-left: 4px solid #0038a8;
   border-radius: 10px;
   background: #f8fbff;
 }
@@ -373,7 +344,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: var(--bb-blue-light-dark);
+  color: #003366;
 }
 
 .optimizer-badge {
@@ -399,8 +370,8 @@ body {
   gap: 2px;
   padding: 8px 10px;
   border-radius: 8px;
-  background: var(--bb-white);
-  color: var(--bb-blue-light-dark);
+  background: #ffffff;
+  color: #003366;
   font-size: 0.82rem;
   border: 1px solid #e6eef8;
 }
@@ -420,7 +391,7 @@ body {
 .optimizer-criteria span {
   border-radius: 999px;
   background: #eef2f7;
-  color: var(--bb-blue-light-dark);
+  color: #003366;
   padding: 4px 9px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -445,8 +416,8 @@ body {
 }
 
 .btn-navigate {
-  background: linear-gradient(180deg, #ffe000 0%, var(--bb-yellow-hover) 100%);
-  border: 1px solid var(--bb-yellow-border);
+  background: linear-gradient(180deg, #ffe000 0%, #ffd000 100%);
+  border: 1px solid #e6b800;
   color: #002244;
   font-weight: bold;
   padding: 10px 16px;
@@ -465,39 +436,39 @@ body {
 .station {
   width: 100%;
   max-width: 100%; /* Remove o limite antigo de 450px */
-  background-color: var(--bb-white);
+  background-color: #ffffff;
   border-radius: 14px;
   padding: 25px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-dashed);
+  border: 1px solid #eef2f5;
 }
 
 .station h2 {
-  color: var(--text-main);
+  color: #2c3e50;
   font-size: 1.3rem;
   margin-bottom: 15px;
-  border-bottom: 2px solid var(--bb-blue);
+  border-bottom: 2px solid #3498db;
   padding-bottom: 8px;
 }
 
 .painel-v-title {
-  color: var(--text-main) !important;
+  color: #2c3e50 !important;
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
 .info-veiculo p {
-  color: var(--text-main);
+  color: #2c3e50;
   margin: 8px 0;
   font-size: 0.95rem;
-  border-bottom: 1px dashed var(--border-dashed);
+  border-bottom: 1px dashed #eef2f5;
   padding-bottom: 6px;
 }
 
 .station button {
   width: 100%;
-  background-color: var(--bb-blue);
-  color: var(--bb-white);
+  background-color: #3498db;
+  color: #ffffff;
   border: none;
   padding: 12px;
   border-radius: 8px;
@@ -554,7 +525,7 @@ body {
   
   
   .card {
-    background: var(--bb-blue-dark);
+    background: #002D6A;
     border-radius: 10px;
     width: 100%;
     max-width: 300px;
@@ -577,7 +548,7 @@ body {
     gap: 20px;
     padding: 20px;
     border-radius: 20px;
-    background-color: var(--bg-card-light);
+    background-color: #f8fafc;
 }
   }
 
@@ -589,6 +560,7 @@ body {
 
 
 /* Dados do painel do veiculo */
+
 
 
 /* ── Painel externo ── */
@@ -619,19 +591,20 @@ body {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-light-muted);
+  color: #888;
 }
 
 .bb-section-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #1a1a1a;
   margin-bottom: 10px;
 }
 
 /* ── Card principal ── */
 .bb-card {
-  background: var(--bb-white);
+  background: #f1f5f8;
+  /* background: #ffffff; */
   border: 0.5px solid rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   overflow: hidden;
@@ -662,7 +635,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #555;
   margin: 0;
   display: flex;
   align-items: center;
@@ -724,7 +697,7 @@ body {
 .bb-info-value {
   font-size: 15px;
   font-weight: 500;
-  color: var(--text-dark);
+  color: #1a1a1a;
 }
 
 /* ── Seção de bateria ── */
@@ -744,13 +717,13 @@ body {
 .bb-battery-label {
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #555;
 }
 
 .bb-battery-pct {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #1a1a1a;
 }
 
 .bb-battery-track {
@@ -778,7 +751,7 @@ body {
 
 .bb-battery-status {
   font-size: 11px;
-  color: var(--text-light-muted);
+  color: #888;
   margin: 6px 0 0;
 }
 
@@ -798,30 +771,28 @@ body {
   font-size: 13px;
 }
 
+/* ── Dark mode ── */
+@media (prefers-color-scheme: light) {
+  .bb-section-title { color: #f0f0f0; }
+  .bb-section-label { color: #777; }
 
+  .bb-card {
+    background: #1c1c1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+  }
 
+  .bb-card-header { border-bottom-color: rgba(255, 255, 255, 0.08); }
+  .bb-card-title { color: #aaa; }
 
+  .bb-info-label { color: #666; }
+  .bb-info-value { color: #f0f0f0; }
 
+  .bb-battery-section { background: #2a2a2c; }
+  .bb-battery-label { color: #aaa; }
+  .bb-battery-pct { color: #f0f0f0; }
+  .bb-battery-track { background: rgba(255, 255, 255, 0.1); }
+  .bb-battery-status { color: #666; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .bb-footer { border-top-color: rgba(255, 255, 255, 0.06); color: #555; }
+}
