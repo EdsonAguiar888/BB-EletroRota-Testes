@@ -106,17 +106,29 @@
       "id": "hD6gYQJZ_WU",
       "veiculos": [
         {
-          "idVeiculo": "1780175162123",
-          "marca": "Byd",
-          "potencia": "200",
+          "idVeiculo": "1779649488020",
+          "marca": "Corola",
+          "potencia": "300",
           "bateriaAtual": "100"
+        },
+        {
+          "idVeiculo": "1779649498580",
+          "marca": "Byd",
+          "potencia": "300",
+          "bateriaAtual": "6"
+        },
+        {
+          "idVeiculo": "1779649504940",
+          "marca": "tesla",
+          "potencia": "300",
+          "bateriaAtual": "90"
         }
       ],
       "veiculo": {
-        "idVeiculo": "1780175162123",
+        "idVeiculo": "1779649498580",
         "marca": "Byd",
-        "potencia": "200",
-        "bateriaAtual": "100"
+        "potencia": "300",
+        "bateriaAtual": "6"
       }
     },
     {
@@ -156,6 +168,24 @@
       "email": "edson@edson.com",
       "senha": "12345",
       "id": "eEhU9Fg9Joc"
+    },
+    {
+      "nome": "arthur andrey",
+      "email": "arthur@99.com",
+      "senha": "12345",
+      "id": "YLpJ_XMFQEY"
+    },
+    {
+      "nome": "arthur andrey",
+      "email": "arthur@99.com",
+      "senha": "12345",
+      "id": "J7KW0scfygY"
+    },
+    {
+      "nome": "elton aguiar",
+      "email": "elton@elton.com",
+      "senha": "12345",
+      "id": "_fuFODn3uR0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

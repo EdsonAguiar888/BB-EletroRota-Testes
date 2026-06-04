@@ -8,14 +8,19 @@ import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
 import Busca from './pages/BuscaPag'
 
-const Mapa = lazy(() => import('./pages/Mapa'));
-const PlanejadorViagem = lazy(() => import('./pages/PlanejadorViagem'));
-const CalculadoraAutonomia = lazy(() => import('./pages/CalculadoraAutonomia'));
+const Mapa = lazy(() => import('./pages/Mapa.jsx'));
+const PlanejadorViagem = lazy(() => import('./pages/PlanejadorViagem.jsx'));
+const CalculadoraAutonomia = lazy(() => import('./pages/CalculadoraAutonomia.jsx'));
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
-    const salvo = localStorage.getItem('usuarioLogado');
-    return salvo ? JSON.parse(salvo) : null;
+    try {
+      const salvo = localStorage.getItem('usuarioLogado');
+      return salvo ? JSON.parse(salvo) : null;
+    } catch {
+      localStorage.removeItem('usuarioLogado');
+      return null;
+    }
   });
 
   const handleLogin = (dados) => {

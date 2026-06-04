@@ -76,7 +76,7 @@ body {
 }
 
 .bb-hero-content {
-  width: 46%;
+  width: 70%;
   min-width: 420px;
   text-align: center;
   padding: 50px 70px;
@@ -405,7 +405,8 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
   align-items: stretch;
-  min-height: 760px;
+  min-height: 525px;
+  max-height: 525px;
 }
 
 .bb-map-area {
@@ -698,7 +699,7 @@ body {
 }
 
 .bb-station-details-below {
-  width: min(100%, 860px);
+  width: min(100%, 100%);
   box-sizing: border-box;
   flex: none;
   justify-self: center;
@@ -1336,6 +1337,12 @@ body {
   font-size: 12px;
 }
 
+@media (max-width: 1050px) {
+  .bb-map-options {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* AJUSTES_HISTORICO_ROTAS */
 .bb-history-list {
@@ -1369,3 +1376,4 @@ body {
   line-height: 1.4;
 }
 
+ 
