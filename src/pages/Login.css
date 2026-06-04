@@ -1,37 +1,42 @@
-RESET BÁSICO Remove margens padrão do navegador * {
+/* RESET BÁSICO Remove margens padrão do navegador */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Fundo da página (fora da tela de login) */
-body {
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Wrapper da rota /login — tela cheia sem afetar outras páginas do app */
+.pagina-login {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     overflow: hidden;
+    background-color: #e9ecef;
+    text-align: left;
 }
 
-/* LADO LOGIN ==========================================
-   2. CONTAINER PRINCIPAL (100dvw x 100dvh) para ocupar toda a tela do desktop*/
-.container-login {
-    width: 100dvw;
-    height: 100dvh;
+/* Container principal: ocupa 100% do wrapper */
+.pagina-login .container-login {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
     display: flex;
-    text-align: left;
-    /* index.css define #root { text-align: center } — evita inputs/botões desalinhados */
     background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    box-shadow: none;
     transition: all 0.6s ease-in-out;
     opacity: 1;
     overflow: hidden;
 }
 
 /* O Cadastro desliza pra direita e acende! */
-.container-login.modo-cadastro .area-cadastro {
+.pagina-login .container-login.modo-cadastro .area-cadastro {
     transform: translateX(100%);
     opacity: 1;
     pointer-events: auto;
@@ -40,38 +45,67 @@ body {
     /* Coloca a área de cadastro acima de todas as outras camadas */
 }
 
-.area-login {
+.area-login,
+.area-cadastro {
     flex: 1;
-    /* Ocupa metade do espaço */
-    padding: 50px 100px;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    overflow: hidden;
     font-display: block;
 }
 
-/* seletor superior (Toggle) Entrar / Criar Conta */
+/* Login: padding-top maior para não encostar no botão "Voltar para Home" */
+.area-login {
+    padding: 110px 150px 100px;
+}
+
+.area-cadastro {
+    padding: 50px 100px;
+}
+
+.area-login .area-formulario-conteudo {
+    padding-top: 8px;
+}
+
+/* Bloco central (título + campos) — tamanho original, centralizado na coluna */
+.area-formulario-conteudo {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Seletor no rodapé da área branca (como no layout de referência) */
 .seletor-area-login {
     background-color: #f3f4f6;
     border-radius: 8px;
     display: flex;
-    margin-bottom: 20px;
+    flex-shrink: 0;
+    margin-top: 24px;
     position: relative;
     justify-content: center;
-    top: 55px;
-    order: 1;
+    top: 0;
 }
 
 .seletor-area-cadastro {
-    background-color: transparent; /* Remove fundos cinzas antigos */
+    background-color: transparent;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Alinha no começo da área branca */
-    gap: 10px; /* Espaço sutil entre o texto e o botão */
-    margin-bottom: 20px;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-top: 24px;
     position: relative;
-    top: 5px;
-    order: 1;
+    top: 0;
+}
+
+.texto-possui-conta {
+    color: #6b7280;
+    font-size: 16px;
 }
 
 .btn-inativo {
@@ -85,6 +119,7 @@ body {
     cursor: pointer;
     padding: 10px  20px;
     width: auto;
+    gap: 30px;
 }
 
 /* Efeito de hover no botão "Criar Conta" solicitado */
@@ -96,7 +131,8 @@ body {
 /* Textos Iniciais */
 .textos-boas-vindas {
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 0;
+    flex-shrink: 0;
     color: #6b7280;
     font-size: 16px;
 }
@@ -105,6 +141,10 @@ body {
     color: #0038a8;
     font-size: 32px;
     margin-bottom: 8px;
+}
+
+.formulario-login {
+    flex-shrink: 0;
 }
 
 /* Campos de Formulário */
@@ -178,7 +218,7 @@ body {
 /* Botões de Ação (Entrar) */
 .btn-enter {
     width: 100%;
-    padding: 4%;
+    padding: 18px;
     border: none;
     border-radius: 8px;
     font-size: 20px;
@@ -188,12 +228,12 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    /* espaço entre o texto e o ícone de seta*/
     transition: 0.3s;
     background-color: #0038a8;
     color: floralwhite;
     margin-bottom: 10px;
     margin-top: 40px;
+    flex-shrink: 0;
 }
 
 .btn-enter:hover {
@@ -206,35 +246,31 @@ body {
 
 /* Estado padrão: esconde o formulário de cadastro */
 .area-cadastro {
-    flex: 1;
-    padding: 50px 100px;
     display: none;
-    flex-direction: column;
-    justify-content: center;
     order: 2;
-    margin: 15px;
 }
 
 /* Modo cadastro: override da regra acima (vem depois na cascata → ganha) */
-.container-login.modo-cadastro .area-cadastro {
+.pagina-login .container-login.modo-cadastro .area-cadastro {
     display: flex;
     transform: none;
     opacity: 1;
 }
 
-.container-login.modo-cadastro .area-login {
+.pagina-login .container-login.modo-cadastro .area-login {
     display: none;
 }
 
 /* Branding vai para a esquerda */
-.container-login.modo-cadastro .area-branding {
+.pagina-login .container-login.modo-cadastro .area-branding {
     order: -1;
 }
 
 /* Textos iniciais do cadastro */
 .texto-cadastro {
     margin-bottom: 20px;
-    margin-top: 30px;
+    margin-top: 0;
+    flex-shrink: 0;
     color: #6b7280;
     font-size: 16px;
 }
@@ -246,10 +282,7 @@ body {
 }
 
 .grupo-input2 label {
-    /* margin: 15px; */
-    /* margin-bottom: 10px; */
     margin-top: 15px;
-    /*espaço da margem do topo*/
     margin-bottom: 5px;
 }
 
@@ -261,7 +294,6 @@ body {
 .btn-criar-conta {
     width: 100%;
     padding: 20px;
-    /*tamanho do botão*/
     border: none;
     border-radius: 8px;
     font-size: 20px;
@@ -276,6 +308,7 @@ body {
     color: floralwhite;
     margin-top: 30px;
     margin-bottom: 10px;
+    flex-shrink: 0;
 }
 
 .btn-criar-conta:hover {
@@ -289,8 +322,8 @@ body {
     top: 20px;
     left: 20px;
     z-index: 10; /* Garante que ele fique acima de tudo */
-    background: transparent;
-    border: 1px solid #cfd8dc;
+    background: white;
+    border: 1px solid #9ea5a8;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
@@ -302,7 +335,7 @@ body {
   
 
   .btn-voltar-home:hover {
-    background-color: #f3f4f6; /* Efeito hover sutil */
+    background-color: #9ca3af; /* Efeito hover sutil */
     border-color: #9ca3af;
   }
   
@@ -311,13 +344,13 @@ body {
      ======================================================= */
   
   /* Quando o container NÃO tem .modo-cadastro (Tela de Login -> Área branca na ESQUERDA) */
-  .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
+  .pagina-login .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
     left: 20px;
     right: auto;
   }
   
   /* Quando o container TEM .modo-cadastro (Tela de Cadastro -> Área branca na DIREITA) */
-  .container-login.modo-cadastro ~ .btn-voltar-home {
+  .pagina-login .container-login.modo-cadastro ~ .btn-voltar-home {
     right: 20px;
     left: auto;
   }
@@ -326,18 +359,19 @@ body {
    LAADO (BRANDING) COM LOGO 
    ========================================== */
 .area-branding {
-    flex: 1; /* Ocupa a outra metade */
+    flex: 1;
+    min-height: 0;
     background-image: url(../assets/Container.png);
-    background-size: cover; /*ocupar toda o espaço da metade*/
+    background-size: cover;
     background-position: center;
     padding: 80px 90px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Centraliza os textos verticalmente */
     position: relative;
     align-items: center;
+    overflow: hidden;
 }
 
 /* Logo */
@@ -418,9 +452,14 @@ body {
    ========================================== */
 
    @media (max-width: 1024px) {
-    .area-login, .area-cadastro {
+    .area-login {
+        padding: 80px 40px 40px;
+    }
+
+    .area-cadastro {
         padding: 40px;
     }
+
     .textos-branding h2 {
         font-size: 32px;
     }
@@ -428,13 +467,19 @@ body {
 
 /* Mudanças focadas no Mobile com o Branding no topo */
 @media (max-width: 900px) {
-    body {
+    .pagina-login {
+        position: relative;
+        height: auto;
+        min-height: 100dvh;
+        max-height: none;
+        overflow-x: hidden;
         overflow-y: auto;
     }
 
-    .container-login {
+    .pagina-login .container-login {
         height: auto;
-        min-height: 100vh;
+        min-height: 100dvh;
+        max-height: none;
         flex-direction: column; /* Coloca o branding no topo e o formulário embaixo */
     }
 
@@ -469,7 +514,12 @@ body {
     }
 
     /* Ajustes dos formulários abaixo do topo azul */
-    .area-login, .area-cadastro {
+    .area-login {
+        padding: 72px 24px 30px;
+        width: 100%;
+    }
+
+    .area-cadastro {
         padding: 30px 24px;
         width: 100%;
     }
@@ -486,5 +536,47 @@ body {
     .grupo-input .input-sem-icone input,
     .grupo-input2 .input-sem-icone input {
         padding: 12px 16px;
+    }
+}
+
+/* Notebook 13" / altura baixa: mantém tamanhos grandes; só ajusta padding e rolagem interna */
+@media (max-height: 800px) and (min-width: 901px) {
+    .pagina-login .area-login {
+        padding: 80px 56px 32px;
+    }
+
+    .pagina-login .area-cadastro {
+        padding: 32px 56px;
+    }
+
+    .pagina-login .area-login .area-formulario-conteudo {
+        justify-content: flex-start;
+        padding-top: 16px;
+    }
+
+    .pagina-login .seletor-area-login {
+        margin-top: 16px;
+    }
+
+    .pagina-login .seletor-area-cadastro {
+        margin-top: 16px;
+    }
+
+    .pagina-login .logo {
+        top: 32px;
+        left: 48px;
+    }
+
+    .pagina-login .logo-svg {
+        height: 140px;
+        width: 126px;
+    }
+
+    .pagina-login .textos-branding h2 {
+        font-size: 34px;
+    }
+
+    .pagina-login .rodape-branding {
+        bottom: 24px;
     }
 }

@@ -123,5 +123,16 @@ export function validarPerfilVeiculo(formData) {
   return erros;
 }
 
+/**
+ * Verifica se o e-mail já está cadastrado na lista de usuários
+ * @param {string} email - E-mail normalizado (minúsculas, sem espaços)
+ * @param {Array} usuarios - Lista retornada pela API
+ */
+export function emailJaCadastrado(email, usuarios) {
+  if (!email || !Array.isArray(usuarios)) return false;
+  const alvo = email.toLowerCase().trim();
+  return usuarios.some((u) => (u.email || '').toLowerCase().trim() === alvo);
+}
+
 
 

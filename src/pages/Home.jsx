@@ -1,5 +1,4 @@
-
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './Home.css';
 import imagemCarro from '../assets/imagemCarro.png';
@@ -8,21 +7,19 @@ import imagemPlanejar from '../assets/imgPlanejar.png';
 import imagemCalculadora from '../assets/imgCalculadora.png';
 import imagemCarrinho from '../assets/imgCarrinho.png';
 
+function getBateriaClasse(pct) {
+  if (pct > 50) return 'bb-battery-fill';
+  if (pct > 20) return 'bb-battery-fill medium';
+  return 'bb-battery-fill low';
+}
 
-export default function Home({ usuario, setUsuario }) {
-  const navigate = useNavigate();
+function getBateriaLabel(pct) {
+  if (pct > 50) return 'Carga boa';
+  if (pct > 20) return 'Carga média';
+  return 'Carga baixa';
+}
 
-  const irParaCadastro = () => {
-    // Navega para o login, mas envia um estado interno dizendo "isRegister: true"
-    navigate('/login', { state: { screen: 'register' } });
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('usuarioLogado');
-    setUsuario(null);
-    navigate('/home');
-  };
-
+export default function Home({ usuario }) {
   return (
     <div>
       {/* Exibição da Imagem */}
@@ -196,12 +193,12 @@ export default function Home({ usuario, setUsuario }) {
                 </div>
                 <div className="bb-battery-track">
                   <div
-                    className={typeof getBateriaClasse === 'function' ? getBateriaClasse(usuario?.veiculo?.bateriaAtual || 0) : 'bb-battery-bar'}
+                    className={getBateriaClasse(usuario?.veiculo?.bateriaAtual || 0)}
                     style={{ width: `${usuario?.veiculo?.bateriaAtual ?? 0}%` }}
                   />
                 </div>
                 <p className="bb-battery-status">
-                  {typeof getBateriaLabel === 'function' ? getBateriaLabel(usuario?.veiculo?.bateriaAtual || 0) : ''}
+                  {getBateriaLabel(usuario?.veiculo?.bateriaAtual || 0)}
                 </p>
               </div>
 
