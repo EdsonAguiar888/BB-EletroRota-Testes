@@ -1,4 +1,3 @@
-
 :root {
   --bb-yellow: #ffd600;
   --bb-blue: #002776;
@@ -10,6 +9,7 @@
   --bb-muted: #5c6f8f;
 }
 
+/* ================== CONFIGURAÇÕES GERAIS E SCROLLBAR ================== */
 html,
 body,
 #root {
@@ -18,6 +18,13 @@ body,
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+body {
+  margin: 0;
+}
+
+html, body, #root, .bb-points-list, .bb-history-list {
   scrollbar-color: #ffffff #e5e7eb;
   scrollbar-width: thin;
 }
@@ -28,7 +35,8 @@ body::-webkit-scrollbar,
 .bb-page::-webkit-scrollbar,
 .bb-planner-panel::-webkit-scrollbar,
 .bb-planner-form::-webkit-scrollbar,
-.bb-history-list::-webkit-scrollbar {
+.bb-history-list::-webkit-scrollbar,
+.bb-points-list::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -38,7 +46,8 @@ body::-webkit-scrollbar-track,
 .bb-page::-webkit-scrollbar-track,
 .bb-planner-panel::-webkit-scrollbar-track,
 .bb-planner-form::-webkit-scrollbar-track,
-.bb-history-list::-webkit-scrollbar-track {
+.bb-history-list::-webkit-scrollbar-track,
+.bb-points-list::-webkit-scrollbar-track {
   background: #e5e7eb;
 }
 
@@ -48,16 +57,26 @@ body::-webkit-scrollbar-thumb,
 .bb-page::-webkit-scrollbar-thumb,
 .bb-planner-panel::-webkit-scrollbar-thumb,
 .bb-planner-form::-webkit-scrollbar-thumb,
-.bb-history-list::-webkit-scrollbar-thumb {
+.bb-history-list::-webkit-scrollbar-thumb,
+.bb-points-list::-webkit-scrollbar-thumb {
   background: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 999px;
 }
 
-body {
-  margin: 0;
+/* ================== COMPONENTES BASE (CARTÕES) ================== */
+.bb-card,
+.bb-map-card,
+.bb-calculator-card,
+.bb-autonomy-panel {
+  background: #fff;
+  border: 1px solid var(--bb-border);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
+  overflow: hidden; /* Ajuste global para evitar overflow nos cards */
 }
 
+/* ================== PÁGINAS E LAYOUTS ================== */
 .bb-page {
   min-height: 100vh;
   background: var(--bb-bg);
@@ -65,6 +84,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.bb-main {
+  max-width: 1780px;
+  margin: 22px auto 48px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* ================== HERO SECTION ================== */
 .bb-hero {
   min-height: 390px;
   background:
@@ -127,6 +156,7 @@ body {
   gap: 14px;
 }
 
+/* ================== BOTÕES E ABAS ================== */
 .bb-btn {
   min-height: 58px;
   border-radius: 12px;
@@ -180,82 +210,7 @@ body {
 
 .bb-tabs-nav .active {
   background: var(--bb-yellow);
-  color: var(--bb-blue);
   border-color: var(--bb-yellow);
-}
-
-.bb-main {
-  max-width: 1780px;
-  margin: 22px auto 48px;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 18px;
-}
-
-.bb-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.bb-vehicle-card {
-  order: 1;
-}
-
-.bb-route-ready-card {
-  order: 2;
-}
-
-.bb-optimized-card {
-  order: 3;
-}
-
-.bb-route-ready-card .bb-card-body {
-  display: grid;
-  gap: 10px;
-  text-align: center;
-}
-
-.bb-route-ready-card .bb-badge {
-  justify-self: center;
-  margin-bottom: 0;
-}
-
-.bb-route-ready-card h3 {
-  margin: 0;
-  color: var(--bb-blue);
-  font-size: 20px;
-}
-
-.bb-route-ready-card p {
-  margin: 0;
-  color: var(--bb-muted);
-  font-size: 15px;
-  line-height: 1.45;
-}
-
-.bb-card {
-  background: #fff;
-  border: 1px solid var(--bb-border);
-  border-radius: 18px;
-  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
-  overflow-x: hidden;
-}
-
-.bb-card-header {
-  padding: 18px 20px;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.bb-card-title {
-  margin: 0;
-  color: var(--bb-blue);
-  font-size: 20px;
-}
-
-.bb-card-body {
-  padding: 18px 20px 22px;
 }
 
 .bb-mini-tabs {
@@ -279,6 +234,7 @@ body {
   border-color: var(--bb-yellow);
 }
 
+/* ================== FORMULÁRIOS ================== */
 .bb-label {
   display: block;
   color: var(--bb-muted);
@@ -300,77 +256,7 @@ body {
   padding: 0 12px;
   background: #fff;
   color: var(--bb-text);
-}
-
-.bb-battery {
-  font-size: 34px;
-  font-weight: 900;
-  color: var(--bb-blue-2);
-}
-
-.bb-progress {
-  height: 10px;
-  background: #dfe7f1;
-  border-radius: 999px;
-  overflow-x: hidden;
-  margin: 8px 0;
-}
-
-.bb-progress-fill {
-  height: 100%;
-  background: var(--bb-green);
-  border-radius: 999px;
-}
-
-.bb-link {
-  color: var(--bb-blue-2);
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 13px;
-}
-
-.bb-optimized-text {
-  margin: 0 0 10px;
-  color: var(--bb-muted);
-  line-height: 1.45;
-  font-size: 14px;
-}
-
-.bb-optimized-text strong {
-  color: var(--bb-blue);
-}
-
-.bb-optimized-empty {
-  min-height: 130px;
-}
-
-.bb-map-card {
-  background: #fff;
-  border: 1px solid var(--bb-border);
-  border-radius: 18px;
-  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
-  overflow: hidden;
-}
-
-.bb-map-head {
-  min-height: 66px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--bb-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.bb-map-head h2 {
-  margin: 0;
-  color: var(--bb-blue);
-  font-size: 21px;
-}
-
-.bb-map-controls {
-  display: flex;
-  gap: 10px;
+  font-size: 16px;
 }
 
 .bb-search {
@@ -394,11 +280,170 @@ body {
   padding: 0 16px;
 }
 
-.bb-map-column {
-  min-width: 0;
-  display: grid;
+/* ================== ELEMENTOS DA SIDEBAR / CARDS ================== */
+.bb-sidebar {
+  display: flex;
+  flex-direction: column;
   gap: 18px;
-  align-content: start;
+}
+
+.bb-vehicle-card { order: 1; }
+.bb-route-ready-card { order: 2; }
+.bb-optimized-card { order: 3; }
+
+.bb-route-ready-card .bb-card-body {
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.bb-route-ready-card .bb-badge {
+  justify-self: center;
+  margin-bottom: 0;
+}
+
+.bb-card-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.bb-card-title,
+.bb-route-ready-card h3 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 20px;
+}
+
+.bb-card-body {
+  padding: 18px 20px 22px;
+}
+
+.bb-route-ready-card p {
+  margin: 0;
+  color: var(--bb-muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* ================== COMPONENTES DE INTERFACE ================== */
+.bb-battery {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--bb-blue-2);
+}
+
+.bb-progress {
+  height: 10px;
+  background: #dfe7f1;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.bb-progress-fill {
+  height: 100%;
+  background: var(--bb-green);
+  border-radius: 999px;
+}
+
+.bb-link {
+  color: var(--bb-blue-2);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.bb-badge {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.bb-access-pill,
+.bb-trip-stop-title span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bb-trip-stop-title span {
+  min-height: 28px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.bb-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  margin-top: 9px;
+}
+
+.bb-chip-list span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: var(--bb-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bb-alert,
+.bb-warning {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+.bb-success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+/* ================== MAPA E LAYOUT DE MAPA ================== */
+.bb-map-head {
+  min-height: 66px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bb-map-head h2 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 21px;
+}
+
+.bb-map-controls {
+  display: flex;
+  gap: 10px;
 }
 
 .bb-map-layout {
@@ -409,17 +454,39 @@ body {
   max-height: 525px;
 }
 
-.bb-map-area {
-  min-height: 760px;
-  height: 100%;
+.bb-map-column,
+.bb-planner-map-column {
+  min-width: 0;
+  display: grid;
+  gap: 18px;
+  align-content: start;
 }
 
+.bb-map-area,
 .bb-map-area > div,
 .bb-map-area .leaflet-container {
   min-height: 760px;
   height: 100%;
 }
 
+.bb-map-options {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  background: #ffffff;
+}
+
+.bb-map-options .bb-field {
+  margin-bottom: 0;
+}
+
+.bb-map-options .bb-range-row {
+  align-items: center;
+}
+
+/* ================== INFORMAÇÕES DE ROTAS E ESTAÇÕES ================== */
 .bb-route-info {
   border-left: 1px solid var(--bb-border);
   padding: 18px 16px;
@@ -432,17 +499,6 @@ body {
 
 .bb-route-info-list-only {
   align-self: stretch;
-}
-
-.bb-badge {
-  display: inline-block;
-  background: #dcfce7;
-  color: #15803d;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-weight: 800;
-  font-size: 12px;
-  margin-bottom: 12px;
 }
 
 .bb-route-info h3 {
@@ -504,13 +560,30 @@ body {
   text-align: left;
 }
 
-.bb-info-card {
+/* ================== CARTÕES DE INFORMAÇÃO E CONECTORES ================== */
+.bb-info-card,
+.bb-station-tabs-card {
   border: 1px solid var(--bb-border);
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 8px 22px rgba(12, 32, 66, .07);
+}
+
+.bb-info-card {
   padding: 16px;
   text-align: left;
+}
+
+.bb-station-tabs-card {
+  padding: 12px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.bb-route-info .bb-station-tabs-card {
+  display: none;
 }
 
 .bb-info-card-head {
@@ -612,26 +685,10 @@ body {
   border-radius: 999px;
   background: #94a3b8;
 }
-
-.bb-connector-symbol::before {
-  top: 12px;
-  left: 12px;
-}
-
-.bb-connector-symbol::after {
-  top: 12px;
-  right: 12px;
-}
-
-.bb-connector-symbol span::before {
-  bottom: 12px;
-  left: 12px;
-}
-
-.bb-connector-symbol span::after {
-  bottom: 12px;
-  right: 12px;
-}
+.bb-connector-symbol::before { top: 12px; left: 12px; }
+.bb-connector-symbol::after { top: 12px; right: 12px; }
+.bb-connector-symbol span::before { bottom: 12px; left: 12px; }
+.bb-connector-symbol span::after { bottom: 12px; right: 12px; }
 
 .bb-info-list {
   display: grid;
@@ -656,50 +713,9 @@ body {
   margin-right: 8px;
 }
 
-.bb-chip-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-start;
-  margin-top: 9px;
-}
-
-.bb-chip-list span,
-.bb-access-pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 26px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #eef2f7;
-  color: var(--bb-text);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.bb-access-pill {
-  background: #dcfce7;
-  color: #15803d;
-}
-
-.bb-station-tabs-card {
-  border: 1px solid var(--bb-border);
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 8px 22px rgba(12, 32, 66, .07);
-  padding: 12px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 300px;
-}
-
-.bb-route-info .bb-station-tabs-card {
-  display: none;
-}
-
+/* ================== DETALHES DE ESTAÇÕES E ABAS (INTERNAS) ================== */
 .bb-station-details-below {
-  width: min(100%, 100%);
+  width: 100%;
   box-sizing: border-box;
   flex: none;
   justify-self: center;
@@ -715,18 +731,6 @@ body {
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
-}
-
-.bb-trip-stop-title span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  border-radius: 999px;
-  background: #dcfce7;
-  color: #15803d;
-  font-weight: 900;
-  padding: 4px 10px;
-  white-space: nowrap;
 }
 
 .bb-trip-stop-title h3 {
@@ -774,10 +778,23 @@ body {
   display: block;
 }
 
-.bb-optimized-connector {
-  margin-top: 14px;
+/* ================== CONECTORES E INFOS OTIMIZADAS ================== */
+.bb-optimized-text {
+  margin: 0 0 10px;
+  color: var(--bb-muted);
+  line-height: 1.45;
+  font-size: 14px;
 }
 
+.bb-optimized-text strong {
+  color: var(--bb-blue);
+}
+
+.bb-optimized-empty {
+  min-height: 130px;
+}
+
+.bb-optimized-connector,
 .bb-optimized-info {
   margin-top: 14px;
 }
@@ -808,6 +825,7 @@ body {
   font-size: 13px;
 }
 
+/* ================== PAINEL DE AUTONOMIA E CALCULADORA ================== */
 .bb-calculator-shell {
   max-width: 1120px;
   margin: 22px auto 48px;
@@ -815,12 +833,8 @@ body {
 }
 
 .bb-autonomy-panel {
-  background: #ffffff;
-  border: 1px solid var(--bb-border);
-  border-radius: 18px;
   color: var(--bb-text);
   padding: 18px;
-  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
 }
 
 .bb-autonomy-header {
@@ -932,12 +946,1334 @@ body {
   background: var(--bb-green);
 }
 
-.bb-calculator-card {
+.bb-calculator-hero {
+  background: var(--bb-blue-2);
+  color: #fff;
+  text-align: center;
+  padding: 24px 20px 22px;
+}
+
+.bb-calculator-hero span {
+  display: block;
+  color: var(--bb-yellow);
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.bb-calculator-hero h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.bb-calculator-hero p {
+  margin: 8px 0 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.bb-calculator-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 22px;
+  padding: 24px;
+}
+
+.bb-calculator-form {
+  min-width: 0;
+}
+
+.bb-calculator-result {
+  border: 1px solid var(--bb-border);
+  border-radius: 14px;
+  background: #f8fafc;
+  padding: 20px;
+}
+
+.bb-calculator-result strong {
+  display: block;
+  color: var(--bb-blue);
+  font-size: 46px;
+  line-height: 1;
+  margin: 10px 0 14px;
+}
+
+.bb-calculator-result p {
+  color: var(--bb-text);
+  line-height: 1.45;
+  margin: 10px 0;
+}
+
+.bb-calculator-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.bb-nearby {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bb-border);
+}
+
+.bb-nearby-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f7;
+  color: var(--bb-muted);
+  font-size: 13px;
+}
+
+.bb-nearby-item strong {
+  display: block;
+  color: var(--bb-text);
+  margin-bottom: 4px;
+}
+
+/* ================== PLANEJADOR E LISTA DE PONTOS ================== */
+.bb-planner-shell {
+  max-width: 1500px;
+  margin: 22px auto 48px;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.bb-planner-panel {
+  border-radius: 22px;
+  padding: 0;
+}
+
+.bb-planner-panel-header {
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  text-align: center;
+}
+
+.bb-planner-panel-header h1,
+.bb-planner-panel h1 {
+  color: var(--bb-blue);
+  margin: 0;
+  font-size: clamp(26px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.bb-planner-panel-header p,
+.bb-planner-panel p {
+  margin: 8px auto 0;
+  max-width: 360px;
+  color: var(--bb-muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.bb-planner-form {
+  padding: 24px 26px 28px;
+}
+
+.bb-range-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bb-range-row input {
+  flex: 1;
+}
+
+.bb-range-row strong {
+  min-width: 76px;
+  color: var(--bb-blue);
+  text-align: right;
+}
+
+.bb-planner-map,
+.bb-planner-map .leaflet-container {
+  min-height: 720px;
+}
+
+.bb-planner-map {
+  align-self: start;
+  border-radius: 22px;
+  border: 1px solid var(--bb-border);
+  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
+  overflow-x: hidden;
+  background: #e8eef5;
+}
+
+.bb-help-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--bb-muted);
+  font-size: 12px;
+}
+
+.bb-trip-summary {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--bb-border);
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.bb-trip-summary h3 {
+  margin: 0 0 10px;
+  color: var(--bb-blue);
+  font-size: 18px;
+}
+
+.bb-trip-summary p {
+  margin: 7px 0;
+  color: var(--bb-text);
+  font-size: 14px;
+}
+
+.bb-stop-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--bb-text);
+}
+
+.bb-stop-list li {
+  margin-bottom: 6px;
+}
+
+.bb-points-list {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bb-border);
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+.bb-points-list-top {
+  flex: 1;
+  max-height: none;
+  min-height: 0;
+  margin-top: 0;
+  margin-bottom: 18px;
+  padding-top: 0;
+  padding-bottom: 16px;
+  border-top: 0;
+  border-bottom: 1px solid var(--bb-border);
+}
+
+.bb-route-info-list-only .bb-points-list-top {
+  flex: 1;
+  max-height: none;
+  margin-bottom: 0;
+}
+
+.bb-point-button {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #eef2f7;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: var(--bb-text);
+}
+
+.bb-point-button.active {
+  border-color: var(--bb-blue-2);
+  background: #eff6ff;
+}
+
+.bb-point-button strong,
+.bb-history-item strong {
+  display: block;
+  color: var(--bb-blue);
+  margin-bottom: 4px;
+}
+
+.bb-point-button span {
+  color: var(--bb-muted);
+  font-size: 12px;
+}
+
+/* ================== HISTÓRICO ================== */
+.bb-history-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.bb-history-item {
+  border: 1px solid #e5edf7;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--bb-text);
+  font-size: 13px;
+}
+
+.bb-history-item span {
+  display: block;
+  color: var(--bb-muted);
+  line-height: 1.4;
+}
+
+/* ================== MEDIA QUERIES (ADAPTADO) ================== */
+
+/* Smartphone */
+@media (max-width: 767px) {
+  .bb-hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+      url("../assets/imagemCarro.png") center / cover no-repeat;
+  }
+
+  .bb-hero-content {
+    width: 100%;
+    min-width: 0;
+    padding: 45px 22px;
+  }
+
+  .bb-main,
+  .bb-map-layout,
+  .bb-planner-shell,
+  .bb-calculator-grid,
+  .bb-map-options {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-route-info {
+    border-left: 0;
+    border-top: 1px solid var(--bb-border);
+  }
+
+  .bb-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-search {
+    width: 100%;
+  }
+
+  .bb-map-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .bb-autonomy-header h1 {
+    font-size: 25px;
+    margin-bottom: 15px; 
+  }
+
+  .bb-autonomy-header {
+    margin-bottom: 24px; 
+  }
+
+  .bb-autonomy-metrics {
+    grid-template-columns: 1fr !important; 
+    gap: 16px; 
+  }
+
+  .bb-autonomy-metrics > div {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .bb-hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+      url("../assets/imagemCarro.png") center / cover no-repeat;
+  }
+
+  .bb-hero-content {
+    width: 100%;
+    min-width: 0;
+    padding: 45px 32px;
+  }
+
+  .bb-main,
+  .bb-map-layout,
+  .bb-planner-shell,
+  .bb-calculator-grid,
+  .bb-map-options {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-route-info {
+    border-left: 0;
+    border-top: 1px solid var(--bb-border);
+  }
+
+  .bb-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-map-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* Notebook */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .bb-main {
+    grid-template-columns: 280px minmax(0, 1fr); 
+  }
+}
+
+:root {
+  --bb-yellow: #ffd600;
+  --bb-blue: #002776;
+  --bb-blue-2: #0038a8;
+  --bb-green: #159947;
+  --bb-bg: #f4f7fb;
+  --bb-border: #d9e2ef;
+  --bb-text: #071833;
+  --bb-muted: #5c6f8f;
+}
+
+/* ================== CONFIGURAÇÕES GERAIS E SCROLLBAR ================== */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  margin: 0;
+}
+
+html, body, #root, .bb-points-list, .bb-history-list {
+  scrollbar-color: #ffffff #e5e7eb;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar,
+.bb-page::-webkit-scrollbar,
+.bb-planner-panel::-webkit-scrollbar,
+.bb-planner-form::-webkit-scrollbar,
+.bb-history-list::-webkit-scrollbar,
+.bb-points-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+#root::-webkit-scrollbar-track,
+.bb-page::-webkit-scrollbar-track,
+.bb-planner-panel::-webkit-scrollbar-track,
+.bb-planner-form::-webkit-scrollbar-track,
+.bb-history-list::-webkit-scrollbar-track,
+.bb-points-list::-webkit-scrollbar-track {
+  background: #e5e7eb;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+#root::-webkit-scrollbar-thumb,
+.bb-page::-webkit-scrollbar-thumb,
+.bb-planner-panel::-webkit-scrollbar-thumb,
+.bb-planner-form::-webkit-scrollbar-thumb,
+.bb-history-list::-webkit-scrollbar-thumb,
+.bb-points-list::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+}
+
+/* ================== COMPONENTES BASE (CARTÕES) ================== */
+.bb-card,
+.bb-map-card,
+.bb-calculator-card,
+.bb-autonomy-panel {
   background: #fff;
   border: 1px solid var(--bb-border);
   border-radius: 18px;
   box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
+  overflow: hidden; /* Ajuste global para evitar overflow nos cards */
+}
+
+/* ================== PÁGINAS E LAYOUTS ================== */
+.bb-page {
+  min-height: 100vh;
+  background: var(--bb-bg);
+  color: var(--bb-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bb-main {
+  max-width: 1780px;
+  margin: 22px auto 48px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* ================== HERO SECTION ================== */
+.bb-hero {
+  min-height: 390px;
+  background:
+    linear-gradient(90deg, #ffffff 0%, #ffffff 37%, rgba(255,255,255,.88) 48%, rgba(255,255,255,.18) 68%),
+    url("../assets/imagemCarro.png") center right / cover no-repeat;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--bb-border);
+}
+
+.bb-hero-content {
+  width: 70%;
+  min-width: 420px;
+  text-align: center;
+  padding: 50px 70px;
+}
+
+.bb-hero-logo {
+  display: block;
+  width: min(92%, 560px);
+  max-height: 112px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+}
+
+.bb-hero-title {
+  margin: 0 0 14px;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -3px;
+  font-weight: 500;
+  color: var(--bb-blue);
+}
+
+.bb-hero-title span {
+  color: var(--bb-green);
+}
+
+.bb-hero-subtitle {
+  margin: 0 auto 18px;
+  max-width: 650px;
+  color: var(--bb-text);
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.bb-hero-text {
+  margin: 0 auto;
+  max-width: 640px;
+  color: var(--bb-muted);
+  font-size: 22px;
+  line-height: 1.45;
+}
+
+.bb-hero-actions {
+  width: 360px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+/* ================== BOTÕES E ABAS ================== */
+.bb-btn {
+  min-height: 58px;
+  border-radius: 12px;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.bb-btn-primary {
+  background: var(--bb-yellow);
+  color: var(--bb-blue);
+}
+
+.bb-btn-secondary {
+  background: #fff;
+  color: var(--bb-blue);
+  border: 2px solid var(--bb-blue);
+}
+
+.bb-tabs-nav {
+  max-width: 1500px;
+  margin: 26px auto 0;
+  padding: 0 28px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.bb-tabs-nav a,
+.bb-tabs-nav button {
+  width: 100%;
+  min-height: 70px;
+  border-radius: 18px;
+  border: 1px solid var(--bb-border);
+  background: #fff;
+  color: var(--bb-blue);
+  font-weight: 900;
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bb-tabs-nav .active {
+  background: var(--bb-yellow);
+  border-color: var(--bb-yellow);
+}
+
+.bb-mini-tabs {
+  display: flex;
+  justify-content: center;
+  padding: 12px 14px 0;
+  color: var(--bb-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.bb-mini-tabs span {
+  min-width: 150px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid transparent;
+}
+
+.bb-mini-tabs .active {
+  color: var(--bb-blue);
+  font-weight: 800;
+  border-color: var(--bb-yellow);
+}
+
+/* ================== FORMULÁRIOS ================== */
+.bb-label {
+  display: block;
+  color: var(--bb-muted);
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.bb-field {
+  margin-bottom: 14px;
+}
+
+.bb-input,
+.bb-select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--bb-border);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: var(--bb-text);
+  font-size: 16px;
+}
+
+.bb-search {
+  width: 280px;
+  height: 40px;
+  border: 1px solid var(--bb-border);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: var(--bb-text);
+  font-weight: 700;
+}
+
+.bb-filter {
+  height: 40px;
+  border: 1px solid var(--bb-border);
+  background: #fff;
+  color: var(--bb-blue);
+  border-radius: 10px;
+  font-weight: 800;
+  padding: 0 16px;
+}
+
+/* ================== ELEMENTOS DA SIDEBAR / CARDS ================== */
+.bb-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bb-vehicle-card { order: 1; }
+.bb-route-ready-card { order: 2; }
+.bb-optimized-card { order: 3; }
+
+.bb-route-ready-card .bb-card-body {
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.bb-route-ready-card .bb-badge {
+  justify-self: center;
+  margin-bottom: 0;
+}
+
+.bb-card-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.bb-card-title,
+.bb-route-ready-card h3 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 20px;
+}
+
+.bb-card-body {
+  padding: 18px 20px 22px;
+}
+
+.bb-route-ready-card p {
+  margin: 0;
+  color: var(--bb-muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* ================== COMPONENTES DE INTERFACE ================== */
+.bb-battery {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--bb-blue-2);
+}
+
+.bb-progress {
+  height: 10px;
+  background: #dfe7f1;
+  border-radius: 999px;
   overflow: hidden;
+  margin: 8px 0;
+}
+
+.bb-progress-fill {
+  height: 100%;
+  background: var(--bb-green);
+  border-radius: 999px;
+}
+
+.bb-link {
+  color: var(--bb-blue-2);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.bb-badge {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.bb-access-pill,
+.bb-trip-stop-title span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bb-trip-stop-title span {
+  min-height: 28px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.bb-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  margin-top: 9px;
+}
+
+.bb-chip-list span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: var(--bb-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.bb-alert,
+.bb-warning {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+.bb-success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+/* ================== MAPA E LAYOUT DE MAPA ================== */
+.bb-map-head {
+  min-height: 66px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bb-map-head h2 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 21px;
+}
+
+.bb-map-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.bb-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: stretch;
+  min-height: 525px;
+  max-height: 525px;
+}
+
+.bb-map-column,
+.bb-planner-map-column {
+  min-width: 0;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.bb-map-area,
+.bb-map-area > div,
+.bb-map-area .leaflet-container {
+  min-height: 760px;
+  height: 100%;
+}
+
+.bb-map-options {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  background: #ffffff;
+}
+
+.bb-map-options .bb-field {
+  margin-bottom: 0;
+}
+
+.bb-map-options .bb-range-row {
+  align-items: center;
+}
+
+/* ================== INFORMAÇÕES DE ROTAS E ESTAÇÕES ================== */
+.bb-route-info {
+  border-left: 1px solid var(--bb-border);
+  padding: 18px 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 760px;
+  align-self: stretch;
+}
+
+.bb-route-info-list-only {
+  align-self: stretch;
+}
+
+.bb-route-info h3 {
+  margin: 0 0 8px;
+  color: var(--bb-text);
+}
+
+.bb-route-info p {
+  color: var(--bb-muted);
+  line-height: 1.55;
+}
+
+.bb-empty-selection {
+  padding-top: 4px;
+}
+
+.bb-yellow-action {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--bb-yellow);
+  color: var(--bb-blue);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.bb-station-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.bb-station-details > .bb-badge {
+  justify-self: start;
+  margin-bottom: 0;
+}
+
+.bb-station-details > h3 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 24px;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.bb-station-details > p {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--bb-border);
+  border-left: 4px solid var(--bb-blue-2);
+  border-radius: 12px;
+  background: #f8fafc;
+  color: var(--bb-muted);
+  font-size: 15px;
+  line-height: 1.65;
+  text-align: left;
+}
+
+/* ================== CARTÕES DE INFORMAÇÃO E CONECTORES ================== */
+.bb-info-card,
+.bb-station-tabs-card {
+  border: 1px solid var(--bb-border);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(12, 32, 66, .07);
+}
+
+.bb-info-card {
+  padding: 16px;
+  text-align: left;
+}
+
+.bb-station-tabs-card {
+  padding: 12px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.bb-route-info .bb-station-tabs-card {
+  display: none;
+}
+
+.bb-info-card-head {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: start;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.bb-info-icon {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--bb-blue-2);
+  border-radius: 999px;
+  color: var(--bb-blue-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.bb-info-card h4 {
+  margin: 0;
+  color: var(--bb-text);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.bb-info-card-head p,
+.bb-connector-network span,
+.bb-info-row p {
+  margin: 4px 0 0;
+  color: var(--bb-muted);
+  line-height: 1.4;
+}
+
+.bb-connector-network {
+  margin: 10px 0 14px;
+  text-align: left;
+}
+
+.bb-connector-network span {
+  display: block;
+}
+
+.bb-connector-network strong {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: var(--bb-text);
+  font-size: 13px;
+}
+
+.bb-connector-row {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #edf2f7;
+}
+
+.bb-connector-row strong {
+  color: var(--bb-text);
+  font-size: 17px;
+}
+
+.bb-connector-row em {
+  border: 1px solid var(--bb-border);
+  border-radius: 999px;
+  color: var(--bb-text);
+  font-style: normal;
+  font-weight: 800;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.bb-connector-symbol {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #94a3b8;
+  border-radius: 14px;
+  position: relative;
+}
+
+.bb-connector-symbol::before,
+.bb-connector-symbol::after,
+.bb-connector-symbol span::before,
+.bb-connector-symbol span::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+.bb-connector-symbol::before { top: 12px; left: 12px; }
+.bb-connector-symbol::after { top: 12px; right: 12px; }
+.bb-connector-symbol span::before { bottom: 12px; left: 12px; }
+.bb-connector-symbol span::after { bottom: 12px; right: 12px; }
+
+.bb-info-list {
+  display: grid;
+  gap: 0;
+}
+
+.bb-info-row {
+  padding: 13px 0;
+  border-top: 1px solid #edf2f7;
+  text-align: left;
+}
+
+.bb-info-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.bb-info-row strong {
+  display: inline-block;
+  color: var(--bb-text);
+  font-size: 15px;
+  margin-right: 8px;
+}
+
+/* ================== DETALHES DE ESTAÇÕES E ABAS (INTERNAS) ================== */
+.bb-station-details-below {
+  width: 100%;
+  box-sizing: border-box;
+  flex: none;
+  justify-self: center;
+  min-height: 0;
+}
+
+.bb-trip-stop-details + .bb-trip-stop-details {
+  margin-top: 0;
+}
+
+.bb-trip-stop-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bb-trip-stop-title h3 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.bb-station-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #eef2f7;
+}
+
+.bb-station-tabs button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--bb-blue);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.bb-station-tabs button.active {
+  background: var(--bb-yellow);
+}
+
+.bb-station-tab-panel {
+  display: none;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  padding: 14px 4px 4px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.bb-station-tab-panel.active {
+  display: block;
+}
+
+/* ================== CONECTORES E INFOS OTIMIZADAS ================== */
+.bb-optimized-text {
+  margin: 0 0 10px;
+  color: var(--bb-muted);
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.bb-optimized-text strong {
+  color: var(--bb-blue);
+}
+
+.bb-optimized-empty {
+  min-height: 130px;
+}
+
+.bb-optimized-connector,
+.bb-optimized-info {
+  margin-top: 14px;
+}
+
+.bb-optimized-connector .bb-info-card-head {
+  grid-template-columns: 24px 1fr;
+}
+
+.bb-optimized-connector .bb-info-card h4,
+.bb-optimized-connector h4 {
+  font-size: 17px;
+}
+
+.bb-optimized-connector .bb-connector-row {
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+}
+
+.bb-optimized-connector .bb-connector-symbol {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.bb-optimized-connector .bb-connector-row em {
+  grid-column: 2;
+  justify-self: start;
+  font-size: 13px;
+}
+
+/* ================== PAINEL DE AUTONOMIA E CALCULADORA ================== */
+.bb-calculator-shell {
+  max-width: 1120px;
+  margin: 22px auto 48px;
+  padding: 0 28px;
+}
+
+.bb-autonomy-panel {
+  color: var(--bb-text);
+  padding: 18px;
+}
+
+.bb-autonomy-header {
+  margin-bottom: 16px;
+}
+
+.bb-autonomy-header h1 {
+  margin: 0;
+  color: var(--bb-blue);
+  font-size: 28px;
+  text-align: center;
+}
+
+.bb-autonomy-header p {
+  margin: 6px 0 0;
+  color: var(--bb-muted);
+  font-weight: 700;
+  text-align: center;
+}
+
+.bb-autonomy-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.bb-autonomy-metrics div {
+  background: #f8fafc;
+  border: 1px solid var(--bb-border);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.bb-autonomy-metrics span,
+.bb-autonomy-progress > span {
+  display: block;
+  color: var(--bb-muted);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.bb-autonomy-metrics strong {
+  display: block;
+  color: var(--bb-blue);
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.bb-autonomy-controls {
+  border: 1px solid var(--bb-border);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 18px 20px;
+}
+
+.bb-autonomy-control + .bb-autonomy-control {
+  margin-top: 20px;
+}
+
+.bb-autonomy-control-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  color: var(--bb-blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.bb-autonomy-control-head strong {
+  color: var(--bb-blue);
+}
+
+.bb-autonomy-control input {
+  width: 100%;
+  margin: 14px 0 4px;
+  accent-color: var(--bb-green);
+}
+
+.bb-autonomy-scale {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  color: var(--bb-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.bb-autonomy-progress {
+  background: #f8fafc;
+  border: 1px solid var(--bb-border);
+  border-radius: 8px;
+  margin-top: 18px;
+  padding: 16px 18px;
+}
+
+.bb-autonomy-progress > div:first-of-type {
+  height: 12px;
+  border-radius: 999px;
+  background: #dfe7f1;
+  overflow: hidden;
+}
+
+.bb-autonomy-progress i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--bb-green);
 }
 
 .bb-calculator-hero {
@@ -1026,31 +2362,48 @@ body {
   margin-bottom: 4px;
 }
 
+/* ================== PLANEJADOR E LISTA DE PONTOS ================== */
 .bb-planner-shell {
   max-width: 1500px;
   margin: 22px auto 48px;
   padding: 0 28px;
   display: grid;
-  grid-template-columns: 390px 1fr;
+  grid-template-columns: 460px 1fr;
   gap: 22px;
   align-items: start;
 }
 
 .bb-planner-panel {
-  background: #fff;
-  border: 1px solid var(--bb-border);
   border-radius: 22px;
-  box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
-  padding: 24px;
+  padding: 0;
 }
 
+.bb-planner-panel-header {
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid var(--bb-border);
+  text-align: center;
+}
+
+.bb-planner-panel-header h1,
 .bb-planner-panel h1 {
   color: var(--bb-blue);
-  margin: 0 0 8px;
+  margin: 0;
+  font-size: clamp(26px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
+.bb-planner-panel-header p,
 .bb-planner-panel p {
+  margin: 8px auto 0;
+  max-width: 360px;
   color: var(--bb-muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.bb-planner-form {
+  padding: 24px 26px 28px;
 }
 
 .bb-range-row {
@@ -1069,78 +2422,18 @@ body {
   text-align: right;
 }
 
-.bb-planner-map {
+.bb-planner-map,
+.bb-planner-map .leaflet-container {
   min-height: 720px;
-  height: 720px;
+}
+
+.bb-planner-map {
   align-self: start;
   border-radius: 22px;
   border: 1px solid var(--bb-border);
   box-shadow: 0 10px 28px rgba(12, 32, 66, .08);
   overflow-x: hidden;
   background: #e8eef5;
-}
-
-.bb-planner-map-column {
-  min-width: 0;
-  display: grid;
-  gap: 18px;
-  align-content: start;
-}
-
-.bb-planner-map .leaflet-container {
-  min-height: 720px;
-}
-
-.bb-alert {
-  background: #fff7ed;
-  color: #c2410c;
-  border: 1px solid #fed7aa;
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0;
-  font-weight: 700;
-}
-
-
-/* AJUSTES_PLANEJADOR_COMPLETO */
-.bb-planner-shell {
-  grid-template-columns: 460px 1fr;
-}
-
-.bb-planner-panel {
-  padding: 0;
-  overflow: hidden;
-}
-
-.bb-planner-panel-header {
-  padding: 24px 28px 18px;
-  border-bottom: 1px solid var(--bb-border);
-  text-align: center;
-}
-
-.bb-planner-panel-header h1 {
-  color: var(--bb-blue);
-  margin: 0;
-  font-size: clamp(26px, 2.2vw, 34px);
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-}
-
-.bb-planner-panel-header p {
-  margin: 8px auto 0;
-  max-width: 360px;
-  color: var(--bb-muted);
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-.bb-planner-form {
-  padding: 24px 26px 28px;
-}
-
-.bb-select,
-.bb-input {
-  font-size: 16px;
 }
 
 .bb-help-text {
@@ -1180,67 +2473,12 @@ body {
   margin-bottom: 6px;
 }
 
-.bb-success {
-  background: #ecfdf5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0;
-  font-weight: 700;
-}
-
-.bb-warning {
-  background: #fff7ed;
-  color: #c2410c;
-  border: 1px solid #fed7aa;
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0;
-  font-weight: 700;
-}
-
-
-/* AJUSTES_MAPA_PONTOS_BATERIA */
-.bb-map-options {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 12px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--bb-border);
-  background: #ffffff;
-}
-
-.bb-map-options .bb-field {
-  margin-bottom: 0;
-}
-
-.bb-map-options .bb-range-row {
-  align-items: center;
-}
-
 .bb-points-list {
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid var(--bb-border);
   max-height: 270px;
   overflow-y: auto;
-  scrollbar-color: #ffffff #e5e7eb;
-  scrollbar-width: thin;
-}
-
-.bb-points-list::-webkit-scrollbar {
-  width: 10px;
-}
-
-.bb-points-list::-webkit-scrollbar-track {
-  background: #e5e7eb;
-}
-
-.bb-points-list::-webkit-scrollbar-thumb {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 999px;
 }
 
 .bb-points-list-top {
@@ -1278,7 +2516,8 @@ body {
   background: #eff6ff;
 }
 
-.bb-point-button strong {
+.bb-point-button strong,
+.bb-history-item strong {
   display: block;
   color: var(--bb-blue);
   margin-bottom: 4px;
@@ -1289,17 +2528,13 @@ body {
   font-size: 12px;
 }
 
-
-
-/* AJUSTES_HISTORICO_ROTAS */
+/* ================== HISTÓRICO ================== */
 .bb-history-list {
   margin-top: 12px;
   display: grid;
   gap: 8px;
   max-height: 180px;
   overflow-y: auto;
-  scrollbar-color: #ffffff #e5e7eb;
-  scrollbar-width: thin;
 }
 
 .bb-history-item {
@@ -1311,20 +2546,16 @@ body {
   font-size: 13px;
 }
 
-.bb-history-item strong {
-  display: block;
-  color: var(--bb-blue);
-  margin-bottom: 4px;
-}
-
 .bb-history-item span {
   display: block;
   color: var(--bb-muted);
   line-height: 1.4;
 }
 
+/* ================== MEDIA QUERIES (ADAPTADO) ================== */
 
-@media (max-width: 1050px) {
+/* Smartphone */
+@media (max-width: 767px) {
   .bb-hero {
     background:
       linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
@@ -1339,7 +2570,9 @@ body {
 
   .bb-main,
   .bb-map-layout,
-  .bb-planner-shell {
+  .bb-planner-shell,
+  .bb-calculator-grid,
+  .bb-map-options {
     grid-template-columns: 1fr;
   }
 
@@ -1361,21 +2594,6 @@ body {
     flex-direction: column;
   }
 
-  .bb-planner-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .bb-calculator-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .bb-map-options {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-
   .bb-autonomy-header h1 {
     font-size: 25px;
     margin-bottom: 15px; 
@@ -1384,13 +2602,59 @@ body {
   .bb-autonomy-header {
     margin-bottom: 24px; 
   }
+
   .bb-autonomy-metrics {
     grid-template-columns: 1fr !important; 
     gap: 16px; 
   }
 
   .bb-autonomy-metrics > div {
-    width: 100%; /* Garante que o card ocupe a tela toda */
+    width: 100%;
     box-sizing: border-box;
   }
 }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .bb-hero {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+      url("../assets/imagemCarro.png") center / cover no-repeat;
+  }
+
+  .bb-hero-content {
+    width: 100%;
+    min-width: 0;
+    padding: 45px 32px;
+  }
+
+  .bb-main,
+  .bb-map-layout,
+  .bb-planner-shell,
+  .bb-calculator-grid,
+  .bb-map-options {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-route-info {
+    border-left: 0;
+    border-top: 1px solid var(--bb-border);
+  }
+
+  .bb-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-map-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* Notebook */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .bb-main {
+    grid-template-columns: 280px minmax(0, 1fr); 
+  }
+}
+

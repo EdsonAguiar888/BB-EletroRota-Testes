@@ -322,7 +322,8 @@ export default function Auth({ onLoginSuccess }) {
         onClick={() => navigate('/')}
         aria-label="Voltar para a Home"
       >
-        ✕ Voltar para Home
+        <i className="fas fa-arrow-left"></i> voltar
+
       </button>
     </div>
   );
