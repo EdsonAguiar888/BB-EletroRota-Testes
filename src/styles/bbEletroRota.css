@@ -406,7 +406,7 @@ body {
   grid-template-columns: minmax(0, 1fr) 340px;
   align-items: stretch;
   min-height: 525px;
-  max-height: 575px;
+  max-height: 525px;
 }
 
 .bb-map-area {
