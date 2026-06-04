@@ -139,7 +139,8 @@ body {
 .station-container {
   width: 100%;
   max-width: 100%; /* Remove o limite antigo de 700px */
-  background-color: #f8fafc;
+  background-color: #f1f5f8;
+  /* background-color: #f8fafc; */
   padding: 25px;
   border-radius: 14px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -602,7 +603,8 @@ body {
 
 /* ── Card principal ── */
 .bb-card {
-  background: #ffffff;
+  background: #f1f5f8;
+  /* background: #ffffff; */
   border: 0.5px solid rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   overflow: hidden;

@@ -12,7 +12,7 @@ function BotaoLogin() {
   return (
     <Link to="/login" className="bb-account-btn">
       <i className="fas fa-user"></i>
-      <span className='acessar-desktop'>Acessar a sua conta</span>
+      <span  className='acessar-desktop' style={{ color: 'white', fontSize: '14px' }}>Acessar a sua conta</span>
       <span className='acessar-mobile'>Login</span>
     </Link>
   );
