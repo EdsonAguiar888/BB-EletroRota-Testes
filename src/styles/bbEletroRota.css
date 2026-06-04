@@ -226,6 +226,8 @@ body::-webkit-scrollbar-thumb,
   min-width: 150px;
   padding-bottom: 10px;
   border-bottom: 2px solid transparent;
+  font-size: 16px; /* Ajuste para o tamanho que desejar */
+  font-weight: 800; /* Opcional: deixa o texto mais legível */
 }
 
 .bb-mini-tabs .active {

@@ -246,7 +246,7 @@
   .bb-mobile-toprow .bb-logo-img {
     position: absolute !important;
     left: 50% !important;
-    top: 50% !important;
+    top: 60% !important;
     transform: translate(-50%, -50%) !important;
     height: 40px !important; /* Tamanho adaptado para celular */
     margin: 0 !important;
