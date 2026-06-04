@@ -6,7 +6,8 @@ import HomeLogado from './pages/HomeLogado';
 import GerenciarUsuarios from './pages/GerenciarUsuarios';
 import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
-import Busca from './pages/BuscaPag'
+import Footer from './components/footer.jsx';
+import Busca from './pages/BuscaPag';
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
