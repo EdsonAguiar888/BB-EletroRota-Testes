@@ -1,8 +1,8 @@
 
-import { useEffect, useState } from 'react';
-import './GerenciarVeiculos.css';
+import { useState, useEffect } from 'react';
+import './GerenciarVeiculos.css'; 
 // Importando a função de validação que criamos
-import { validarFormularioVeiculo } from '../components/Validacoes';
+import { validarFormularioVeiculo } from '../components/Validacoes'; 
 
 
 export default function GerenciaVeiculos() {
@@ -15,13 +15,12 @@ export default function GerenciaVeiculos() {
     bateriaAtual: ''
   });
 
-  const [editId, setEditId] = useState(null);
+  const [editId, setEditId] = useState(null); 
   const [mensagem, setMensagem] = useState('');
   // Estado opcional para você pintar as bordas dos inputs de vermelho se quiser
-  const [errosCampos, setErrosCampos] = useState({});
+  const [errosCampos, setErrosCampos] = useState({}); 
 
-  // API SIMULADA MOCKAPAPI E SERVIDOR LOCAL PARA PERSISTÊNCIA DE DADOS
-  const API_URL = window.location.hostname === 'localhost'
+  const API_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? 'http://localhost:3000/usuarios'
     : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
 
@@ -69,7 +68,7 @@ export default function GerenciaVeiculos() {
 
     // --- EXECUÇÃO DA VALIDAÇÃO ANTES DE SALVAR ---
     const errosValida = validarFormularioVeiculo(formData);
-
+    
     // Se o objeto de erros tiver alguma chave, significa que falhou
     if (Object.keys(errosValida).length > 0) {
       setErrosCampos(errosValida);
@@ -104,7 +103,7 @@ export default function GerenciaVeiculos() {
     const payload = {
       ...usuarioLogado,
       veiculos: listaNova,
-      veiculo: listaNova[0] || null
+      veiculo: listaNova[0] || null 
     };
 
     try {
@@ -116,7 +115,7 @@ export default function GerenciaVeiculos() {
 
       if (response.ok) {
         setMensagem(editId ? 'Veículo atualizado com sucesso!' : 'Novo veículo cadastrado!');
-
+        
         limparFormulario();
         carregarVeiculosDoUsuario(usuarioLogado.id);
         setTimeout(() => setMensagem(''), 3000);
@@ -182,36 +181,36 @@ export default function GerenciaVeiculos() {
 
       <form onSubmit={handleSubmit} className="gerenciar-form">
         <label className="form-label">{editId ? 'Editar Veículo:' : 'Cadastrar Novo Veículo:'}</label>
-
+        
         {/* Adicionado feedback visual simples usando inline styles caso haja erro no input */}
-        <input
-          name="marca"
-          value={formData.marca}
-          onChange={handleChange}
-          placeholder="Marca (ex: Tesla, BYD)"
+        <input 
+          name="marca" 
+          value={formData.marca} 
+          onChange={handleChange} 
+          placeholder="Marca (ex: Tesla, BYD)" 
           maxLength={20} // Bloqueio de 5 a 20 caracteres
           style={errosCampos.marca ? { border: '2px solid red' } : {}}
-          required
+          required 
         />
-
-        <input
-          name="potencia"
-          value={formData.potencia}
-          onChange={handleChange}
-          placeholder="Potência (ex: 200)"
+        
+        <input 
+          name="potencia" 
+          value={formData.potencia} 
+          onChange={handleChange} 
+          placeholder="Potência (ex: 200)" 
           maxLength={4} // Não deixa digitar mais que 4 caracteres
           style={errosCampos.potencia ? { border: '2px solid red' } : {}}
-          required
+          required 
         />
-
-        <input
-          name="bateriaAtual"
-          value={formData.bateriaAtual}
-          onChange={handleChange}
-          placeholder="Bateria Atual (ex: 99)"
+        
+        <input 
+          name="bateriaAtual" 
+          value={formData.bateriaAtual} 
+          onChange={handleChange} 
+          placeholder="Bateria Atual (ex: 99)" 
           maxLength={3} // Não deixa digitar mais que 3 caracteres
           style={errosCampos.bateria ? { border: '2px solid red' } : {}}
-          required
+          required 
         />
 
         <div className="btn-group">
@@ -266,5 +265,7 @@ export default function GerenciaVeiculos() {
     </div>
   );
 }
+
+
 
 

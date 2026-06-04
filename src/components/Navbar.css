@@ -10,14 +10,14 @@
   --bb-out: #315780;
 }
 
-.bb-header {
+.bb-navbar-header {
   margin: 0;
   padding: 0;
   line-height: 1;
   display: block;
 }
 
-.bb-header + * {
+.bb-navbar-header + * {
   margin-top: 0;
 }
 
@@ -29,6 +29,7 @@
   font-family: var(--bb-font);
   height: 90px;
   box-sizing: border-box;
+  width: 100%;
 
 }
 
@@ -129,7 +130,7 @@
 
 .bb-account-btn {
   background-color: var(--bb-blue);
-  color: var(--bb-white) !important;
+  color: var(--bb-white) important;
   display: flex;
   align-items: center;
   gap: 8px;

@@ -5,11 +5,14 @@ import BarraBusca from './Busca';
 import './Navbar.css';
 
 
+
+
+
 function BotaoLogin() {
   return (
     <Link to="/login" className="bb-account-btn">
       <i className="fas fa-user"></i>
-      <span className='acessar-desktop'>Acessar a sua conta</span>
+      <span  className='acessar-desktop' style={{ color: 'white', fontSize: '14px' }}>Acessar a sua conta</span>
       <span className='acessar-mobile'>Login</span>
     </Link>
   );
@@ -38,7 +41,7 @@ export default function Navbar({ usuario, setUsuario }) {
   };
 
   return (
-    <header className="bb-header">
+    <header className="bb-navbar-header">
       <div className="bb-topbar">
 
         <div className="bb-logo-area">
@@ -50,7 +53,7 @@ export default function Navbar({ usuario, setUsuario }) {
         <nav className="bb-topnav">
           <Link to="/">Início</Link>
           <Link to="/gerenciar">Gerenciar Veículos</Link>
-          <Link to="/mapas">Mapas</Link>
+          <Link to="/otimizador">Mapas</Link>
         </nav>
 
         <div className="bb-topbar-right">

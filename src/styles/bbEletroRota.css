@@ -76,7 +76,7 @@ body {
 }
 
 .bb-hero-content {
-  width: 60%;
+  width: 70%;
   min-width: 420px;
   text-align: center;
   padding: 50px 70px;
@@ -403,10 +403,10 @@ body {
 
 .bb-map-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 250px;
+  grid-template-columns: minmax(0, 1fr) 340px;
   align-items: stretch;
-  min-height: 500px;
-  max-height: 570px;
+  min-height: 525px;
+  max-height: 525px;
 }
 
 .bb-map-area {
@@ -703,8 +703,7 @@ body {
   box-sizing: border-box;
   flex: none;
   justify-self: center;
-  min-height: 100%;
-  margin-top: 4px;
+  min-height: 0;
 }
 
 .bb-trip-stop-details + .bb-trip-stop-details {
