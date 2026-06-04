@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { validarAuth, emailJaCadastrado } from '../components/Validacoes';
 import "./Login.css";
-import logo from "../assets/BBEletroRota-logopng.png";
-//import logo from '../assets/logo bb transp a.png';
 
+import logo from '../assets/BBEletroRota-Logopng.png';
 
 function MensagemErroCampo({ campo, errosCampos }) {
   if (!errosCampos[campo]) return null;
