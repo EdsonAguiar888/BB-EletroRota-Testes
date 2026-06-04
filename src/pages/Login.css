@@ -1,4 +1,4 @@
-/* RESET BÁSICO Remove margens padrão do navegador */
+/* RESET BÁSICO */
 * {
     margin: 0;
     padding: 0;
@@ -6,178 +6,110 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Wrapper da rota /login — tela cheia sem afetar outras páginas do app */
+/* Wrapper principal fixo na tela - impede qualquer rolagem externa */
 .pagina-login {
     position: fixed;
     inset: 0;
     z-index: 100;
     width: 100%;
     height: 100dvh;
-    min-height: 100dvh;
     max-height: 100dvh;
     overflow: hidden;
     background-color: #e9ecef;
     text-align: left;
 }
 
-/* Container principal: ocupa 100% do wrapper */
+/* Container principal */
 .pagina-login .container-login {
     width: 100%;
     height: 100%;
-    min-height: 100%;
-    max-height: 100%;
     display: flex;
     background-color: #ffffff;
-    border-radius: 0;
-    box-shadow: none;
-    transition: all 0.6s ease-in-out;
-    opacity: 1;
     overflow: hidden;
 }
 
-/* O Cadastro desliza pra direita e acende! */
+/* Transição do modo cadastro */
 .pagina-login .container-login.modo-cadastro .area-cadastro {
-    transform: translateX(100%);
+    transform: none;
     opacity: 1;
-    pointer-events: auto;
-    /* O !important força a tela a aceitar cliques */
     z-index: 10 !important;
-    /* Coloca a área de cadastro acima de todas as outras camadas */
 }
 
+/* Áreas de conteúdo - controlam rigorosamente a altura */
 .area-login,
 .area-cadastro {
     flex: 1;
-    min-height: 0;
+    height: 100%;
+    min-height: 0; /* Permite que a área encolha se necessário */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    font-display: block;
+    justify-content: center; /* Centraliza todo o bloco verticalmente */
+    padding: 4vh 10%; /* Padding responsivo baseado na altura da tela */
+    overflow: hidden; /* Garante que nada vaze */
 }
 
-/* Login: padding-top maior para não encostar no botão "Voltar para Home" */
-.area-login {
-    padding: 110px 150px 100px;
-}
-
+/* Estado padrão de exibição das telas */
 .area-cadastro {
-    padding: 50px 100px;
+    display: none;
 }
 
-.area-login .area-formulario-conteudo {
-    padding-top: 8px;
+.pagina-login .container-login.modo-cadastro .area-cadastro {
+    display: flex;
 }
 
-/* Bloco central (título + campos) — tamanho original, centralizado na coluna */
-.area-formulario-conteudo {
-    flex: 1;
-    min-height: 0;
+.pagina-login .container-login.modo-cadastro .area-login {
+    display: none;
+}
+
+.pagina-login .container-login.modo-cadastro .area-branding {
+    order: -1;
+}
+
+/* Cabeçalhos internos reduzidos para não empurrar o formulário */
+.textos-boas-vindas, .texto-cadastro {
+    margin-bottom: 20px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.textos-boas-vindas h1, .texto-cadastro h1 {
+    color: #0038a8;
+    font-size: 26px;
+    margin-bottom: 4px;
+}
+
+/* Formulários compactos */
+.formulario-login, 
+.area-cadastro form {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
-/* Seletor no rodapé da área branca (como no layout de referência) */
-.seletor-area-login {
-    background-color: #f3f4f6;
-    border-radius: 8px;
-    display: flex;
-    flex-shrink: 0;
-    margin-top: 24px;
-    position: relative;
-    justify-content: center;
-    top: 0;
+/* Grupos de Input com margens reduzidas */
+.grupo-input,
+.grupo-input2 {
+    margin-bottom: 12px;
 }
-
-.seletor-area-cadastro {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    flex-shrink: 0;
-    margin-top: 24px;
-    position: relative;
-    top: 0;
-}
-
-.texto-possui-conta {
-    color: #6b7280;
-    font-size: 16px;
-}
-
-.btn-inativo {
-    background-color: transparent;
-    color: #6b7280;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px  20px;
-    width: auto;
-    gap: 30px;
-}
-
-/* Efeito de hover no botão "Criar Conta" solicitado */
-.btn-inativo:hover {
-    background-color: #e5e7eb;
-    color: #111827;
-}
-
-/* Textos Iniciais */
-.textos-boas-vindas {
-    margin-bottom: 30px;
-    margin-top: 0;
-    flex-shrink: 0;
-    color: #6b7280;
-    font-size: 16px;
-}
-
-.textos-boas-vindas h1 {
-    color: #0038a8;
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-.formulario-login {
-    flex-shrink: 0;
-}
-
-/* Campos de Formulário */
 
 .grupo-input label,
 .grupo-input2 label {
     display: block;
     color: #0038a8;
     font-weight: 600;
-    font-size: 14px;
-}
-
-.grupo-input label {
-    margin: 5px;
-    margin-top: 10px;
-}
-
-.grupo-input .input-sem-icone,
-.grupo-input2 .input-sem-icone {
-    position: relative;
-    display: flex;
-    align-items: center;
+    font-size: 13px;
+    margin-bottom: 4px;
 }
 
 .grupo-input .input-sem-icone input,
 .grupo-input2 .input-sem-icone input {
     width: 100%;
-    padding: 14px 40px;
+    padding: 10px 14px; /* Diminuído para economizar espaço vertical */
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     outline: none;
-    color: #37415ff1;
+    color: #37415f;
     background-color: #ffffff;
 }
 
@@ -186,22 +118,21 @@
     border-color: #0038a8;
 }
 
-
-/* Lembrar-me e Esqueci a Senha */
+/* Opções extras (Lembrar de mim / Esqueceu a senha) */
 .opcoes-extras {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    font-size: 13px;
 }
 
 .lembrar-mim {
     color: #4b5563;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     cursor: pointer;
 }
 
@@ -215,232 +146,182 @@
     text-decoration: underline;
 }
 
-/* Botões de Ação (Entrar) */
-.btn-enter {
-    width: 100%;
-    padding: 18px;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    transition: 0.3s;
-    background-color: #0038a8;
-    color: floralwhite;
-    margin-bottom: 10px;
-    margin-top: 40px;
-    flex-shrink: 0;
-}
-
-.btn-enter:hover {
-    background-color: #00297a;
-}
-
-/* ==========================================
-   ÁREA DE CADASTRO 
-   ========================================== */
-
-/* Estado padrão: esconde o formulário de cadastro */
-.area-cadastro {
-    display: none;
-    order: 2;
-}
-
-/* Modo cadastro: override da regra acima (vem depois na cascata → ganha) */
-.pagina-login .container-login.modo-cadastro .area-cadastro {
-    display: flex;
-    transform: none;
-    opacity: 1;
-}
-
-.pagina-login .container-login.modo-cadastro .area-login {
-    display: none;
-}
-
-/* Branding vai para a esquerda */
-.pagina-login .container-login.modo-cadastro .area-branding {
-    order: -1;
-}
-
-/* Textos iniciais do cadastro */
-.texto-cadastro {
-    margin-bottom: 20px;
-    margin-top: 0;
-    flex-shrink: 0;
-    color: #6b7280;
-    font-size: 16px;
-}
-
-.texto-cadastro h1 {
-    color: #0038a8;
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-.grupo-input2 label {
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-
-.grupo-input2 .input-sem-icone input {
-    color: #374151;
-}
-
-/* Botão Criar Conta (espelha .btn-enter do login) */
+/* Botões principais mais enxutos */
+.btn-enter, 
 .btn-criar-conta {
     width: 100%;
-    padding: 20px;
+    padding: 12px; /* Reduzido de 18px/20px */
     border: none;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    transition: 0.3s;
+    transition: background 0.2s;
     background-color: #0038a8;
-    color: floralwhite;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    flex-shrink: 0;
+    color: white;
 }
 
+.btn-enter {
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.btn-criar-conta {
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.btn-enter:hover, 
 .btn-criar-conta:hover {
     background-color: #00297a;
 }
 
+/* Seletores de alternância inferiores */
+.seletor-area-login {
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    margin-top: 16px;
+    justify-content: center;
+}
 
-/* Configuração base do botão de voltar */
+.seletor-area-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.texto-possui-conta {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.btn-inativo {
+    background-color: transparent;
+    color: #6b7280;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-inativo:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+/* Botão Voltar para Home */
 .btn-voltar-home {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10; /* Garante que ele fique acima de tudo */
+    top: 16px;
+    z-index: 100;
     background: white;
     border: 1px solid #9ea5a8;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: #374151; /* Cor cinza escuro para combinar com os textos */
+    color: #374151;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-  }
-  
+}
 
-  .btn-voltar-home:hover {
-    background-color: #9ca3af; /* Efeito hover sutil */
+.btn-voltar-home:hover {
+    background-color: #9ca3af;
     border-color: #9ca3af;
-  }
-  
-  /* =======================================================
-     MÁGICA DO CSS: Alinhamento automático com a área branca
-     ======================================================= */
-  
-  /* Quando o container NÃO tem .modo-cadastro (Tela de Login -> Área branca na ESQUERDA) */
-  .pagina-login .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
-    left: 20px;
+    color: white;
+}
+
+.pagina-login .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
+    left: 16px;
     right: auto;
-  }
-  
-  /* Quando o container TEM .modo-cadastro (Tela de Cadastro -> Área branca na DIREITA) */
-  .pagina-login .container-login.modo-cadastro ~ .btn-voltar-home {
-    right: 20px;
+}
+
+.pagina-login .container-login.modo-cadastro ~ .btn-voltar-home {
+    right: 16px;
     left: auto;
-  }
+}
 
 /* ==========================================
-   LAADO (BRANDING) COM LOGO 
+   LADO DO BRANDING (PAINEL AZUL)
    ========================================== */
 .area-branding {
     flex: 1;
-    min-height: 0;
+    height: 100%;
     background-image: url(../assets/Container.png);
     background-size: cover;
     background-position: center;
-    padding: 80px 90px;
+    padding: 40px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
     align-items: center;
+    position: relative;
     overflow: hidden;
 }
 
-/* Logo */
+/* Logo redimensionada para resoluções de notebook padrão */
 .logo {
     position: absolute;
-    /* Fixa a logo independente do texto centralizado */
-    top: 60px;
-    /* Distância do topo da tela azul */
-    left: 80px;
-    /* Distância da esquerda da tela azul */
+    top: 30px;
+    left: 40px;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 25.32px; /*tamanho do texto da logo*/
+    font-size: 20px;
     font-weight: bolder;
     z-index: 20;
-    /* Garante que ela fique sempre visível por cima de tudo */
 }
 
 .logo-svg {
-    height: 200px;
-    width: 180px;
+    height: 45px;
+    width: 45px;
 }
 
-/* Textos Principais Direita */
+.textos-branding {
+    text-align: center;
+    max-width: 400px;
+}
+
 .textos-branding h2 {
-    font-size: 42px;
+    font-size: 28px;
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .textos-branding p {
-    font-size: 18px;
+    font-size: 15px;
     color: #cbd5e1;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
-/* Rodapé Direito */
+/* Rodapé */
 .rodape-branding {
     position: absolute;
-    bottom: 40px;
-    /* elemento fica a 40px de distância da parte inferior da tela*/
+    bottom: 20px;
     display: flex;
-    justify-content: center;
-    font-size: 14px;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
     color: #94a3b8;
-    gap: 20px;
+    gap: 8px;
 }
-
-.rodape-branding span {
-    white-space: nowrap;
-    position: relative;
-    left: 0;
-}
-
 
 .links-rodape {
-    align-items: center;
-    justify-content: center;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 20px;
-    margin-right: 15px;
+    display: flex;
+    gap: 16px;
 }
 
 .links-rodape a {
     color: #94a3b8;
     text-decoration: none;
-    margin: 0 60px;
 }
 
 .links-rodape a:hover {
@@ -448,135 +329,60 @@
 }
 
 /* ==========================================
-   MEDIA QUERIES (ADAPTAÇÃO MOBILE E RESPONSIVIDADE)
+   MEDIA QUERIES (RESPONSIVIDADE)
    ========================================== */
 
-   @media (max-width: 1024px) {
-    .area-login {
-        padding: 80px 40px 40px;
+@media (max-width: 1024px) {
+    .area-login, .area-cadastro {
+        padding: 30px 6%;
     }
-
-    .area-cadastro {
-        padding: 40px;
-    }
-
     .textos-branding h2 {
-        font-size: 32px;
+        font-size: 24px;
     }
 }
 
-/* Mudanças focadas no Mobile com o Branding no topo */
+/* Mobile */
 @media (max-width: 900px) {
     .pagina-login {
         position: relative;
         height: auto;
         min-height: 100dvh;
         max-height: none;
-        overflow-x: hidden;
         overflow-y: auto;
     }
 
     .pagina-login .container-login {
         height: auto;
         min-height: 100dvh;
-        max-height: none;
-        flex-direction: column; /* Coloca o branding no topo e o formulário embaixo */
+        flex-direction: column;
     }
 
-    /* Transforma a área de branding azul em um cabeçalho para o celular */
     .area-branding {
         flex: none;
         width: 100%;
-        height: 160px; /* Altura compacta para o topo */
-        padding: 20px;
-        align-items: center;
-        justify-content: center;
+        height: 120px;
+        padding: 15px;
     }
 
-    /* Oculta os textos longos e o rodapé no mobile para não poluir a tela */
     .textos-branding, .rodape-branding {
         display: none !important;
     }
 
-    /* Centraliza a Logo e reduz o tamanho dela para caber no cabeçalho */
     .logo {
         position: relative;
         top: 0;
         left: 0;
-        flex-direction: row;
-        gap: 8px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .logo-svg {
-        height: 60px; /* Logo menor e mais delicada no celular */
-        width: 60px;
+        height: 35px;
+        width: 35px;
     }
 
-    /* Ajustes dos formulários abaixo do topo azul */
-    .area-login {
-        padding: 72px 24px 30px;
+    .area-login, .area-cadastro {
+        padding: 30px 20px;
         width: 100%;
-    }
-
-    .area-cadastro {
-        padding: 30px 24px;
-        width: 100%;
-    }
-
-    .textos-boas-vindas, .texto-cadastro {
-        margin-top: 0;
-        margin-bottom: 20px;
-    }
-
-    .textos-boas-vindas h1, .texto-cadastro{
-        font-size: 26px;
-    }
-
-    .grupo-input .input-sem-icone input,
-    .grupo-input2 .input-sem-icone input {
-        padding: 12px 16px;
-    }
-}
-
-/* Notebook 13" / altura baixa: mantém tamanhos grandes; só ajusta padding e rolagem interna */
-@media (max-height: 800px) and (min-width: 901px) {
-    .pagina-login .area-login {
-        padding: 80px 56px 32px;
-    }
-
-    .pagina-login .area-cadastro {
-        padding: 32px 56px;
-    }
-
-    .pagina-login .area-login .area-formulario-conteudo {
-        justify-content: flex-start;
-        padding-top: 16px;
-    }
-
-    .pagina-login .seletor-area-login {
-        margin-top: 16px;
-    }
-
-    .pagina-login .seletor-area-cadastro {
-        margin-top: 16px;
-    }
-
-    .pagina-login .logo {
-        top: 32px;
-        left: 48px;
-    }
-
-    .pagina-login .logo-svg {
-        height: 140px;
-        width: 126px;
-    }
-
-    .pagina-login .textos-branding h2 {
-        font-size: 34px;
-    }
-
-    .pagina-login .rodape-branding {
-        bottom: 24px;
+        height: auto;
     }
 }

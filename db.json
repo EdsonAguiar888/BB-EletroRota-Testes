@@ -180,6 +180,12 @@
       "email": "arthur@99.com",
       "senha": "12345",
       "id": "J7KW0scfygY"
+    },
+    {
+      "nome": "elton aguiar",
+      "email": "elton@elton.com",
+      "senha": "12345",
+      "id": "_fuFODn3uR0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
