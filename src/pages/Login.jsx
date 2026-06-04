@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { validarAuth, emailJaCadastrado } from '../components/Validacoes';
 import "./Login.css";
-import logo from "../assets/BBEletroRota-logo.svg";
+import logo from "../assets/BBEletroRota-logopng.png";
+//import logo from '../assets/logo bb transp a.png';
+
 
 function MensagemErroCampo({ campo, errosCampos }) {
   if (!errosCampos[campo]) return null;
@@ -296,8 +298,8 @@ export default function Auth({ onLoginSuccess }) {
         {/* LADO BRANDING / LOGO */}
         <section className="area-branding">
           <div className="logo">
-            <img src={logo} alt="Logo BBEletroRota" className="logo-svg" />
-            <span className="logo-texto">BBEletroRota</span>
+            <img src={logo} alt="Logo BB EletroRota" className="logo-svg" />
+            <span className="logo-texto">BB EletroRota</span>
           </div>
 
           <div className="textos-branding">
