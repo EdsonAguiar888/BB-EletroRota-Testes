@@ -134,6 +134,60 @@ export default function Mapa() {
             </div>
           </section>
 
+
+
+
+
+
+
+
+
+
+
+<section className="bb-card bb-optimized-card">
+  <div className="bb-card-header">
+    <h2 className="bb-card-title">Rota otimizada</h2>
+  </div>
+
+  {rotaOtimizada ? (
+    <div className="bb-card-body">
+      <p className="bb-optimized-text">
+        <strong>{rotaOtimizada.nome}</strong>
+      </p>
+      
+      <p className="bb-optimized-text">
+        Tempo total estimado: {rotaOtimizada.tempoTotal}
+      </p>
+      
+      {/* Exibe a economia apenas se ela for maior que zero */}
+      {rotaOtimizada.economiaMinutos > 0 && (
+        <p className="bb-optimized-text">
+          Economia estimada: {rotaOtimizada.economia}
+        </p>
+      )}
+      
+      <p className="bb-optimized-text">{rotaOtimizada.mensagem}</p>
+
+      <button
+        className="bb-yellow-action"
+        type="button"
+        onClick={() => setRotaOtimizadaSolicitada((valor) => valor + 1)}
+      >
+        Usar rota otimizada
+      </button>
+    </div>
+  ) : (
+    <div className="bb-card-body">
+      <p className="bb-optimized-text" style={{ opacity: 0.6 }}>
+        Nenhuma rota otimizada disponível para o filtro atual.
+      </p>
+    </div>
+  )}
+</section>
+
+
+
+{/* 
           <section className="bb-card bb-optimized-card">
             <div className="bb-card-header">
               <h2 className="bb-card-title">Rota otimizada</h2>
@@ -162,7 +216,7 @@ export default function Mapa() {
             ) : (
               <div className="bb-card-body bb-optimized-empty" aria-hidden="true" />
             )}
-          </section>
+          </section> */}
 
           <section className="bb-card bb-vehicle-card">
             <div className="bb-card-header">
