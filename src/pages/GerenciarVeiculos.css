@@ -2,6 +2,7 @@
 .gerenciar-container {
   padding: 30px;
   max-width: 1200px; /* Adicionado um max-width para não esticar ao infinito em telas ultrawide */
+  width: 70%;
   margin: 30px auto; /* Centraliza perfeitamente no lugar dos 20.9% fixos */
   background-color: #ffffff;
   border-radius: 12px;
@@ -174,7 +175,7 @@
 /* 1. Smartphone (até 767px) - Tabela vira Cards */
 @media (max-width: 767px) {
   .gerenciar-container {
-    margin: 15px auto;
+    margin: 24px auto;
     padding: 16px;
     max-width: 100%;
     width: 92%; /* Dá um respiro nas laterais */
@@ -185,6 +186,7 @@
   .gerenciar-container h2 {
     font-size: 1.3rem;
     margin-bottom: 16px;
+    text-align: center;
   }
 
   .gerenciar-form {
