@@ -1,5 +1,3 @@
-
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles/bbEletroRota.css';
 import {
@@ -13,6 +11,19 @@ import {
 
 const postos = postosRecarga;
 
+function criarInformacoesPosto(posto) {
+  if (!posto) return [];
+  return [
+    { titulo: 'Endereço', conteudo: posto.endereco },
+    { titulo: 'Comodidades', chips: posto.comodidades || [] },
+    { titulo: 'Acesso', destaque: posto.acesso, conteudo: posto.acessoDescricao },
+    { titulo: 'Preço para ativar', conteudo: posto.precoAtivacao },
+    { titulo: 'Preço por kWh', conteudo: posto.precoKwh },
+    { titulo: 'Telefone', conteudo: posto.telefone },
+    { titulo: 'Horário de funcionamento', conteudo: posto.horario }
+  ];
+}
+
 export default function MapaEletropostos({
   bateriaUsuario = 65,
   onRotaOtimizadaChange,
@@ -24,12 +35,10 @@ export default function MapaEletropostos({
   const markersRef = useRef([]);
   const userMarkerRef = useRef(null);
   const rotaRequestRef = useRef(0);
-  
-  // Guardas de estado para travar o loop de renderização do Pai
+
   const ultimoPostoNotificadoRef = useRef('');
   const onRotaOtimizadaChangeRef = useRef(onRotaOtimizadaChange);
 
-  // Sincroniza a ref da prop para evitar stale closures sem disparar o useEffect
   useEffect(() => {
     onRotaOtimizadaChangeRef.current = onRotaOtimizadaChange;
   }, [onRotaOtimizadaChange]);
@@ -37,8 +46,8 @@ export default function MapaEletropostos({
   const [localizacaoAtual, setLocalizacaoAtual] = useState(null);
   const [postoSelecionado, setPostoSelecionado] = useState('');
   const [filtroVelocidade, setFiltroVelocidade] = useState('todos');
+  const [rotaReal, setRotaReal] = useState(null);
   const [abaDetalhes, setAbaDetalhes] = useState('conectores');
-  const [, setForçarRender] = useState(0);
 
   const origem = useMemo(() => {
     return localizacaoAtual ? [localizacaoAtual.lat, localizacaoAtual.lng] : [-8.0712, -34.8850];
@@ -49,7 +58,7 @@ export default function MapaEletropostos({
     lng: origem[1]
   }), [origem]);
 
-  const pointsFiltered = useMemo(() => {
+  const pontosFiltrados = useMemo(() => {
     if (filtroVelocidade === 'todos') return postos;
     return postos.filter((posto) => numeroDeTexto(posto.potencia) === Number(filtroVelocidade));
   }, [filtroVelocidade]);
@@ -63,16 +72,24 @@ export default function MapaEletropostos({
   }, [bateriaUsuario, origemAtual]);
 
   const pontosFiltradosComCalculo = useMemo(() => {
-    return pointsFiltered.map((posto) => ({
+    return pontosFiltrados.map((posto) => ({
       posto,
       calculo: calcularPostoComOrigemAtual(posto)
     }));
-  }, [calcularPostoComOrigemAtual, pointsFiltered]);
+  }, [calcularPostoComOrigemAtual, pontosFiltrados]);
 
   const postoAtual = useMemo(() => {
     if (!postoSelecionado) return null;
-    return pointsFiltered.find((posto) => posto.nome === postoSelecionado) || null;
-  }, [pointsFiltered, postoSelecionado]);
+    return pontosFiltrados.find((posto) => posto.nome === postoSelecionado) || null;
+  }, [pontosFiltrados, postoSelecionado]);
+
+  const rotaSelecionada = useMemo(() => {
+    if (!postoAtual) return null;
+    const rotaDoPosto = rotaReal?.nome === postoAtual.nome ? rotaReal : null;
+    return rotaDoPosto
+      ? calcularTempoPosto(postoAtual, batteryValue => bateriaUsuario, rotaDoPosto)
+      : calcularPostoComOrigemAtual(postoAtual);
+  }, [bateriaUsuario, calcularPostoComOrigemAtual, postoAtual, rotaReal]);
 
   const rotasOtimizadasFiltradas = useMemo(() => {
     return [...pontosFiltradosComCalculo].sort((a, b) => a.calculo.tempoTotal - b.calculo.tempoTotal);
@@ -80,47 +97,94 @@ export default function MapaEletropostos({
 
   const rotaOtimizada = rotasOtimizadasFiltradas[0] || null;
 
-  // Trava de segurança definitiva baseada em string primitiva gerada pelo cálculo
-  const notificarPaiSobreRota = useCallback((postoAlvo, dadosCalculo) => {
-    if (!onRotaOtimizadaChangeRef.current || !dadosCalculo) return;
+  const economyMinutos = useMemo(() => {
+    if (!rotaOtimizada) return 0;
+    const rotaReferencia = (postoAtual && postoAtual.nome !== rotaOtimizada.posto.nome) ? rotaSelecionada : null;
+    const segundaMelhorRota = rotasOtimizadasFiltradas.find((r) => r.posto.nome !== rotaOtimizada.posto.nome);
+    const tempoReferencia = rotaReferencia?.tempoTotal || segundaMelhorRota?.calculo.tempoTotal || rotaOtimizada.calculo.tempoTotal;
+    
+    return Math.max(0, tempoReferencia - rotaOtimizada.calculo.tempoTotal);
+  }, [rotaOtimizada, postoAtual, rotaSelecionada, rotasOtimizadasFiltradas]);
 
-    const tempoMaisRapido = rotaOtimizada?.calculo.tempoTotal || dadosCalculo.tempoTotal;
-    const economiaCalculada = Math.max(0, dadosCalculo.tempoTotal - tempoMaisRapido);
+  const montarResumoRotaOtimizada = useCallback(() => {
+    if (!rotaOtimizada) return null;
 
-    const tempoTotalFormatado = formatarMinutos(dadosCalculo.tempoTotal);
-    const economiaFormatada = formatarMinutos(economiaCalculada);
+    return {
+      calculada: true,
+      nome: rotaOtimizada.posto.nome,
+      conector: rotaOtimizada.posto.conector,
+      informacoes: criarInformacoesPosto(rotaOtimizada.posto),
+      tempoTotal: formatarMinutos(rotaOtimizada.calculo.tempoTotal),
+      economiaMinutos: economyMinutos,
+      economia: formatarMinutos(economyMinutos),
+      mensagem: economyMinutos > 0
+        ? `Você economiza cerca de ${formatarMinutos(economyMinutos)} indo até o posto sugerido.`
+        : 'Este é o ponto mais rápido para carregar dentro do filtro selecionado.'
+    };
+  }, [rotaOtimizada, economyMinutos]);
 
-    // Cria uma assinatura única do estado atual da rota baseada em valores primitivos
-    const assinaturaRota = `${postoAlvo.nome}-${tempoTotalFormatado}-${economiaFormatada}-${bateriaUsuario}`;
-
-    // Se os dados resultantes forem estritamente idênticos aos últimos enviados, aborta para bloquear o loop
-    if (ultimoPostoNotificadoRef.current === assinaturaRota) {
+  const notificarPaiSeguro = useCallback((dadosResumo) => {
+    if (!onRotaOtimizadaChangeRef.current) return;
+    if (!dadosResumo) {
+      onRotaOtimizadaChangeRef.current(null);
       return;
     }
 
-    ultimoPostoNotificadoRef.current = assinaturaRota;
+    const assinatura = `${dadosResumo.nome}-${dadosResumo.tempoTotal}-${dadosResumo.calculada}-${bateriaUsuario}`;
+    if (ultimoPostoNotificadoRef.current === assinatura) return;
+    
+    ultimoPostoNotificadoRef.current = assinatura;
+    onRotaOtimizadaChangeRef.current(dadosResumo);
+  }, [bateriaUsuario]);
 
-    onRotaOtimizadaChangeRef.current({
-      nome: postoAlvo.nome,
-      tempoTotal: tempoTotalFormatado,
-      economiaMinutos: economiaCalculada,
-      economia: economiaFormatada,
-      mensagem: economiaCalculada > 0
-        ? `Você economiza cerca de ${economiaFormatada} usando a rota recomendada.`
-        : 'Este é o ponto mais rápido para carregar agora.'
-    });
-  }, [rotaOtimizada, bateriaUsuario]);
+  const selecionarRotaOtimizada = useCallback(() => {
+    if (!rotaOtimizada?.posto) return;
+
+    setPostoSelecionado(rotaOtimizada.posto.nome);
+    const resumo = montarResumoRotaOtimizada();
+    notificarPaiSeguro(resumo);
+    
+    const L = window.L;
+    if (L && map.current) {
+      const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${rotaOtimizada.posto.lng},${rotaOtimizada.posto.lat}?overview=full&geometries=geojson`;
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.routes?.[0]) return;
+          const rota = data.routes[0];
+          const coords = rota.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+
+          if (routeLayer.current) map.current.removeLayer(routeLayer.current);
+
+          routeLayer.current = L.polyline(coords, {
+            color: '#0038a8',
+            weight: 6,
+            opacity: 0.9,
+            lineCap: 'round',
+            lineJoin: 'round'
+          }).addTo(map.current);
+
+          map.current.fitBounds(routeLayer.current.getBounds(), { padding: [45, 45] });
+
+          setRotaReal({
+            nome: rotaOtimizada.posto.nome,
+            distanciaKm: rota.distance / 1000,
+            tempoMin: rota.duration / 60
+          });
+        }).catch(err => console.error("Erro na rota automatica:", err));
+    }
+  }, [rotaOtimizada, montarResumoRotaOtimizada, notificarPaiSeguro, origem]);
 
   const limparRota = useCallback(() => {
     if (routeLayer.current && map.current) {
       map.current.removeLayer(routeLayer.current);
       routeLayer.current = null;
     }
+    setRotaReal(null);
     ultimoPostoNotificadoRef.current = '';
-    setForçarRender(prev => prev + 1);
   }, []);
 
-  const desenharRota = useCallback(async (posto, forçarNotificacaoPai = false) => {
+  const desenharRota = useCallback(async (posto, forçarNotificacao = false) => {
     const L = window.L;
     if (!L || !map.current) return;
 
@@ -136,7 +200,7 @@ export default function MapaEletropostos({
       const rota = data.routes[0];
       const coords = rota.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
 
-      if (routeLayer.current && map.current) {
+      if (routeLayer.current) {
         map.current.removeLayer(routeLayer.current);
       }
 
@@ -150,23 +214,20 @@ export default function MapaEletropostos({
 
       map.current.fitBounds(routeLayer.current.getBounds(), { padding: [45, 45] });
 
-      const dadosRotaOSRM = {
+      setRotaReal({
         nome: posto.nome,
         distanciaKm: rota.distance / 1000,
         tempoMin: rota.duration / 60
-      };
+      });
 
-      const calculoFinalCompleto = calcularTempoPosto(posto, bateriaUsuario, dadosRotaOSRM);
-
-      if (forçarNotificacaoPai) {
-        notificarPaiSobreRota(posto, calculoFinalCompleto);
+      if (forçarNotificacao) {
+        const resumo = montarResumoRotaOtimizada();
+        if (resumo) notificarPaiSeguro(resumo);
       }
-
-      setForçarRender(prev => prev + 1);
     } catch (error) {
-      console.error('Erro ao traçar rota OSRM:', error);
+      console.error('Erro ao traçar rota:', error);
     }
-  }, [origem, bateriaUsuario, notificarPaiSobreRota]);
+  }, [origem, montarResumoRotaOtimizada, notificarPaiSeguro]);
 
   useEffect(() => {
     const L = window.L;
@@ -186,7 +247,7 @@ export default function MapaEletropostos({
           const lng = position.coords.longitude;
           setLocalizacaoAtual({ lat, lng });
 
-          if (userMarkerRef.current && map.current) map.current.removeLayer(userMarkerRef.current);
+          if (userMarkerRef.current) map.current.removeLayer(userMarkerRef.current);
 
           userMarkerRef.current = L.circleMarker([lat, lng], {
             radius: 11,
@@ -197,7 +258,7 @@ export default function MapaEletropostos({
           }).addTo(map.current).bindPopup('Sua localização atual');
           map.current.setView([lat, lng], 10);
         },
-        () => console.log('Geolocalização recusada.')
+        () => console.log('Geolocalização não permitida.')
       );
     }
 
@@ -218,16 +279,8 @@ export default function MapaEletropostos({
 
       return marker;
     });
-
-    return () => {
-      if (map.current) {
-        map.current.remove();
-        map.current = null;
-      }
-    };
   }, []);
 
-  // Monitora alterações de seleção para traçar rota e notificar
   useEffect(() => {
     if (!map.current) return;
     if (!postoAtual) {
@@ -235,33 +288,12 @@ export default function MapaEletropostos({
       return;
     }
     desenharRota(postoAtual, true);
-  }, [postoAtual, desenharRota, limparRota]);
+  }, [desenharRota, limparRota, postoAtual]);
 
-  // Monitora solicitações vindas do botão de ação externa do Pai
   useEffect(() => {
     if (!rotaOtimizadaSolicitada || !rotaOtimizada) return;
-    setPostoSelecionado(rotaOtimizada.posto.nome);
-    desenharRota(rotaOtimizada.posto, true);
-  }, [rotaOtimizadaSolicitada, rotaOtimizada, desenharRota]);
-
-  // Notificação proativa inicial da rota otimizada sem disparar o loop infinito
-  useEffect(() => {
-    if (!onRotaOtimizadaChange || !rotaOtimizada) return;
-    
-    const tempoTotalFormatado = formatarMinutos(rotaOtimizada.calculo.tempoTotal);
-    const assinaturaRota = `${rotaOtimizada.posto.nome}-${tempoTotalFormatado}-0-${bateriaUsuario}`;
-
-    if (ultimoPostoNotificadoRef.current === assinaturaRota) return;
-    ultimoPostoNotificadoRef.current = assinaturaRota;
-
-    onRotaOtimizadaChange({
-      nome: rotaOtimizada.posto.nome,
-      tempoTotal: tempoTotalFormatado,
-      economiaMinutos: 0,
-      economia: formatarMinutos(0),
-      mensagem: 'Este é o ponto mais rápido para carregar agora.'
-    });
-  }, [rotaOtimizada, onRotaOtimizadaChange, bateriaUsuario]);
+    selecionarRotaOtimizada();
+  }, [rotaOtimizadaSolicitada, rotaOtimizada, selecionarRotaOtimizada]);
 
   const selecionarPosto = (nome) => {
     setPostoSelecionado(nome);
@@ -272,22 +304,11 @@ export default function MapaEletropostos({
     setFiltroVelocidade(valor);
     setPostoSelecionado('');
     limparRota();
-    ultimoPostoNotificadoRef.current = '';
-    onRotaOtimizadaChangeRef.current?.(null);
+    notificarPaiSeguro(null);
   };
 
-  const informacoesPosto = postoAtual ? [
-    { titulo: 'Endereço', conteudo: postoAtual.endereco },
-    { titulo: 'Comodidades', chips: postoAtual.comodidades || [] },
-    { titulo: 'Acesso', destaque: postoAtual.acesso, conteudo: postoAtual.acessoDescricao },
-    { titulo: 'Preço para ativar', conteudo: postoAtual.precoAtivacao },
-    { titulo: 'Preço por kWh', conteudo: postoAtual.precoKwh },
-    { titulo: 'Telefone', conteudo: postoAtual.telefone },
-    { titulo: 'Horário de funcionamento', conteudo: postoAtual.horario }
-  ] : [];
-
+  const informacoesPosto = useMemo(() => criarInformacoesPosto(postoAtual), [postoAtual]);
   const conectorAtual = postoAtual?.conector || {};
-  const rotaSelecionada = postoAtual ? calcularPostoComOrigemAtual(postoAtual) : null;
 
   return (
     <div className="bb-map-column">
@@ -357,18 +378,18 @@ export default function MapaEletropostos({
                   Fila estimada: {formatarMinutos(rotaSelecionada.tempoFila)}<br />
                   Carros considerados na fila: {rotaSelecionada.carrosNaFila}<br />
                   Distância aproximada: {rotaSelecionada.distanciaKm.toFixed(1).replace('.', ',')} km<br />
-                  Tempo até o posto: {formatarMinutos(rotaSelecionada.tempoDeslocamento || rotaSelecionada.tempoTotal)}<br />
+                  Tempo até o posto: {formatarMinutos(rotaSelecionada.tempoDeslocamento)}<br />
                   Tempo para carregar: {formatarMinutos(rotaSelecionada.tempoCarga)}<br />
                   Bateria atual: {bateriaUsuario}%
                 </p>
 
                 <section className="bb-station-tabs-card">
-                  <div className="bb-station-tabs" role="tablist" aria-label="Detalhes do eletroposto">
+                  <div className="bb-station-tabs" role="tablist">
                     <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
                     <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
                   </div>
 
-                  <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`} role="tabpanel">
+                  <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`}>
                     <div className="bb-info-card-head">
                       <span className="bb-info-icon">C</span>
                       <div>
@@ -381,15 +402,13 @@ export default function MapaEletropostos({
                       <strong>{conectorAtual.rede}</strong>
                     </div>
                     <div className="bb-connector-row">
-                      <div className="bb-connector-symbol" aria-hidden="true">
-                        <span />
-                      </div>
+                      <div className="bb-connector-symbol"><span /></div>
                       <strong>{conectorAtual.tipo}</strong>
                       <em>{conectorAtual.conectores} conector(es)</em>
                     </div>
                   </section>
 
-                  <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`} role="tabpanel">
+                  <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`}>
                     <div className="bb-info-card-head">
                       <span className="bb-info-icon">i</span>
                       <div>
@@ -405,9 +424,7 @@ export default function MapaEletropostos({
                             {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
                             {item.chips ? (
                               <div className="bb-chip-list">
-                                {item.chips.map((chip) => (
-                                  <span key={chip}>{chip}</span>
-                                ))}
+                                {item.chips.map((chip) => <span key={chip}>{chip}</span>)}
                               </div>
                             ) : (
                               <p>{item.conteudo || 'Informação não disponível'}</p>
@@ -424,15 +441,15 @@ export default function MapaEletropostos({
         </div>
       </section>
 
-      {/* Bloco condicional inferior para layouts responsivos móveis */}
+      {/* Bloco responsivo inferior móvel - CORRIGIDO: setAbaDetalhes perfeitamente mapeado */}
       {postoAtual && rotaSelecionada && (
         <section className="bb-station-tabs-card bb-station-details-below">
-          <div className="bb-station-tabs" role="tablist" aria-label="Detalhes do eletroposto">
+          <div className="bb-station-tabs" role="tablist">
             <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
             <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
           </div>
 
-          <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`} role="tabpanel">
+          <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`}>
             <div className="bb-info-card-head">
               <span className="bb-info-icon">C</span>
               <div>
@@ -445,15 +462,13 @@ export default function MapaEletropostos({
               <strong>{conectorAtual.rede}</strong>
             </div>
             <div className="bb-connector-row">
-              <div className="bb-connector-symbol" aria-hidden="true">
-                <span />
-              </div>
+              <div className="bb-connector-symbol"><span /></div>
               <strong>{conectorAtual.tipo}</strong>
               <em>{conectorAtual.conectores} conector(es)</em>
             </div>
           </section>
 
-          <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`} role="tabpanel">
+          <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`}>
             <div className="bb-info-card-head">
               <span className="bb-info-icon">i</span>
               <div>
@@ -469,9 +484,7 @@ export default function MapaEletropostos({
                     {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
                     {item.chips ? (
                       <div className="bb-chip-list">
-                        {item.chips.map((chip) => (
-                          <span key={chip}>{chip}</span>
-                        ))}
+                        {item.chips.map((chip) => <span key={chip}>{chip}</span>)}
                       </div>
                     ) : (
                       <p>{item.conteudo || 'Informação não disponível'}</p>
@@ -489,6 +502,636 @@ export default function MapaEletropostos({
 
 
 
+// import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+// import '../styles/bbEletroRota.css';
+// import {
+//   calcularTempoPosto,
+//   distanciaKm,
+//   formatarMinutos,
+//   numeroDeTexto,
+//   postosRecarga,
+//   VELOCIDADE_MEDIA_KMH
+// } from '../utils/rotaOtimizada';
+
+// const postos = postosRecarga;
+
+// // Função utilitária trazida para estruturar os dados do posto selecionado
+// function criarInformacoesPosto(posto) {
+//   if (!posto) return [];
+//   return [
+//     { titulo: 'Endereço', conteudo: posto.endereco },
+//     { titulo: 'Comodidades', chips: posto.comodidades || [] },
+//     { titulo: 'Acesso', destaque: posto.acesso, conteudo: posto.acessoDescricao },
+//     { titulo: 'Preço para ativar', conteudo: posto.precoAtivacao },
+//     { titulo: 'Preço por kWh', conteudo: posto.precoKwh },
+//     { titulo: 'Telefone', conteudo: posto.telefone },
+//     { titulo: 'Horário de funcionamento', conteudo: posto.horario }
+//   ];
+// }
+
+// export default function MapaEletropostos({
+//   bateriaUsuario = 65,
+//   onRotaOtimizadaChange,
+//   rotaOtimizadaSolicitada = 0
+// }) {
+//   const mapRef = useRef(null);
+//   const map = useRef(null);
+//   const routeLayer = useRef(null);
+//   const markersRef = useRef([]);
+//   const userMarkerRef = useRef(null);
+//   const rotaRequestRef = useRef(0);
+
+//   // Travas de segurança para evitar loops infinitos no componente Pai
+//   const ultimoPostoNotificadoRef = useRef('');
+//   const onRotaOtimizadaChangeRef = useRef(onRotaOtimizadaChange);
+
+//   useEffect(() => {
+//     onRotaOtimizadaChangeRef.current = onRotaOtimizadaChange;
+//   }, [onRotaOtimizadaChange]);
+
+//   const [localizacaoAtual, setLocalizacaoAtual] = useState(null);
+//   const [postoSelecionado, setPostoSelecionado] = useState('');
+//   const [filtroVelocidade, setFiltroVelocidade] = useState('todos');
+//   const [rotaReal, setRotaReal] = useState(null);
+//   const [abaDetalhes, setAbaDetalhes] = useState('conectores');
+//   const [, setForçarRender] = useState(0);
+
+//   const origem = useMemo(() => {
+//     return localizacaoAtual ? [localizacaoAtual.lat, localizacaoAtual.lng] : [-8.0712, -34.8850];
+//   }, [localizacaoAtual]);
+
+//   const origemAtual = useMemo(() => ({
+//     lat: origem[0],
+//     lng: origem[1]
+//   }), [origem]);
+
+//   const pontosFiltrados = useMemo(() => {
+//     if (filtroVelocidade === 'todos') return postos;
+//     return postos.filter((posto) => numeroDeTexto(posto.potencia) === Number(filtroVelocidade));
+//   }, [filtroVelocidade]);
+
+//   const calcularPostoComOrigemAtual = useCallback((posto) => {
+//     const distanciaAtual = distanciaKm(origemAtual, posto);
+//     return calcularTempoPosto(posto, bateriaUsuario, {
+//       distanciaKm: distanciaAtual,
+//       tempoMin: (distanciaAtual / VELOCIDADE_MEDIA_KMH) * 60
+//     });
+//   }, [bateriaUsuario, origemAtual]);
+
+//   const pontosFiltradosComCalculo = useMemo(() => {
+//     return pontosFiltrados.map((posto) => ({
+//       posto,
+//       calculo: calcularPostoComOrigemAtual(posto)
+//     }));
+//   }, [calcularPostoComOrigemAtual, pontosFiltrados]);
+
+//   const postoAtual = useMemo(() => {
+//     if (!postoSelecionado) return null;
+//     return pontosFiltrados.find((posto) => posto.nome === postoSelecionado) || null;
+//   }, [pontosFiltrados, postoSelecionado]);
+
+//   const rotaSelecionada = useMemo(() => {
+//     if (!postoAtual) return null;
+//     const rotaDoPosto = rotaReal?.nome === postoAtual.nome ? rotaReal : null;
+//     return rotaDoPosto
+//       ? calcularTempoPosto(postoAtual, bateriaUsuario, rotaDoPosto)
+//       : calcularPostoComOrigemAtual(postoAtual);
+//   }, [bateriaUsuario, calcularPostoComOrigemAtual, postoAtual, rotaReal]);
+
+//   const rotasOtimizadasFiltradas = useMemo(() => {
+//     return [...pontosFiltradosComCalculo].sort((a, b) => a.calculo.tempoTotal - b.calculo.tempoTotal);
+//   }, [pontosFiltradosComCalculo]);
+
+//   const rotaOtimizada = rotasOtimizadasFiltradas[0] || null;
+
+//   // CORREÇÃO CENTRAL: Cálculo unificado e reativo da Economia de Tempo de forma global
+//   const economiaMinutos = useMemo(() => {
+//     if (!rotaOtimizada) return 0;
+//     const rotaReferencia = (postoAtual && postoAtual.nome !== rotaOtimizada.posto.nome) ? rotaSelecionada : null;
+//     const segundaMelhorRota = rotasOtimizadasFiltradas.find((r) => r.posto.nome !== rotaOtimizada.posto.nome);
+//     const tempoReferencia = rotaReferencia?.tempoTotal || segundaMelhorRota?.calculo.tempoTotal || rotaOtimizada.calculo.tempoTotal;
+    
+//     return Math.max(0, tempoReferencia - rotaOtimizada.calculo.tempoTotal);
+//   }, [rotaOtimizada, postoAtual, rotaSelecionada, rotasOtimizadasFiltradas]);
+
+//   // CORREÇÃO CENTRAL: Função refatorada para montar o resumo perfeitamente estruturado
+//   const montarResumoRotaOtimizada = useCallback(() => {
+//     if (!rotaOtimizada) return null;
+
+//     return {
+//       calculada: true,
+//       nome: rotaOtimizada.posto.nome,
+//       conector: rotaOtimizada.posto.conector,
+//       informacoes: criarInformacoesPosto(rotaOtimizada.posto),
+//       tempoTotal: formatarMinutos(rotaOtimizada.calculo.tempoTotal),
+//       economiaMinutos: economiaMinutos,
+//       economia: formatarMinutos(economiaMinutos),
+//       mensagem: economiaMinutos > 0
+//         ? `Você economiza cerca de ${formatarMinutos(economiaMinutos)} indo até o posto sugerido.`
+//         : 'Este é o ponto mais rápido para carregar dentro do filtro selecionado.'
+//     };
+//   }, [rotaOtimizada, economiaMinutos]);
+
+//   // Função interna para enviar os dados de forma blindada contra loops
+//   const notificarPaiSeguro = useCallback((dadosResumo) => {
+//     if (!onRotaOtimizadaChangeRef.current || !dadosResumo) return;
+
+//     const assinatura = `${dadosResumo.nome}-${dadosResumo.tempoTotal}-${dadosResumo.economia}-${bateriaUsuario}`;
+//     if (ultimoPostoNotificadoRef.current === assinatura) return;
+    
+//     ultimoPostoNotificadoRef.current = assinatura;
+//     onRotaOtimizadaChangeRef.current(dadosResumo);
+//   }, [bateriaUsuario]);
+
+//   const selecionarRotaOtimizada = useCallback(() => {
+//     if (!rotaOtimizada?.posto) return;
+
+//     setPostoSelecionado(rotaOtimizada.posto.nome);
+//     const resumo = montarResumoRotaOtimizada();
+//     notificarPaiSeguro(resumo);
+    
+//     const L = window.L;
+//     if (L && map.current) {
+//       const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${rotaOtimizada.posto.lng},${rotaOtimizada.posto.lat}?overview=full&geometries=geojson`;
+//       fetch(url)
+//         .then(res => res.json())
+//         .then(data => {
+//           if (!data.routes?.[0]) return;
+//           const rota = data.routes[0];
+//           const coords = rota.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+
+//           if (routeLayer.current) map.current.removeLayer(routeLayer.current);
+
+//           routeLayer.current = L.polyline(coords, {
+//             color: '#0038a8',
+//             weight: 6,
+//             opacity: 0.9,
+//             lineCap: 'round',
+//             lineJoin: 'round'
+//           }).addTo(map.current);
+
+//           map.current.fitBounds(routeLayer.current.getBounds(), { padding: [45, 45] });
+
+//           setRotaReal({
+//             nome: rotaOtimizada.posto.nome,
+//             distanciaKm: rota.distance / 1000,
+//             tempoMin: rota.duration / 60
+//           });
+//         }).catch(err => console.error("Erro na rota automatica:", err));
+//     }
+//   }, [rotaOtimizada, montarResumoRotaOtimizada, notificarPaiSeguro, origem]);
+
+//   const limparRota = useCallback(() => {
+//     if (routeLayer.current && map.current) {
+//       map.current.removeLayer(routeLayer.current);
+//       routeLayer.current = null;
+//     }
+//     setRotaReal(null);
+//     ultimoPostoNotificadoRef.current = '';
+//   }, []);
+
+//   const desenharRota = useCallback(async (posto, forçarNotificacao = false) => {
+//     const L = window.L;
+//     if (!L || !map.current) return;
+
+//     const requestAtual = ++rotaRequestRef.current;
+
+//     try {
+//       const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${posto.lng},${posto.lat}?overview=full&geometries=geojson`;
+//       const response = await fetch(url);
+//       const data = await response.json();
+
+//       if (!data.routes?.[0] || requestAtual !== rotaRequestRef.current) return;
+
+//       const rota = data.routes[0];
+//       const coords = rota.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+
+//       if (routeLayer.current) {
+//         map.current.removeLayer(routeLayer.current);
+//       }
+
+//       routeLayer.current = L.polyline(coords, {
+//         color: '#0038a8',
+//         weight: 6,
+//         opacity: 0.9,
+//         lineCap: 'round',
+//         lineJoin: 'round'
+//       }).addTo(map.current);
+
+//       map.current.fitBounds(routeLayer.current.getBounds(), { padding: [45, 45] });
+
+//       setRotaReal({
+//         nome: posto.nome,
+//         distanciaKm: rota.distance / 1000,
+//         tempoMin: rota.duration / 60
+//       });
+
+//       if (forçarNotificacao) {
+//         const resumo = montarResumoRotaOtimizada();
+//         if (resumo) notificarPaiSeguro(resumo);
+//       }
+//     } catch (error) {
+//       console.error('Erro ao traçar rota:', error);
+//     }
+//   }, [origem, montarResumoRotaOtimizada, notificarPaiSeguro]);
+
+//   // Leaflet Map Setup
+//   useEffect(() => {
+//     const L = window.L;
+//     if (!L || !mapRef.current || map.current) return;
+
+//     map.current = L.map(mapRef.current, {
+//       zoomControl: true,
+//       attributionControl: false
+//     }).setView([-8.0631, -34.8711], 8);
+
+//     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map.current);
+
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const lat = position.coords.latitude;
+//           const lng = position.coords.longitude;
+//           setLocalizacaoAtual({ lat, lng });
+
+//           if (userMarkerRef.current) map.current.removeLayer(userMarkerRef.current);
+
+//           userMarkerRef.current = L.circleMarker([lat, lng], {
+//             radius: 11,
+//             color: '#ffffff',
+//             weight: 4,
+//             fillColor: '#0038a8',
+//             fillOpacity: 1
+//           }).addTo(map.current).bindPopup('Sua localização atual');
+//           map.current.setView([lat, lng], 10);
+//         },
+//         () => console.log('Geolocalização não permitida.')
+//       );
+//     }
+
+//     markersRef.current = postos.map((posto) => {
+//       const marker = L.circleMarker([posto.lat, posto.lng], {
+//         radius: 12,
+//         color: '#ffffff',
+//         weight: 4,
+//         fillColor: posto.cor,
+//         fillOpacity: 1
+//       }).addTo(map.current);
+
+//       marker.bindPopup(`<strong>${posto.nome}</strong><br/>Potência: ${posto.potencia}`);
+//       marker.on('click', () => {
+//         setPostoSelecionado(posto.nome);
+//         setAbaDetalhes('conectores');
+//       });
+
+//       return marker;
+//     });
+//   }, []);
+
+//   // Monitoramento do posto selecionado manual
+//   useEffect(() => {
+//     if (!map.current) return;
+//     if (!postoAtual) {
+//       limparRota();
+//       return;
+//     }
+//     desenharRota(postoAtual, true);
+//   }, [desenharRota, limparRota, postoAtual]);
+
+//   // CORREÇÃO: Envio proativo inicial unificado e seguro usando o novo formato estruturado completo
+//   useEffect(() => {
+//     if (!rotaOtimizada) return;
+//     const resumo = montarResumoRotaOtimizada();
+//     if (resumo) notificarPaiSeguro(resumo);
+//   }, [rotaOtimizada, montarResumoRotaOtimizada, notificarPaiSeguro]);
+
+//   // Escuta os cliques vindos do botão externo da section do Pai
+//   useEffect(() => {
+//     if (!rotaOtimizadaSolicitada || !rotaOtimizada) return;
+//     selecionarRotaOtimizada();
+//   }, [rotaOtimizadaSolicitada, rotaOtimizada, selecionarRotaOtimizada]);
+
+//   const selecionarPosto = (nome) => {
+//     setPostoSelecionado(nome);
+//     setAbaDetalhes('conectores');
+//   };
+
+//   const alterarFiltroVelocidade = (valor) => {
+//     setFiltroVelocidade(valor);
+//     setPostoSelecionado('');
+//     limparRota();
+//     onRotaOtimizadaChangeRef.current?.(null);
+//   };
+
+//   const informacoesPosto = useMemo(() => criarInformacoesPosto(postoAtual), [postoAtual]);
+//   const conectorAtual = postoAtual?.conector || {};
+
+//   return (
+//     <div className="bb-map-column">
+//       <section className="bb-map-card">
+//         <div className="bb-map-head">
+//           <h2>Otimizador de rota</h2>
+//           <div className="bb-map-controls">
+//             <select
+//               className="bb-search"
+//               value={filtroVelocidade}
+//               onChange={(e) => alterarFiltroVelocidade(e.target.value)}
+//             >
+//               <option value="todos">Todas as velocidades</option>
+//               <option value="150">Carregamento rápido - 150 kW</option>
+//               <option value="50">Carregamento médio - 50 kW</option>
+//               <option value="22">Carregamento lento - 22 kW</option>
+//             </select>
+//           </div>
+//         </div>
+
+//         <div className="bb-map-options">
+//           <div className="bb-field">
+//             <label className="bb-label">Escolher ponto de recarga</label>
+//             <select
+//               className="bb-select"
+//               value={postoAtual?.nome || ''}
+//               onChange={(e) => selecionarPosto(e.target.value)}
+//             >
+//               <option value="">Selecione um ponto de recarga</option>
+//               {pontosFiltradosComCalculo.map(({ posto, calculo }) => (
+//                 <option key={posto.nome} value={posto.nome}>
+//                   {posto.nome} - {posto.potencia} - {calculo.distanciaKm.toFixed(1).replace('.', ',')} km
+//                 </option>
+//               ))}
+//             </select>
+//           </div>
+//         </div>
+
+//         <div className="bb-map-layout">
+//           <div className="bb-map-area">
+//             <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
+//           </div>
+
+//           <aside className={postoAtual ? 'bb-route-info' : 'bb-route-info bb-route-info-list-only'}>
+//             <div className="bb-points-list bb-points-list-top">
+//               <h4>Todos os pontos de recarga</h4>
+//               {pontosFiltradosComCalculo.map(({ posto, calculo }) => (
+//                 <button
+//                   type="button"
+//                   key={posto.nome}
+//                   className={posto.nome === postoAtual?.nome ? 'bb-point-button active' : 'bb-point-button'}
+//                   onClick={() => selecionarPosto(posto.nome)}
+//                 >
+//                   <strong>{posto.nome}</strong>
+//                   <span>{posto.potencia} - {calculo.distanciaKm.toFixed(1).replace('.', ',')} km - {posto.livres}/{posto.total} livres - {formatarMinutos(calculo.tempoTotal)}</span>
+//                 </button>
+//               ))}
+//             </div>
+
+//             {postoAtual && rotaSelecionada ? (
+//               <div className="bb-station-details">
+//                 <span className="bb-badge">Selecionado</span>
+//                 <h3>{postoAtual.nome}</h3>
+//                 <p>
+//                   Potência: {postoAtual.potencia}<br />
+//                   Carregadores livres: {postoAtual.livres} de {postoAtual.total}<br />
+//                   Fila estimada: {formatarMinutos(rotaSelecionada.tempoFila)}<br />
+//                   Carros considerados na fila: {rotaSelecionada.carrosNaFila}<br />
+//                   Distância aproximada: {rotaSelecionada.distanciaKm.toFixed(1).replace('.', ',')} km<br />
+//                   Tempo até o posto: {formatarMinutos(rotaSelecionada.tempoDeslocamento)}<br />
+//                   Tempo para carregar: {formatarMinutos(rotaSelecionada.tempoCarga)}<br />
+//                   Bateria atual: {bateriaUsuario}%
+//                 </p>
+
+//                 <section className="bb-station-tabs-card">
+//                   <div className="bb-station-tabs" role="tablist">
+//                     <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
+//                     <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
+//                   </div>
+
+//                   <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`}>
+//                     <div className="bb-info-card-head">
+//                       <span className="bb-info-icon">C</span>
+//                       <div>
+//                         <h4>Conectores</h4>
+//                         <p>{conectorAtual.conectores} conectores · {conectorAtual.carregadores} carregador(es)</p>
+//                       </div>
+//                     </div>
+//                     <div className="bb-connector-network">
+//                       <span>Rede</span>
+//                       <strong>{conectorAtual.rede}</strong>
+//                     </div>
+//                     <div className="bb-connector-row">
+//                       <div className="bb-connector-symbol"><span /></div>
+//                       <strong>{conectorAtual.tipo}</strong>
+//                       <em>{conectorAtual.conectores} conector(es)</em>
+//                     </div>
+//                   </section>
+
+//                   <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`}>
+//                     <div className="bb-info-card-head">
+//                       <span className="bb-info-icon">i</span>
+//                       <div>
+//                         <h4>Informações</h4>
+//                         <p>Dados úteis para decidir sua parada.</p>
+//                       </div>
+//                     </div>
+//                     <div className="bb-info-list">
+//                       {informacoesPosto.map((item) => (
+//                         <div className="bb-info-row" key={item.titulo}>
+//                           <div>
+//                             <strong>{item.titulo}</strong>
+//                             {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
+//                             {item.chips ? (
+//                               <div className="bb-chip-list">
+//                                 {item.chips.map((chip) => <span key={chip}>{chip}</span>)}
+//                               </div>
+//                             ) : (
+//                               <p>{item.conteudo || 'Informação não disponível'}</p>
+//                             )}
+//                           </div>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </section>
+//                 </section>
+//               </div>
+//             ) : null}
+//           </aside>
+//         </div>
+//       </section>
+
+//       {/* Bloco responsivo inferior móvel */}
+//       {postoAtual && rotaSelecionada && (
+//         <section className="bb-station-tabs-card bb-station-details-below">
+//           <div className="bb-station-tabs" role="tablist">
+//             <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
+//             <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
+//           </div>
+
+//           <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`}>
+//             <div className="bb-info-card-head">
+//               <span className="bb-info-icon">C</span>
+//               <div>
+//                 <h4>Conectores</h4>
+//                 <p>{conectorAtual.conectores} conectores · {conectorAtual.carregadores} carregador(es)</p>
+//               </div>
+//             </div>
+//             <div className="bb-connector-network">
+//               <span>Rede</span>
+//               <strong>{conectorAtual.rede}</strong>
+//             </div>
+//             <div className="bb-connector-row">
+//               <div className="bb-connector-symbol"><span /></div>
+//               <strong>{conectorAtual.tipo}</strong>
+//               <em>{conectorAtual.conectores} conector(es)</em>
+//             </div>
+//           </section>
+
+//           <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`}>
+//             <div className="bb-info-card-head">
+//               <span className="bb-info-icon">i</span>
+//               <div>
+//                 <h4>Informações</h4>
+//                 <p>Dados úteis para decidir sua parada.</p>
+//               </div>
+//             </div>
+//             <div className="bb-info-list">
+//               {informacoesPosto.map((item) => (
+//                 <div className="bb-info-row" key={item.titulo}>
+//                   <div>
+//                     <strong>{item.titulo}</strong>
+//                     {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
+//                     {item.chips ? (
+//                       <div className="bb-chip-list">
+//                         {item.chips.map((chip) => <span key={chip}>{chip}</span>)}
+//                       </div>
+//                     ) : (
+//                       <p>{item.conteudo || 'Informação não disponível'}</p>
+//                     )}
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </section>
+//         </section>
+//       )}
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+// import '../styles/bbEletroRota.css';
+// import {
+//   calcularTempoPosto,
+//   distanciaKm,
+//   formatarMinutos,
+//   numeroDeTexto,
+//   postosRecarga,
+//   VELOCIDADE_MEDIA_KMH
+// } from '../utils/rotaOtimizada';
+
+// const postos = postosRecarga;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function criarInformacoesPosto(posto) {
+//   if (!posto) return [];
+
+//   return [
+//     {
+//       titulo: 'Endereço',
+//       conteudo: posto.endereco
+//     },
+//     {
+//       titulo: 'Comodidades',
+//       chips: posto.comodidades || []
+//     },
+//     {
+//       titulo: 'Acesso',
+//       destaque: posto.acesso,
+//       conteudo: posto.acessoDescricao
+//     },
+//     {
+//       titulo: 'Preço para ativar',
+//       conteudo: posto.precoAtivacao
+//     },
+//     {
+//       titulo: 'Preço por kWh',
+//       conteudo: posto.precoKwh
+//     },
+//     {
+//       titulo: 'Telefone',
+//       conteudo: posto.telefone
+//     },
+//     {
+//       titulo: 'Horário de funcionamento',
+//       conteudo: posto.horario
+//     }
+//   ];
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export default function MapaEletropostos({
+//   bateriaUsuario = 65,
+//   onRotaOtimizadaChange,
+//   rotaOtimizadaSolicitada = 0
+// }) {
+//   const mapRef = useRef(null);
+//   const map = useRef(null);
+//   const routeLayer = useRef(null);
+//   const markersRef = useRef([]);
+//   const userMarkerRef = useRef(null);
+//   const rotaRequestRef = useRef(0);
+  
+//   // Guardas de estado para travar o loop de renderização do Pai
+//   const ultimoPostoNotificadoRef = useRef('');
+//   const onRotaOtimizadaChangeRef = useRef(onRotaOtimizadaChange);
 
 
 
@@ -532,6 +1175,518 @@ export default function MapaEletropostos({
 
 
 
+
+
+
+
+
+
+  
+
+//   // Sincroniza a ref da prop para evitar stale closures sem disparar o useEffect
+//   useEffect(() => {
+//     onRotaOtimizadaChangeRef.current = onRotaOtimizadaChange;
+//   }, [onRotaOtimizadaChange]);
+
+//   const [localizacaoAtual, setLocalizacaoAtual] = useState(null);
+//   const [postoSelecionado, setPostoSelecionado] = useState('');
+//   const [filtroVelocidade, setFiltroVelocidade] = useState('todos');
+//   const [abaDetalhes, setAbaDetalhes] = useState('conectores');
+//   const [, setForçarRender] = useState(0);
+
+//   const origem = useMemo(() => {
+//     return localizacaoAtual ? [localizacaoAtual.lat, localizacaoAtual.lng] : [-8.0712, -34.8850];
+//   }, [localizacaoAtual]);
+
+//   const origemAtual = useMemo(() => ({
+//     lat: origem[0],
+//     lng: origem[1]
+//   }), [origem]);
+
+//   const pointsFiltered = useMemo(() => {
+//     if (filtroVelocidade === 'todos') return postos;
+//     return postos.filter((posto) => numeroDeTexto(posto.potencia) === Number(filtroVelocidade));
+//   }, [filtroVelocidade]);
+
+//   const calcularPostoComOrigemAtual = useCallback((posto) => {
+//     const distanciaAtual = distanciaKm(origemAtual, posto);
+//     return calcularTempoPosto(posto, bateriaUsuario, {
+//       distanciaKm: distanciaAtual,
+//       tempoMin: (distanciaAtual / VELOCIDADE_MEDIA_KMH) * 60
+//     });
+//   }, [bateriaUsuario, origemAtual]);
+
+//   const pontosFiltradosComCalculo = useMemo(() => {
+//     return pointsFiltered.map((posto) => ({
+//       posto,
+//       calculo: calcularPostoComOrigemAtual(posto)
+//     }));
+//   }, [calcularPostoComOrigemAtual, pointsFiltered]);
+
+//   const postoAtual = useMemo(() => {
+//     if (!postoSelecionado) return null;
+//     return pointsFiltered.find((posto) => posto.nome === postoSelecionado) || null;
+//   }, [pointsFiltered, postoSelecionado]);
+
+//   const rotasOtimizadasFiltradas = useMemo(() => {
+//     return [...pontosFiltradosComCalculo].sort((a, b) => a.calculo.tempoTotal - b.calculo.tempoTotal);
+//   }, [pontosFiltradosComCalculo]);
+
+//   const rotaOtimizada = rotasOtimizadasFiltradas[0] || null;
+
+//   // Trava de segurança definitiva baseada em string primitiva gerada pelo cálculo
+//   const notificarPaiSobreRota = useCallback((postoAlvo, dadosCalculo) => {
+//     if (!onRotaOtimizadaChangeRef.current || !dadosCalculo) return;
+
+//     const tempoMaisRapido = rotaOtimizada?.calculo.tempoTotal || dadosCalculo.tempoTotal;
+//     const economiaCalculada = Math.max(0, dadosCalculo.tempoTotal - tempoMaisRapido);
+
+//     const tempoTotalFormatado = formatarMinutos(dadosCalculo.tempoTotal);
+//     const economiaFormatada = formatarMinutos(economiaCalculada);
+
+//     // Cria uma assinatura única do estado atual da rota baseada em valores primitivos
+//     const assinaturaRota = `${postoAlvo.nome}-${tempoTotalFormatado}-${economiaFormatada}-${bateriaUsuario}`;
+
+//     // Se os dados resultantes forem estritamente idênticos aos últimos enviados, aborta para bloquear o loop
+//     if (ultimoPostoNotificadoRef.current === assinaturaRota) {
+//       return;
+//     }
+
+//     ultimoPostoNotificadoRef.current = assinaturaRota;
+
+//     onRotaOtimizadaChangeRef.current({
+//       nome: postoAlvo.nome,
+//       tempoTotal: tempoTotalFormatado,
+//       economiaMinutos: economiaCalculada,
+//       economia: economiaFormatada,
+//       mensagem: economiaCalculada > 0
+//         ? `Você economiza cerca de ${economiaFormatada} usando a rota recomendada.`
+//         : 'Este é o ponto mais rápido para carregar agora.'
+//     });
+//   }, [rotaOtimizada, bateriaUsuario]);
+
+//   const limparRota = useCallback(() => {
+//     if (routeLayer.current && map.current) {
+//       map.current.removeLayer(routeLayer.current);
+//       routeLayer.current = null;
+//     }
+//     ultimoPostoNotificadoRef.current = '';
+//     setForçarRender(prev => prev + 1);
+//   }, []);
+
+//   const desenharRota = useCallback(async (posto, forçarNotificacaoPai = false) => {
+//     const L = window.L;
+//     if (!L || !map.current) return;
+
+//     const requestAtual = ++rotaRequestRef.current;
+
+//     try {
+//       const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${posto.lng},${posto.lat}?overview=full&geometries=geojson`;
+//       const response = await fetch(url);
+//       const data = await response.json();
+
+//       if (!data.routes?.[0] || requestAtual !== rotaRequestRef.current) return;
+
+//       const rota = data.routes[0];
+//       const coords = rota.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+
+//       if (routeLayer.current && map.current) {
+//         map.current.removeLayer(routeLayer.current);
+//       }
+
+//       routeLayer.current = L.polyline(coords, {
+//         color: '#0038a8',
+//         weight: 6,
+//         opacity: 0.9,
+//         lineCap: 'round',
+//         lineJoin: 'round'
+//       }).addTo(map.current);
+
+//       map.current.fitBounds(routeLayer.current.getBounds(), { padding: [45, 45] });
+
+//       const dadosRotaOSRM = {
+//         nome: posto.nome,
+//         distanciaKm: rota.distance / 1000,
+//         tempoMin: rota.duration / 60
+//       };
+
+//       const calculoFinalCompleto = calcularTempoPosto(posto, bateriaUsuario, dadosRotaOSRM);
+
+//       if (forçarNotificacaoPai) {
+//         notificarPaiSobreRota(posto, calculoFinalCompleto);
+//       }
+
+//       setForçarRender(prev => prev + 1);
+//     } catch (error) {
+//       console.error('Erro ao traçar rota OSRM:', error);
+//     }
+//   }, [origem, bateriaUsuario, notificarPaiSobreRota]);
+
+//   useEffect(() => {
+//     const L = window.L;
+//     if (!L || !mapRef.current || map.current) return;
+
+//     map.current = L.map(mapRef.current, {
+//       zoomControl: true,
+//       attributionControl: false
+//     }).setView([-8.0631, -34.8711], 8);
+
+//     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map.current);
+
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const lat = position.coords.latitude;
+//           const lng = position.coords.longitude;
+//           setLocalizacaoAtual({ lat, lng });
+
+//           if (userMarkerRef.current && map.current) map.current.removeLayer(userMarkerRef.current);
+
+//           userMarkerRef.current = L.circleMarker([lat, lng], {
+//             radius: 11,
+//             color: '#ffffff',
+//             weight: 4,
+//             fillColor: '#0038a8',
+//             fillOpacity: 1
+//           }).addTo(map.current).bindPopup('Sua localização atual');
+//           map.current.setView([lat, lng], 10);
+//         },
+//         () => console.log('Geolocalização recusada.')
+//       );
+//     }
+
+//     markersRef.current = postos.map((posto) => {
+//       const marker = L.circleMarker([posto.lat, posto.lng], {
+//         radius: 12,
+//         color: '#ffffff',
+//         weight: 4,
+//         fillColor: posto.cor,
+//         fillOpacity: 1
+//       }).addTo(map.current);
+
+//       marker.bindPopup(`<strong>${posto.nome}</strong><br/>Potência: ${posto.potencia}`);
+//       marker.on('click', () => {
+//         setPostoSelecionado(posto.nome);
+//         setAbaDetalhes('conectores');
+//       });
+
+//       return marker;
+//     });
+
+//     return () => {
+//       if (map.current) {
+//         map.current.remove();
+//         map.current = null;
+//       }
+//     };
+//   }, []);
+
+//   // Monitora alterações de seleção para traçar rota e notificar
+//   useEffect(() => {
+//     if (!map.current) return;
+//     if (!postoAtual) {
+//       limparRota();
+//       return;
+//     }
+//     desenharRota(postoAtual, true);
+//   }, [postoAtual, desenharRota, limparRota]);
+
+//   // Monitora solicitações vindas do botão de ação externa do Pai
+//   useEffect(() => {
+//     if (!rotaOtimizadaSolicitada || !rotaOtimizada) return;
+//     setPostoSelecionado(rotaOtimizada.posto.nome);
+//     desenharRota(rotaOtimizada.posto, true);
+//   }, [rotaOtimizadaSolicitada, rotaOtimizada, desenharRota]);
+
+//   // Notificação proativa inicial da rota otimizada sem disparar o loop infinito
+//   useEffect(() => {
+//     if (!onRotaOtimizadaChange || !rotaOtimizada) return;
+    
+//     const tempoTotalFormatado = formatarMinutos(rotaOtimizada.calculo.tempoTotal);
+//     const assinaturaRota = `${rotaOtimizada.posto.nome}-${tempoTotalFormatado}-0-${bateriaUsuario}`;
+
+//     if (ultimoPostoNotificadoRef.current === assinaturaRota) return;
+//     ultimoPostoNotificadoRef.current = assinaturaRota;
+
+//     onRotaOtimizadaChange({
+//       nome: rotaOtimizada.posto.nome,
+//       tempoTotal: tempoTotalFormatado,
+//       economiaMinutos: 0,
+//       economia: formatarMinutos(0),
+//       mensagem: 'Este é o ponto mais rápido para carregar agora.'
+//     });
+//   }, [rotaOtimizada, onRotaOtimizadaChange, bateriaUsuario]);
+
+//   const selecionarPosto = (nome) => {
+//     setPostoSelecionado(nome);
+//     setAbaDetalhes('conectores');
+//   };
+
+//   const alterarFiltroVelocidade = (valor) => {
+//     setFiltroVelocidade(valor);
+//     setPostoSelecionado('');
+//     limparRota();
+//     ultimoPostoNotificadoRef.current = '';
+//     onRotaOtimizadaChangeRef.current?.(null);
+//   };
+
+//   const informacoesPosto = postoAtual ? [
+//     { titulo: 'Endereço', conteudo: postoAtual.endereco },
+//     { titulo: 'Comodidades', chips: postoAtual.comodidades || [] },
+//     { titulo: 'Acesso', destaque: postoAtual.acesso, conteudo: postoAtual.acessoDescricao },
+//     { titulo: 'Preço para ativar', conteudo: postoAtual.precoAtivacao },
+//     { titulo: 'Preço por kWh', conteudo: postoAtual.precoKwh },
+//     { titulo: 'Telefone', conteudo: postoAtual.telefone },
+//     { titulo: 'Horário de funcionamento', conteudo: postoAtual.horario }
+//   ] : [];
+
+//   const conectorAtual = postoAtual?.conector || {};
+//   const rotaSelecionada = postoAtual ? calcularPostoComOrigemAtual(postoAtual) : null;
+
+//   return (
+//     <div className="bb-map-column">
+//       <section className="bb-map-card">
+//         <div className="bb-map-head">
+//           <h2>Otimizador de rota</h2>
+//           <div className="bb-map-controls">
+//             <select
+//               className="bb-search"
+//               value={filtroVelocidade}
+//               onChange={(e) => alterarFiltroVelocidade(e.target.value)}
+//             >
+//               <option value="todos">Todas as velocidades</option>
+//               <option value="150">Carregamento rápido - 150 kW</option>
+//               <option value="50">Carregamento médio - 50 kW</option>
+//               <option value="22">Carregamento lento - 22 kW</option>
+//             </select>
+//           </div>
+//         </div>
+
+//         <div className="bb-map-options">
+//           <div className="bb-field">
+//             <label className="bb-label">Escolher ponto de recarga</label>
+//             <select
+//               className="bb-select"
+//               value={postoAtual?.nome || ''}
+//               onChange={(e) => selecionarPosto(e.target.value)}
+//             >
+//               <option value="">Selecione um ponto de recarga</option>
+//               {pontosFiltradosComCalculo.map(({ posto, calculo }) => (
+//                 <option key={posto.nome} value={posto.nome}>
+//                   {posto.nome} - {posto.potencia} - {calculo.distanciaKm.toFixed(1).replace('.', ',')} km
+//                 </option>
+//               ))}
+//             </select>
+//           </div>
+//         </div>
+
+//         <div className="bb-map-layout">
+//           <div className="bb-map-area">
+//             <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
+//           </div>
+
+//           <aside className={postoAtual ? 'bb-route-info' : 'bb-route-info bb-route-info-list-only'}>
+//             <div className="bb-points-list bb-points-list-top">
+//               <h4>Todos os pontos de recarga</h4>
+//               {pontosFiltradosComCalculo.map(({ posto, calculo }) => (
+//                 <button
+//                   type="button"
+//                   key={posto.nome}
+//                   className={posto.nome === postoAtual?.nome ? 'bb-point-button active' : 'bb-point-button'}
+//                   onClick={() => selecionarPosto(posto.nome)}
+//                 >
+//                   <strong>{posto.nome}</strong>
+//                   <span>{posto.potencia} - {calculo.distanciaKm.toFixed(1).replace('.', ',')} km - {posto.livres}/{posto.total} livres - {formatarMinutos(calculo.tempoTotal)}</span>
+//                 </button>
+//               ))}
+//             </div>
+
+//             {postoAtual && rotaSelecionada ? (
+//               <div className="bb-station-details">
+//                 <span className="bb-badge">Selecionado</span>
+//                 <h3>{postoAtual.nome}</h3>
+//                 <p>
+//                   Potência: {postoAtual.potencia}<br />
+//                   Carregadores livres: {postoAtual.livres} de {postoAtual.total}<br />
+//                   Fila estimada: {formatarMinutos(rotaSelecionada.tempoFila)}<br />
+//                   Carros considerados na fila: {rotaSelecionada.carrosNaFila}<br />
+//                   Distância aproximada: {rotaSelecionada.distanciaKm.toFixed(1).replace('.', ',')} km<br />
+//                   Tempo até o posto: {formatarMinutos(rotaSelecionada.tempoDeslocamento || rotaSelecionada.tempoTotal)}<br />
+//                   Tempo para carregar: {formatarMinutos(rotaSelecionada.tempoCarga)}<br />
+//                   Bateria atual: {bateriaUsuario}%
+//                 </p>
+
+//                 <section className="bb-station-tabs-card">
+//                   <div className="bb-station-tabs" role="tablist" aria-label="Detalhes do eletroposto">
+//                     <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
+//                     <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
+//                   </div>
+
+//                   <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`} role="tabpanel">
+//                     <div className="bb-info-card-head">
+//                       <span className="bb-info-icon">C</span>
+//                       <div>
+//                         <h4>Conectores</h4>
+//                         <p>{conectorAtual.conectores} conectores · {conectorAtual.carregadores} carregador(es)</p>
+//                       </div>
+//                     </div>
+//                     <div className="bb-connector-network">
+//                       <span>Rede</span>
+//                       <strong>{conectorAtual.rede}</strong>
+//                     </div>
+//                     <div className="bb-connector-row">
+//                       <div className="bb-connector-symbol" aria-hidden="true">
+//                         <span />
+//                       </div>
+//                       <strong>{conectorAtual.tipo}</strong>
+//                       <em>{conectorAtual.conectores} conector(es)</em>
+//                     </div>
+//                   </section>
+
+//                   <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`} role="tabpanel">
+//                     <div className="bb-info-card-head">
+//                       <span className="bb-info-icon">i</span>
+//                       <div>
+//                         <h4>Informações</h4>
+//                         <p>Dados úteis para decidir sua parada.</p>
+//                       </div>
+//                     </div>
+//                     <div className="bb-info-list">
+//                       {informacoesPosto.map((item) => (
+//                         <div className="bb-info-row" key={item.titulo}>
+//                           <div>
+//                             <strong>{item.titulo}</strong>
+//                             {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
+//                             {item.chips ? (
+//                               <div className="bb-chip-list">
+//                                 {item.chips.map((chip) => (
+//                                   <span key={chip}>{chip}</span>
+//                                 ))}
+//                               </div>
+//                             ) : (
+//                               <p>{item.conteudo || 'Informação não disponível'}</p>
+//                             )}
+//                           </div>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </section>
+//                 </section>
+//               </div>
+//             ) : null}
+//           </aside>
+//         </div>
+//       </section>
+
+//       {/* Bloco condicional inferior para layouts responsivos móveis */}
+//       {postoAtual && rotaSelecionada && (
+//         <section className="bb-station-tabs-card bb-station-details-below">
+//           <div className="bb-station-tabs" role="tablist" aria-label="Detalhes do eletroposto">
+//             <button type="button" className={abaDetalhes === 'conectores' ? 'active' : ''} onClick={() => setAbaDetalhes('conectores')}>Conectores</button>
+//             <button type="button" className={abaDetalhes === 'informacoes' ? 'active' : ''} onClick={() => setAbaDetalhes('informacoes')}>Informações</button>
+//           </div>
+
+//           <section className={`bb-info-card bb-connector-card bb-station-tab-panel ${abaDetalhes === 'conectores' ? 'active' : ''}`} role="tabpanel">
+//             <div className="bb-info-card-head">
+//               <span className="bb-info-icon">C</span>
+//               <div>
+//                 <h4>Conectores</h4>
+//                 <p>{conectorAtual.conectores} conectores · {conectorAtual.carregadores} carregador(es)</p>
+//               </div>
+//             </div>
+//             <div className="bb-connector-network">
+//               <span>Rede</span>
+//               <strong>{conectorAtual.rede}</strong>
+//             </div>
+//             <div className="bb-connector-row">
+//               <div className="bb-connector-symbol" aria-hidden="true">
+//                 <span />
+//               </div>
+//               <strong>{conectorAtual.tipo}</strong>
+//               <em>{conectorAtual.conectores} conector(es)</em>
+//             </div>
+//           </section>
+
+//           <section className={`bb-info-card bb-station-extra-info bb-station-tab-panel ${abaDetalhes === 'informacoes' ? 'active' : ''}`} role="tabpanel">
+//             <div className="bb-info-card-head">
+//               <span className="bb-info-icon">i</span>
+//               <div>
+//                 <h4>Informações</h4>
+//                 <p>Dados úteis para decidir sua parada.</p>
+//               </div>
+//             </div>
+//             <div className="bb-info-list">
+//               {informacoesPosto.map((item) => (
+//                 <div className="bb-info-row" key={item.titulo}>
+//                   <div>
+//                     <strong>{item.titulo}</strong>
+//                     {item.destaque && <span className="bb-access-pill">{item.destaque}</span>}
+//                     {item.chips ? (
+//                       <div className="bb-chip-list">
+//                         {item.chips.map((chip) => (
+//                           <span key={chip}>{chip}</span>
+//                         ))}
+//                       </div>
+//                     ) : (
+//                       <p>{item.conteudo || 'Informação não disponível'}</p>
+//                     )}
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </section>
+//         </section>
+//       )}
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=================================================================================================================================================
 
 
 
