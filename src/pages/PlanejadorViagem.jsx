@@ -2,7 +2,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroEletroRota from '../components/HeroEletroRota';
-import '../styles/bbEletroRota.css';
+import './Mapa.css';
+
 import {
   calcularRotaOtimizadaViagem,
   calcularTempoViagemComParadas,

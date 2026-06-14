@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroEletroRota from '../components/HeroEletroRota';
-import '../styles/bbEletroRota.css';
+import './Mapa.css';
 
 function numeroSeguro(valor, padrao) {
   const numero = Number(String(valor ?? '').replace(',', '.').match(/\d+(\.\d+)?/)?.[0]);
@@ -33,6 +33,9 @@ export default function CalculadoraAutonomia() {
   }, [energiaDisponivel, consumo, fatorCondicao]);
 
   const progressoAutonomia = Math.min(100, (autonomiaEstimada / 700) * 100);
+
+
+  // Estabiliza a pagina na altura dos botoes
   window.scrollTo({ top: 480, behavior: 'smooth' });
   return (
     <div className="bb-page">

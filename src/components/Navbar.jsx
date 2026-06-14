@@ -3,6 +3,8 @@ import { useState } from 'react';
 import LogoImg from '../assets/LogoEletroRota.svg';
 import BarraBusca from './Busca';
 import './Navbar.css';
+import inicioPagina from '../pages/Mapa';
+import Mapa from '../pages/Mapa';
 
 
 
