@@ -13,6 +13,7 @@ function formatarDecimal(valor, casas = 1) {
 }
 
 export default function CalculadoraAutonomia() {
+  
   const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
   const veiculo = usuarioSalvo?.veiculo || {};
   const bateriaInicial = Math.min(100, Math.max(10, numeroSeguro(veiculo.bateriaAtual, 53)));
@@ -32,7 +33,7 @@ export default function CalculadoraAutonomia() {
   }, [energiaDisponivel, consumo, fatorCondicao]);
 
   const progressoAutonomia = Math.min(100, (autonomiaEstimada / 700) * 100);
-
+  window.scrollTo({ top: 480, behavior: 'smooth' });
   return (
     <div className="bb-page">
       <HeroEletroRota />

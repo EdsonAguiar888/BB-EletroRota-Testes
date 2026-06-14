@@ -55,12 +55,12 @@ export default function Mapa() {
     const apiUrl = apiLocal
       ? 'http://localhost:3000/usuarios'
       : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
-
-    fetch(`${apiUrl}/${idUsuario}`)
+      fetch(`${apiUrl}/${idUsuario}`)
       .then((response) => (response.ok ? response.json() : null))
       .then((dadosAtualizados) => {
         if (!dadosAtualizados) return;
-
+        window.scrollTo({ top: 480, behavior: 'smooth' });
+        
         const veiculosAtualizados = normalizarVeiculos(dadosAtualizados);
         const usuarioAtualizado = { ...dadosAtualizados, veiculos: veiculosAtualizados };
 

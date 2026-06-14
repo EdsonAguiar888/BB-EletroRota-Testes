@@ -64,6 +64,7 @@ export default function MapaEletropostos({
   }, [filtroVelocidade]);
 
   const calcularPostoComOrigemAtual = useCallback((posto) => {
+    
     const distanciaAtual = distanciaKm(origemAtual, posto);
     return calcularTempoPosto(posto, bateriaUsuario, {
       distanciaKm: distanciaAtual,
