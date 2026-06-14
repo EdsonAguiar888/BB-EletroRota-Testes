@@ -115,7 +115,7 @@ export default function Mapa() {
 
 
   // Estabiliza a pagina na altura dos botoes
-  window.scrollTo({ top: 480, behavior: 'smooth' });
+  // window.scrollTo({ top: 480, behavior: 'smooth' });
   return (
     <div className="bb-page">
       <HeroEletroRota />

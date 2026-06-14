@@ -181,7 +181,7 @@ export default function PlanejadorViagem() {
     if (rotaOtimizadaViagem?.posto) return [{ ...rotaOtimizadaViagem.posto, ordem: 1 }];
     return [];
   }, [paradas, rotaOtimizadaViagem]);
-  window.scrollTo({ top: 480, behavior: 'smooth' });
+  // window.scrollTo({ top: 480, behavior: 'smooth' });
   
   useEffect(() => {
     if (!navigator.geolocation) return;
