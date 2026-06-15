@@ -8,6 +8,7 @@ export default function Layout({ usuario, setUsuario }) {
 
     <div style={{
       width: '100%',
+      minHeight: '100vh',
       height: '100%',
       display: 'flex',
       flexDirection: 'column',

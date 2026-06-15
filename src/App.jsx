@@ -8,9 +8,9 @@ import EditarPerfil from './pages/EditarPerfil';
 import Layout from './components/Layout';
 import Busca from './pages/BuscaPag'
 
-const Mapa = lazy(() => import('./pages/Mapa'));
-const PlanejadorViagem = lazy(() => import('./pages/PlanejadorViagem'));
-const CalculadoraAutonomia = lazy(() => import('./pages/CalculadoraAutonomia'));
+const Mapa = lazy(() => import('./pages/Mapa.jsx'));
+const PlanejadorViagem = lazy(() => import('./pages/PlanejadorViagem.jsx'));
+const CalculadoraAutonomia = lazy(() => import('./pages/CalculadoraAutonomia.jsx'));
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -67,10 +67,6 @@ function App() {
           />
 
 
-
-
-
-
           {/* Rotas protegidas */}
           <Route
             path="/gerenciar"
@@ -81,10 +77,6 @@ function App() {
           path="/gerenciar"
           element={<GerenciaVeiculos setUsuario={setUsuario} />}
             /> */}
-
-
-
-
 
           <Route
             path="/editarPerfil"

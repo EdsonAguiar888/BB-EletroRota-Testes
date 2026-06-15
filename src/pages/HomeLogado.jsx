@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import './Home.css';
 import imagemCarro from '../assets/imagemCarro.png';
+import imagemgps from '../assets/imagemgps.png';
 import imagemLocal from '../assets/imgLocal.png';
 import imagemPlanejar from '../assets/imgPlanejar.png';
 import imagemCalculadora from '../assets/imgCalculadora.png';
