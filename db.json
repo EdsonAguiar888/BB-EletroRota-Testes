@@ -125,10 +125,10 @@
         }
       ],
       "veiculo": {
-        "idVeiculo": "1779649498580",
-        "marca": "Byd",
+        "idVeiculo": "1779649488020",
+        "marca": "Corola",
         "potencia": "300",
-        "bateriaAtual": "6"
+        "bateriaAtual": "100"
       }
     },
     {

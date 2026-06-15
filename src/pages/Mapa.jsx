@@ -2,7 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroEletroRota from '../components/HeroEletroRota';
 import MapaEletropostos from '../components/MapaEletropostos';
-import '../styles/bbEletroRota.css';
+import './Mapa.css';
+
+
 
 function numeroSeguro(valor, padrao) {
   const numero = Number(String(valor ?? '').replace(',', '.').match(/\d+(\.\d+)?/)?.[0]);
@@ -33,6 +35,8 @@ function criarRotuloVeiculo(veiculo, index) {
   return `${nome}${potencia}${bateria}`;
 }
 
+
+
 export default function Mapa() {
   const usuarioInicial = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
   const [usuarioSalvo, setUsuarioSalvo] = useState(usuarioInicial);
@@ -46,6 +50,9 @@ export default function Mapa() {
   const modelo = usuarioSalvo?.veiculo?.marca || 'Veículo elétrico cadastrado';
   const autonomiaTotal = numeroSeguro(veiculoSelecionado?.autonomia || veiculoSelecionado?.potencia, 300);
   const autonomiaDisponivel = Math.round((Number(autonomiaTotal) * Number(bateria)) / 100);
+  
+
+
 
   useEffect(() => {
     const idUsuario = usuarioInicial?.id;
@@ -55,12 +62,12 @@ export default function Mapa() {
     const apiUrl = apiLocal
       ? 'http://localhost:3000/usuarios'
       : 'https://69fea0e78c70b15fa3ca9803.mockapi.io/usuarios/usuarios';
-
-    fetch(`${apiUrl}/${idUsuario}`)
+      fetch(`${apiUrl}/${idUsuario}`)
       .then((response) => (response.ok ? response.json() : null))
       .then((dadosAtualizados) => {
         if (!dadosAtualizados) return;
-
+        
+        
         const veiculosAtualizados = normalizarVeiculos(dadosAtualizados);
         const usuarioAtualizado = { ...dadosAtualizados, veiculos: veiculosAtualizados };
 
@@ -72,13 +79,11 @@ export default function Mapa() {
 
   useEffect(() => {
     if (veiculoSelecionadoIndex < veiculos.length) return;
-
     setVeiculoSelecionadoIndex(0);
   }, [veiculoSelecionadoIndex, veiculos.length]);
 
   useEffect(() => {
     if (!veiculoSelecionado) return;
-
     setBateria(numeroSeguro(veiculoSelecionado.bateriaAtual, 65));
   }, [veiculoSelecionado?.idVeiculo, veiculoSelecionado?.marca, veiculoSelecionado?.bateriaAtual]);
 
@@ -88,6 +93,7 @@ export default function Mapa() {
       return;
     }
 
+    // Trava de ouro: garante que os blocos de texto não preencham a tela sem clique/ação real
     if (!dados?.calculada) return;
 
     setRotaOtimizada(dados);
@@ -107,6 +113,9 @@ export default function Mapa() {
     setRotaOtimizada(null);
   };
 
+
+  // Estabiliza a pagina na altura dos botoes
+  // window.scrollTo({ top: 480, behavior: 'smooth' });
   return (
     <div className="bb-page">
       <HeroEletroRota />
@@ -141,26 +150,36 @@ export default function Mapa() {
 
             {rotaOtimizada ? (
               <div className="bb-card-body">
-                <p className="bb-optimized-text"><strong>{rotaOtimizada.nome}</strong></p>
-                {rotaOtimizada.calculada && (
-                  <>
-                    <p className="bb-optimized-text">Tempo total estimado: {rotaOtimizada.tempoTotal}</p>
-                    <p className="bb-optimized-text">Economia estimada: {rotaOtimizada.economia}</p>
-                    <p className="bb-optimized-text">{rotaOtimizada.mensagem}</p>
-
-                    <button
-                      className="bb-yellow-action"
-                      type="button"
-                      onClick={() => setRotaOtimizadaSolicitada((valor) => valor + 1)}
-                    >
-                      Usar rota otimizada
-                    </button>
-                  </>
+                <p className="bb-optimized-text">
+                  <strong>{rotaOtimizada.nome}</strong>
+                </p>
+                
+                <p className="bb-optimized-text">
+                  Tempo total estimado: {rotaOtimizada.tempoTotal}
+                </p>
+                
+                {rotaOtimizada.economiaMinutos > 0 && (
+                  <p className="bb-optimized-text">
+                    Economia estimada: {rotaOtimizada.economia}
+                  </p>
                 )}
+                
+                <p className="bb-optimized-text">{rotaOtimizada.mensagem}</p>
 
+                <button
+                  className="bb-yellow-action"
+                  type="button"
+                  onClick={() => setRotaOtimizadaSolicitada((valor) => valor + 1)}
+                >
+                  Usar rota otimizada
+                </button>
               </div>
             ) : (
-              <div className="bb-card-body bb-optimized-empty" aria-hidden="true" />
+              <div className="bb-card-body">
+                <p className="bb-optimized-text" style={{ opacity: 0.6 }}>
+                  Nenhuma rota otimizada disponível para o filtro atual.
+                </p>
+              </div>
             )}
           </section>
 
@@ -220,3 +239,4 @@ export default function Mapa() {
     </div>
   );
 }
+

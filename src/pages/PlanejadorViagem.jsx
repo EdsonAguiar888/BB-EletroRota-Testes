@@ -2,7 +2,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroEletroRota from '../components/HeroEletroRota';
-import '../styles/bbEletroRota.css';
+import './Mapa.css';
+
 import {
   calcularRotaOtimizadaViagem,
   calcularTempoViagemComParadas,
@@ -180,7 +181,7 @@ export default function PlanejadorViagem() {
     if (rotaOtimizadaViagem?.posto) return [{ ...rotaOtimizadaViagem.posto, ordem: 1 }];
     return [];
   }, [paradas, rotaOtimizadaViagem]);
-
+  // window.scrollTo({ top: 480, behavior: 'smooth' });
   
   useEffect(() => {
     if (!navigator.geolocation) return;

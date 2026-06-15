@@ -683,7 +683,20 @@ body {
 }
 
 .bb-station-tabs-card {
+
   border: 1px solid var(--bb-border);
+  background: #fff;
+  border-radius: 16px;
+  flex-direction: column;
+  flex: 1;
+  min-height: 300px;
+  padding: 12px;
+  display: flex;
+  box-shadow: 0 8px 22px #0c204212;
+
+
+
+  /* border: 1px solid var(--bb-border);
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 8px 22px rgba(12, 32, 66, .07);
@@ -692,6 +705,8 @@ body {
   flex: 1;
   flex-direction: column;
   min-height: 300px;
+*/
+
 }
 
 .bb-route-info .bb-station-tabs-card {
@@ -699,11 +714,19 @@ body {
 }
 
 .bb-station-details-below {
-  width: min(100%, 100%);
+
+  box-sizing: border-box;
+    flex: none;
+    justify-self: center;
+    width: 100%;
+    min-height: 0;
+
+  /* width: min(100%, 100%);
   box-sizing: border-box;
   flex: none;
   justify-self: center;
   min-height: 0;
+  max-height: 87%; */
 }
 
 .bb-trip-stop-details + .bb-trip-stop-details {
@@ -911,7 +934,8 @@ body {
 }
 
 .bb-autonomy-progress {
-  background: #f8fafc;
+  background: #f1f5f8;
+  /* background: #f8fafc; */
   border: 1px solid var(--bb-border);
   border-radius: 8px;
   margin-top: 18px;
@@ -1375,3 +1399,6 @@ body {
   color: var(--bb-muted);
   line-height: 1.4;
 }
+
+
+
