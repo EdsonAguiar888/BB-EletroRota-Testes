@@ -1,0 +1,19 @@
+.footer {
+  background-color: #002a63;
+  width: auto;
+  height: 50px;
+}
+
+.footer__legal {
+  padding: 12px 24px;
+}
+
+.footer__legal-text {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgb(255, 255, 255); 
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  
+}
