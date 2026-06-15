@@ -151,7 +151,6 @@
 .acessar-desktop { display: inline; }
 
 
-/* DRAWER compartilhado entre mobile e tablet*/
 @media (max-width: 1024px) {
 
   .bb-hamburger:hover, .bb-hamburger:focus, .bb-hamburger:active,
