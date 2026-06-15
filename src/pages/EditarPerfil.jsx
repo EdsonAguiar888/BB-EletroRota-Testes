@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import imagemCarro from '../assets/Meu BB-EletroRota.png';
+// import './EditarPerfil.css';
 
 // Importando a função específica para validação de perfil unificado
 import { validarPerfilVeiculo } from '../components/Validacoes';
@@ -332,4 +333,3 @@ const editButtonStyle = { flex: 1, padding: '12px', background: '#3498db', color
 const deleteButtonStyle = { padding: '12px', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' };
 const selectStyle = { padding: '10px', borderRadius: '8px', border: '2px solid #3498db', fontSize: '1rem', backgroundColor: '#fdfefe', cursor: 'pointer', color: '#2c3e50', fontWeight: '600' };
 
-// #08060d
