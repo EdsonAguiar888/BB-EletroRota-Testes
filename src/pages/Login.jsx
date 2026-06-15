@@ -48,8 +48,8 @@ export default function Auth({ onLoginSuccess }) {
     errosCampos[nomeCampo] ? 'input-com-erro' : '';
 
   const estiloMensagem = {
-    marginTop: '12px',
-    fontSize: '14px',
+    marginTop: '5px',
+    fontSize: '10px',
     fontWeight: 600,
     color:
       mensagem.tipo === 'error'

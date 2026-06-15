@@ -1,4 +1,5 @@
-import '../styles/bbEletroRota.css';
+
+import '../pages/Mapa.css';
 import logoEletroRota from '../assets/LogoEletroRota.svg';
 
 export default function HeroEletroRota() {

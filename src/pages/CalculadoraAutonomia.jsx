@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroEletroRota from '../components/HeroEletroRota';
-import '../styles/bbEletroRota.css';
+import './Mapa.css';
 
 function numeroSeguro(valor, padrao) {
   const numero = Number(String(valor ?? '').replace(',', '.').match(/\d+(\.\d+)?/)?.[0]);
@@ -13,6 +13,7 @@ function formatarDecimal(valor, casas = 1) {
 }
 
 export default function CalculadoraAutonomia() {
+  
   const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
   const veiculo = usuarioSalvo?.veiculo || {};
   const bateriaInicial = Math.min(100, Math.max(10, numeroSeguro(veiculo.bateriaAtual, 53)));
@@ -31,8 +32,16 @@ export default function CalculadoraAutonomia() {
     return Math.round(autonomiaBase * (Number(fatorCondicao) / 100));
   }, [energiaDisponivel, consumo, fatorCondicao]);
 
+
+
+
+
+
   const progressoAutonomia = Math.min(100, (autonomiaEstimada / 700) * 100);
 
+
+  // Estabiliza a pagina na altura dos botoes
+  // window.scrollTo({ top: 480, behavior: 'smooth' });
   return (
     <div className="bb-page">
       <HeroEletroRota />
@@ -73,7 +82,7 @@ export default function CalculadoraAutonomia() {
                 <span>Capacidade da bateria</span>
                 <strong>{capacidade} kWh</strong>
               </div>
-              <input
+              <input id='meuRange'
                 type="range"
                 min="20"
                 max="150"
@@ -126,18 +135,21 @@ export default function CalculadoraAutonomia() {
             <div className="bb-autonomy-control">
               <div className="bb-autonomy-control-head">
                 <span>Fator de condição</span>
-                <strong>{fatorCondicao}%</strong>
+                <strong id='porcentagem'>{fatorCondicao}%</strong>
               </div>
-              <input
+              <input 
                 type="range"
+                direction= "rtl"
                 min="60"
                 max="100"
                 value={fatorCondicao}
                 onChange={(e) => setFatorCondicao(e.target.value)}
               />
               <div className="bb-autonomy-scale">
-                <span>60% (frio / ar-condicionado intenso)</span>
-                <span>100% (ideal)</span>
+                <span>60% (Min de economia / ar-condicionado intenso)</span>
+                <span>100% ( Max de economia / ar condicionado moderado)</span>
+                {/* <span>100% (frio / ar-condicionado intenso)</span>
+                <span>60% (ideal)</span> */}
               </div>
             </div>
           </div>
