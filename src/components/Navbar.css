@@ -253,7 +253,7 @@
 }
 
 /* SMARTPHONE —*/
-@media (min-width: 360px) and (max-width: 767px) {
+@media (max-width: 767px) {
 
   .bb-topbar > .bb-logo-area,
   .bb-topnav,
