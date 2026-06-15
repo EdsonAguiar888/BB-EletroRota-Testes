@@ -1,9 +1,8 @@
- */
 .gerenciar-container {
   padding: 30px;
-  max-width: 1200px; /* Adicionado um max-width para não esticar ao infinito em telas ultrawide */
+  max-width: 1200px;
   width: 70%;
-  margin: 30px auto; /* Centraliza perfeitamente no lugar dos 20.9% fixos */
+  margin: 30px auto;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -16,8 +15,8 @@
   padding-bottom: 10px;
   font-size: 1.8rem;
 }
+ .gerenciar-container p { margin-bottom: 30px;}
 
-/* Formulário de Cadastro / Edição */
 .gerenciar-form {
   display: flex;
   flex-direction: column;
@@ -50,7 +49,6 @@
   font-size: 1.1rem;
 }
 
-/* Grupo de botões */
 .btn-group {
   display: flex;
   gap: 10px;
@@ -59,7 +57,7 @@
 
 .btn-group button,
 .action-btn {
-  padding: 12px 20px; /* Aumentado levemente para melhorar o clique (UX) */
+  padding: 12px 20px;
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -70,7 +68,7 @@
 
 .btn-group button:active,
 .action-btn:active {
-  transform: scale(0.98); /* Feedback tátil ao clicar */
+  transform: scale(0.98);
 }
 
 .btn-submit {
@@ -79,9 +77,7 @@
   flex: 1;
 }
 
-.btn-submit:hover {
-  background-color: #27ae60;
-}
+.btn-submit:hover { background-color: #27ae60; }
 
 .btn-cancel {
   background-color: #95a5a6;
@@ -89,11 +85,8 @@
   width: 50%;
 }
 
-.btn-cancel:hover {
-  background-color: #7f8c8d;
-}
+.btn-cancel:hover { background-color: #7f8c8d; }
 
-/* Feedbacks de Mensagem */
 .mensagem-status {
   padding: 12px;
   border-radius: 6px;
@@ -114,7 +107,6 @@
   border: 1px solid #f5c6cb;
 }
 
-/* Tabela de Dados */
 .table-wrapper {
   width: 100%;
   border-radius: 8px;
@@ -144,7 +136,6 @@
   font-size: 0.95rem;
 }
 
-/* Botões de Ação na Tabela */
 .btn-edit {
   background-color: #3498db;
   color: white;
@@ -153,9 +144,7 @@
   margin-right: 5px;
 }
 
-.btn-edit:hover {
-  background-color: #2980b9;
-}
+.btn-edit:hover { background-color: #2980b9; }
 
 .btn-delete {
   background-color: #e74c3c;
@@ -164,21 +153,16 @@
   font-size: 0.85rem;
 }
 
-.btn-delete:hover {
-  background-color: #c0392b;
-}
+.btn-delete:hover { background-color: #c0392b; }
 
-/* =========================================
-   RESPONSIVIDADE PADRONIZADA
-========================================= */
 
-/* 1. Smartphone (até 767px) - Tabela vira Cards */
+/* SMARTPHONE */
 @media (max-width: 767px) {
   .gerenciar-container {
     margin: 24px auto;
     padding: 16px;
     max-width: 100%;
-    width: 92%; /* Dá um respiro nas laterais */
+    width: 92%;
     box-sizing: border-box;
     border-radius: 10px;
   }
@@ -189,6 +173,8 @@
     text-align: center;
   }
 
+   .gerenciar-container p { margin-bottom: 25px; }
+
   .gerenciar-form {
     padding: 16px;
     gap: 10px;
@@ -196,11 +182,11 @@
 
   .gerenciar-form input {
     font-size: 0.95rem;
-    padding: 12px; /* Touch target maior para os dedos */
+    padding: 12px;
   }
 
   .btn-group {
-    flex-direction: column; /* Empilha os botões para melhor clique no celular */
+    flex-direction: column;
     gap: 10px;
   }
 
@@ -210,15 +196,12 @@
     padding: 14px;
   }
 
-  /* Cards em vez de tabela no mobile */
   .table-wrapper {
     overflow: visible;
     border: none;
   }
 
-  .usuarios-table thead {
-    display: none; /* Esconde o cabeçalho */
-  }
+  .usuarios-table thead { display: none; }
 
   .usuarios-table,
   .usuarios-table tbody,
@@ -234,7 +217,7 @@
     border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 16px;
-    margin-bottom: 15px; /* Espaço entre os cards */
+    margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   }
 
@@ -244,13 +227,12 @@
     font-size: 0.95rem;
     display: flex;
     justify-content: flex-start;
-    align-items: center; /* Centraliza label e texto */
+    align-items: center;
     word-break: break-word;
     gap: 12px;
     border-bottom: 1px solid #eeeeee;
   }
 
-  /* Labels automáticos via data-label no JSX */
   .usuarios-table td::before {
     content: attr(data-label);
     font-weight: bold;
@@ -260,7 +242,6 @@
     min-width: 90px;
   }
 
-  /* A última célula (botões) */
   .usuarios-table td:last-child {
     display: flex !important;
     flex-direction: row;
@@ -270,9 +251,7 @@
     gap: 10px;
   }
 
-  .usuarios-table td:last-child::before {
-    display: none;
-  }
+  .usuarios-table td:last-child::before { display: none; }
 
   .btn-edit, .btn-delete {
     flex: 1;
@@ -280,39 +259,40 @@
     font-size: 0.9rem;
     text-align: center;
     border-radius: 6px;
-    margin: 0; /* Reseta margem no mobile */
+    margin: 0;
   }
 }
 
-/* Celular muito pequeno (Ajustes finos) */
+/* CELULAR MUITO PEQUENO */
 @media (max-width: 380px) {
   .gerenciar-container {
     width: 96%;
     padding: 12px;
   }
+
   .usuarios-table td {
-    flex-direction: column; /* Empilha label e valor se a tela for muito fina */
+    flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
 }
 
-/* 2. Tablet (768px até 1024px) - Mantém tabela, mas permite Scroll horizontal */
+
+/*  TABLET */
 @media (min-width: 768px) and (max-width: 1024px) {
   .gerenciar-container {
-    margin: 30px 5%; /* Margem fluida no tablet */
+    margin: 30px 5%;
     padding: 24px;
+    width: auto;
   }
 
   .table-wrapper {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Scroll suave no iPad */
+    -webkit-overflow-scrolling: touch;
     border: 1px solid #dee2e6;
   }
 
-  .usuarios-table {
-    min-width: 700px; /* Força o scroll se a tabela for muito larga */
-  }
+  .usuarios-table { min-width: 700px; }
 
   .usuarios-table th,
   .usuarios-table td {
@@ -321,14 +301,10 @@
   }
 }
 
-/* 3. Notebook (1025px até 1440px) */
+
+/* NOTEBOOK */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .gerenciar-container {
-    margin: 30px 10%; /* Cria um espaço lateral elegante */
+    margin: 30px auto;
   }
-}
-
-/* 4. Monitores Grandes (Acima de 1441px) */
-@media (min-width: 1441px) {
-  /* O código BASE (max-width: 1200px) já garante que fique perfeito no meio da tela */
 }
