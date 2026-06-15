@@ -21,6 +21,12 @@
   padding: 20px;
 }
 
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .perfil-card {
   display: flex;
   flex-direction: row; /* Força lado a lado no PC */
@@ -149,11 +155,8 @@
   background: var(--bb-delete);
 }
 
-/* =========================================
-   Tablet (iPad, etc)
-========================================= */
+/* Tablet */
 @media (max-width: 1024px) { 
-  /* Deixa fluido! Vai preencher a tela inteira com um pouco de margem */
   .perfil-image-section, 
   .perfil-info-section { 
     padding: 30px; 
@@ -164,88 +167,61 @@
    Smartphone */
 @media (max-width: 767px) {
   .perfil-container {
-    padding: 0 !important;
+    flex: 1;
+    align-items: center;
+    padding: 20px 16px;
   }
-  
+
   .perfil-card {
-    flex-direction: column !important; /* Coloca a imagem em cima do form */
-    border-radius: 0 !important;
-    min-height: 100vh !important;
-    box-shadow: none !important;
-    max-width: 100%;
-    padding: 0 !important;
+    min-height: calc(100vh - 64px);
+    justify-content: center;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .perfil-image-section {
-    max-height: 180px !important;
-    min-height: 150px !important;
-    padding: 0 !important;
-    border-right: none !important;
-    background: transparent !important; /* Tira o fundo cinza da imagem no celular */
+    display: none;
   }
 
-  .perfil-image {
-    min-width: 100% !important;
-    height: 180px !important;
-    max-width: 100% !important; 
-    max-height: 180px !important;
-    border-radius: 0px !important;
-    object-fit: cover !important;
-    object-position: center 103% !important; 
-    transform: scale(1.05) !important; 
-  }
-
-  .perfil-image-section h3 { 
-    display: none !important; 
-  }
-
-  .perfil-info-section { 
-    padding: 30px 15px 15px 15px !important; 
+  .perfil-info-section {
+    padding: 30px 15px 15px;
   }
 
   .perfil-info-section h2 {
-    text-align: center;  
+    text-align: center;
   }
 
   .perfil-form {
-    gap: 10px !important;
-    margin-top: 10px !important;
+    gap: 10px;
+    margin-top: 10px;
   }
 
   .perfil-row {
-    flex-direction: row !important;
-    gap: 8px !important;
+    gap: 8px;
   }
 
-  .perfil-input, 
+  .perfil-input,
   .perfil-select {
-    font-size: 0.9rem !important;
-    padding: 8px !important;
-    margin-bottom: 8px !important;
-    margin-top: 3px !important;
+    font-size: 0.9rem;
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-top: 3px;
   }
 
   .perfil-btn-group {
-    flex-direction: row !important;
-    gap: 10px !important;
-    margin-top: 12px !important;
-  }
-
-  /* Agrupamento de estilos de botões no mobile */
-  .perfil-btn-edit, 
-  .perfil-btn-delete {
-    white-space: nowrap !important;
+    gap: 10px;
+    margin-top: 12px;
   }
 
   .perfil-btn-edit {
-    flex: 1 !important;
-    padding: 10px !important;
-    font-size: 0.85rem !important;
+    flex: 1;
+    padding: 10px;
+    font-size: 0.85rem;
   }
 
   .perfil-btn-delete {
-    flex: 0 0 auto !important;
-    padding: 10px 12px !important;
-    font-size: 0.8rem !important;
+    flex: 0 0 auto;
+    padding: 10px 12px;
+    font-size: 0.8rem;
   }
 }
