@@ -1,9 +1,8 @@
-/* src/pages/GerenciarVeiculos.css */
-
 .gerenciar-container {
   padding: 30px;
-  max-width: auto;
-  margin: 30px 20.9%;
+  max-width: 1200px;
+  width: 70%;
+  margin: 30px auto;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -16,8 +15,8 @@
   padding-bottom: 10px;
   font-size: 1.8rem;
 }
+ .gerenciar-container p { margin-bottom: 30px;}
 
-/* Formulário de Cadastro / Edição */
 .gerenciar-form {
   display: flex;
   flex-direction: column;
@@ -35,7 +34,7 @@
   border-radius: 6px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gerenciar-form input:focus {
@@ -47,10 +46,9 @@
   margin-top: 10px;
   font-weight: bold;
   color: #2c3e50;
-  font-size: 20px;
+  font-size: 1.1rem;
 }
 
-/* Grupo de botões */
 .btn-group {
   display: flex;
   gap: 10px;
@@ -59,13 +57,18 @@
 
 .btn-group button,
 .action-btn {
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
   font-size: 0.95rem;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-group button:active,
+.action-btn:active {
+  transform: scale(0.98);
 }
 
 .btn-submit {
@@ -74,9 +77,7 @@
   flex: 1;
 }
 
-.btn-submit:hover {
-  background-color: #27ae60;
-}
+.btn-submit:hover { background-color: #27ae60; }
 
 .btn-cancel {
   background-color: #95a5a6;
@@ -84,11 +85,8 @@
   width: 50%;
 }
 
-.btn-cancel:hover {
-  background-color: #7f8c8d;
-}
+.btn-cancel:hover { background-color: #7f8c8d; }
 
-/* Feedbacks de Mensagem */
 .mensagem-status {
   padding: 12px;
   border-radius: 6px;
@@ -109,11 +107,15 @@
   border: 1px solid #f5c6cb;
 }
 
-/* Tabela de Dados */
+.table-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .usuarios-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   background-color: #f1f4f6;
   border-radius: 8px;
   overflow: hidden;
@@ -134,96 +136,72 @@
   font-size: 0.95rem;
 }
 
-
-/* Botões de Ação na Tabela */
 .btn-edit {
   background-color: #3498db;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 0.85rem;
   margin-right: 5px;
 }
 
-.btn-edit:hover {
-  background-color: #2980b9;
-}
+.btn-edit:hover { background-color: #2980b9; }
 
 .btn-delete {
   background-color: #e74c3c;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 0.85rem;
 }
 
-.btn-delete:hover {
-  background-color: #c0392b;
-}
+.btn-delete:hover { background-color: #c0392b; }
 
-@media (max-width: 768px) {
+
+/* SMARTPHONE */
+@media (max-width: 767px) {
   .gerenciar-container {
+    margin: 24px auto;
     padding: 16px;
-    margin: 20px;
+    max-width: 100%;
+    width: 92%;
+    box-sizing: border-box;
     border-radius: 10px;
   }
 
   .gerenciar-container h2 {
-    font-size: 1.4rem;
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 8px;
-    border: 1px solid var(--bb-table-border);
-  }
-
-  .usuarios-table th,
-  .usuarios-table td {
-    padding: 10px 8px;
-    font-size: 0.88rem;
-  }
-}
-
-@media (max-width: 640px) {
-
-
-  .gerenciar-container {
-    margin: 10px auto;
-    padding: 16px;
-    max-width: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: unset;
-    text-align: left;
-  }
-
-  .gerenciar-container h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 16px;
+    text-align: center;
   }
+
+  .gerenciar-container p { margin-bottom: 25px; }
 
   .gerenciar-form {
-    padding: 14px;
-    gap: 8px;
+    padding: 16px;
+    gap: 10px;
   }
 
   .gerenciar-form input {
     font-size: 0.95rem;
+    padding: 12px;
   }
 
   .btn-group {
-    gap: 8px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .btn-group button {
-    font-size: 0.88rem;
-    padding: 10px 14px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 14px;
   }
 
-  /* Cards em vez de tabela no mobile */
-  .usuarios-table thead {
-    display: none;
+  .table-wrapper {
+    overflow: visible;
+    border: none;
   }
+
+  .usuarios-table thead { display: none; }
 
   .usuarios-table,
   .usuarios-table tbody,
@@ -235,31 +213,33 @@
   }
 
   .usuarios-table tr {
-    background:  #f1f4f6;
+    background: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    padding: 12px;
+    padding: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   }
 
   .usuarios-table td {
     border: none;
     padding: 8px 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     word-break: break-word;
-    overflow-wrap: break-word;
     gap: 12px;
+    border-bottom: 1px solid #eeeeee;
   }
 
-  /* Labels automáticos via data-label no JSX */
   .usuarios-table td::before {
     content: attr(data-label);
     font-weight: bold;
-    font-size: 0.82rem;
+    color: #2c3e50;
+    font-size: 0.85rem;
     flex-shrink: 0;
-    min-width: 80px;
+    min-width: 90px;
   }
 
   .usuarios-table td:last-child {
@@ -267,34 +247,84 @@
     flex-direction: row;
     align-items: stretch;
     border-bottom: none;
-    padding-top: 10px;
-    gap: 8px;
+    padding-top: 15px;
+    gap: 10px;
   }
 
+  
 
-  .usuarios-table td:last-child::before {
-    display: none;
+  .usuarios-table td:last-child::before { display: none; }
+
+  .usuarios-table td[data-label="Marca: "] {
+    font-weight: bold;
+    font-size: 1.1rem;
   }
 
-  .btn-edit,
-  .btn-delete {
+  .usuarios-table td[data-label="Marca: "],
+  .usuarios-table td[data-label="Potência: "] {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+.usuarios-table td[data-label="Marca: "]::before,
+.usuarios-table td[data-label="Potência: "]::before {
+  min-width: unset;
+}
+
+  .btn-edit, .btn-delete {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     font-size: 0.9rem;
     text-align: center;
     border-radius: 6px;
-    width: auto !important;
+    margin: 0;
   }
-
 }
 
+/* CELULAR MUITO PEQUENO */
 @media (max-width: 380px) {
   .gerenciar-container {
-    margin: 6px;
+    width: 96%;
     padding: 12px;
   }
 
-  .gerenciar-container h2 {
-    font-size: 1.1rem;
+  .usuarios-table td {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 }
+
+
+/* TABLET */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .gerenciar-container {
+    margin: 30px 5%;
+    padding: 24px;
+    width: auto;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #dee2e6;
+  }
+
+  .usuarios-table { min-width: 700px; }
+
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* NOTEBOOK */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .gerenciar-container {
+    margin: 30px auto;
+  }
+}
+
+
