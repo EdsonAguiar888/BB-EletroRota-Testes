@@ -435,7 +435,7 @@ body {
 
 .station button:hover { background-color: #2980b9; }
 
-/* DADOS DO PAINEL DO VEÍCULO */
+/* DADOS DO PAINEL DO VEÍCULO*/
 .bb-panel {
   font-family: 'Sora', sans-serif;
   padding: 1.5rem 0;
@@ -669,7 +669,6 @@ body {
 }
 
 
-/* DESKTOP GRANDE — impede cards em coluna única */
 @media (min-width: 1200px) {
   .cards {
     flex-wrap: nowrap;
