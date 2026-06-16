@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 export default function Layout({ usuario, setUsuario }) {
 
@@ -22,11 +23,14 @@ export default function Layout({ usuario, setUsuario }) {
         flex: 1,
         width: '100%',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        minHeight: '100vh'
+        
       }}>
 
         <Outlet />
       </main>
+      <Footer/>
     </div>
   );
 }

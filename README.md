@@ -44,6 +44,8 @@ Aplicação web desenvolvida em React que permite ao usuário localizar eletropo
 
 | Tecnologia | Versão |
 |---|---|
+| Node | ^v24.14.1 |
+| Npm | ^11.16.0 |
 | React | ^19.2.5 |
 | React Router DOM | ^7.14.2 |
 | Vite | ^8.0.10 |

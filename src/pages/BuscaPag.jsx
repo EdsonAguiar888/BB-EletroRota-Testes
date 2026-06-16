@@ -11,10 +11,11 @@ function Busca() {
       flexDirection: 'column',
       alignItems: 'center', 
       justifyContent: 'center', 
-      height: '100vh' 
+      height: '100vh'
+      
       }}>
-      <h2>Nenhum resultado encontrado para: <strong>"{termo}"</strong></h2>
-      <p>A busca ainda está em desenvolvimento.</p>
+      <h2 style={{font: '30px', color: '#858587'}}    >Nenhum resultado encontrado para: <strong>"{termo}"</strong></h2>
+      {/* <p>A busca ainda está em desenvolvimento.</p> */}
     </div>
   );
 }

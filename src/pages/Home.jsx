@@ -8,7 +8,7 @@ import imagemPlanejar from '../assets/imgPlanejar.png';
 import imagemCalculadora from '../assets/imgCalculadora.png';
 import imagemCarrinho from '../assets/imgCarrinho.png';
 
-import imagemgps from '../assets/imagemgps.png';
+
 
 function getBateriaClasse(pct) {
   if (pct > 50) return 'bb-battery-fill';
