@@ -528,7 +528,7 @@ body {
     background: #002D6A;
     border-radius: 10px;
     width: 100%;
-    max-width: 300px;
+    max-width: 24px;
     min-height: 130px;
     cursor: pointer;
     transition: 0.3s;
