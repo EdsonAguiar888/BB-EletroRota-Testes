@@ -388,7 +388,7 @@
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) !important;
-    height: clamp(39px, 6vw, 45px) !important;
+    height: clamp(6vw, 56px) !important;
     margin: 0 !important;
   }
 
