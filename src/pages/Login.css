@@ -17,7 +17,7 @@
     overflow: hidden;
     background-color: #e9ecef;
     text-align: left;
-    position: relative; /* ← garante que o absolute do botão fique ancorado aqui */
+    position: relative; /*  garante que o absolute do botão fique ancorado*/
 }
 
 /* Container principal */
@@ -162,7 +162,7 @@
     transition: background 0.2s;
     background-color: #0038a8;
     color: white;
-    margin-bottom: 4px; /* Repetição unificada aqui */
+    margin-bottom: 4px;
 }
 
 .btn-enter {
@@ -221,21 +221,21 @@
     position: absolute;
     top: 16px;
     z-index: 100;
-    background: #FFD600;
-    border: 1px solid #e6c000;
+    background: white;
+    border: 1px solid #9ea5a8;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 13px;
-    font-weight: 600;
-    color: #0038a8;
+    font-weight: 500;
+    color: #374151;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 
 .btn-voltar-home:hover {
-    background-color: #e6c000;
-    border-color: #ccaa00;
-    color: #00297a;
+    background-color: #9ca3af;
+    border-color: #9ca3af;
+    color: white;
 }
 
 .pagina-login .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
@@ -248,9 +248,6 @@
     left: auto;
 }
 
-/* ==========================================
-   LADO DO BRANDING (PAINEL AZUL)
-   ========================================== */
 .area-branding {
     flex: 1;
     height: 100%;
@@ -281,8 +278,10 @@
 }
 
 .logo-svg {
-    height: 45px;
-    width: 65px;
+    height: 100px;
+    width: auto;
+    max-width: 380px;
+    object-fit: contain;
 }
 
 .textos-branding {
@@ -294,6 +293,7 @@
     font-size: 28px;
     line-height: 1.2;
     margin-bottom: 12px;
+    color: #ffffff;
 }
 
 .textos-branding p {
@@ -329,11 +329,9 @@
 }
 
 
-/* 1. Smartphone (Até 767px) */
-
+/* SMARTPHONE (Até 767px) */
 @media (max-width: 767px) {
 
-    
     .pagina-login {
         position: relative;
         height: auto;
@@ -358,7 +356,7 @@
         align-items: center;
         justify-content: center;
         order: -1;
-        position: relative;   
+        position: relative;
     }
 
     .textos-branding, 
@@ -377,13 +375,13 @@
         gap: 10px;
         width: 100%;
         padding-top: 27px;
-        padding-left: 20px; 
+        padding-left: 0;
     }
 
     .logo-svg {
         height: 45px;
-        width: 45px;
-        object-fit: contain;
+        width: auto;        /* deixa a largura proporcional */
+        max-width: 200px;   /* limite para não vazar */
     }
 
     .area-login, 
@@ -398,23 +396,20 @@
         top: 16px;
         left: 16px;
         right: auto;
-        font-size: 13px;        /* ← letra menor */
-        padding: 4px 8px;       /* ← botão mais compacto */
+        font-size: 13px;        /* letra menor */
+        padding: 4px 8px;       /* botão mais compacto */
         border-radius: 14px;
-
     }
-
 }
 
-/* 2. Tablet (De 768px até 1024px) */
+/* TABLET (De 768px até 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .area-login, 
     .area-cadastro {
         padding: 30px 6%;
     }
-    
+
     .textos-branding h2 {
         font-size: 24px;
     }
 }
-
