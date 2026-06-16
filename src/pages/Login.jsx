@@ -298,6 +298,7 @@ export default function Auth({ onLoginSuccess }) {
         <section className="area-branding">
           <div className="logo">
             <img src={logo} alt="Logo BB EletroRota" className="logo-svg" />
+            {/* <span className="logo-texto">BB EletroRota</span> */}
           </div>
 
           <div className="textos-branding">
