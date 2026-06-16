@@ -1,4 +1,4 @@
- @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
 :root {
   --bb-blue: #003882;
@@ -10,20 +10,63 @@
   --bb-out:#315780;
 }
 
-.bb-header {
+.bb-navbar-header {
   margin: 0;
   padding: 0;
   line-height: 1;
+  display: block;
+}
+
+.bb-navbar-header + * {
+  margin-top: 0;
 }
 
 .bb-topbar {
   background-color: var(--bb-yellow);
   display: flex;
   align-items: center;
-  padding: 0px 40px;
+  padding: 0 56px;
   font-family: var(--bb-font);
-  height: 70px;
+  height: 90px;
   box-sizing: border-box;
+  width: 100%;
+
+}
+
+.bb-logo-area {
+  justify-content: flex-start;
+  gap: 10px;
+  line-height: 1;
+  display: flex;
+}
+
+.bb-logo-img {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 0%;
+  padding: 3px;
+}
+
+.bb-topnav {
+  gap: 43px;
+  justify-content: center;
+}
+
+.bb-topnav a {
+  color: var(--bb-blue);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom 0.2s;
+  white-space: nowrap;
+}
+
+.bb-topnav a:hover {
+  color: var(--bb-blue);
+  border-bottom: 2px solid var(--bb-blue);
 }
 
 .bb-logo-area,
@@ -34,19 +77,9 @@
   align-items: center;
 }
 
-.bb-logo-area {
-  justify-content: flex-start;
-  gap: 10px;
-  line-height: 1;
-}
-
-.bb-topnav {
-  gap: 23px; 
-  justify-content: center;
-}
-
+/* Grupo Direito */
 .bb-topbar-right {
-  gap: 15px;
+  gap: 12px;
   justify-content: flex-end;
   min-width: 320px;
 }
@@ -72,6 +105,7 @@
   cursor: default;
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
 
 .bb-topnav a {
@@ -102,52 +136,60 @@
   align-items: center;
   height: 36px;
   width: 220px;
-  background: transparent; 
-  border: 1px solid var(--bb-blue); 
+  background: transparent;
+  border: 1px solid var(--bb-blue);
   border-radius: 8px;
-  gap: 8px; 
+  gap: 8px;
   padding: 0 12px;
-  flex-direction: row; 
   box-sizing: border-box;
   justify-content: center;
+  background: rgba(247, 233, 165, 0.45);
+}
+
+.bb-search-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
 }
 
 .bb-search-input {
   background: transparent !important;
   border: none !important;
   outline: none !important;
-  color: var(--bb-blue);
+  color: var(--bb-blue-dark);
   font-size: 0.78rem;
-  width: 100%;
+  width: 120px;
+  flex: 1 1 0;
+  min-width: 0;
+  /* text-align: flex-start;  */
 }
 
 .bb-search-input::placeholder {
   color: var(--bb-blue);
   opacity: 0.7;
-} 
+}
 
 .bb-search-form .fas.fa-search {
   color: var(--bb-blue);
 }
 
-
-/* Botão de Conta Sólido Azul  */
 .bb-account-btn {
   background-color: var(--bb-blue);
-  color: var(--bb-white) !important;
+  color: var(--bb-white) important;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding:0 14px;
+  padding: 0 12px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   white-space: nowrap;
   height: 36px;
   cursor: pointer;
   border: none;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s;
 }
 
 .bb-account-btn:hover {
@@ -168,7 +210,11 @@
   color: var(--bb-input);
 }
 
-.bb-logout-btn { 
+.usuario:hover {
+  color: var(--bb-input);
+}
+
+.bb-logout-btn {
   background-color: var(--bb-blue);
   color: var(--bb-white);
   border: none;
@@ -183,39 +229,29 @@
   align-items: center;
   justify-content: center;
   position: relative; 
-  top: -5px; 
+  top: -5px;
   flex-shrink: 0;
   width: auto;
 }
-  
+
 .bb-logout-btn:hover {
   background-color: var(--bb-out);
 }
 
-.bb-ola-mobile {
-  display: none;
-}
+/* Desktop: texto completo, esconde "Login" */
+.acessar-mobile { display: none; }
+.acessar-desktop { display: inline; }
 
-/* R E S P O N S I V I D A D E */
+
+/*---------------- Resposividade ------------------ */
 
 /* NOTEBOOKS */
 @media (max-width: 1366px) and (min-width: 861px) {
-  .bb-topbar {
-    padding: 0 24px;
-    gap: 12px;
-  }
-  .bb-topnav {
-    gap: 16px;
-  }
-  .bb-topnav a {
-    font-size: 0.82rem;
-  }
-  .bb-search-form {
-    width: 180px;
-  }
-  .bb-logo-text {
-    font-size: 1.1rem;
-  }
+  .bb-topbar { padding: 0 24px; gap: 12px; }
+  .bb-topnav { gap: 16px; }
+  .bb-topnav a { font-size: 0.92rem; }
+  .bb-search-form { width: 180px; }
+  .bb-logo-text { font-size: 1.1rem; }
 }
 
 /* TABLET E MOBILE */
@@ -224,34 +260,29 @@
   .bb-topbar {
     flex-direction: column;
     height: auto;
-    padding: 12px 16px;
-    gap: 0;
+    padding: 12px 16px 28px 16px;
+    gap: 8px;
     align-items: stretch;
     position: relative;
     overflow: visible;
   }
 
   .bb-logo-area {
-    padding-bottom: 10px;
+    padding-bottom: 0;
     justify-content: center;
     flex: unset;
-    width: 100%; 
+    width: 100%;
+    padding-right: 80px;
+    padding-left: 0;
   }
-
-  .bb-topbar-right {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    width: auto;
-    min-width: 0;
-    gap: 0;
-    overflow: visible;
+  
+  .bb-logo-img {
+    height: 48px;  
   }
-
-  .bb-topbar-right .bb-search-form { display: none; }
-  .bb-topbar-right .bb-user-name { display: none; }
+  .bb-logo-text,
+  .bb-logo-yellow {
+  font-size: 1.10rem !important;
+  }
 
   .bb-topnav {
     flex: unset;
@@ -272,68 +303,62 @@
     border-bottom: 2px solid var(--bb-blue-dark);
   }
 
-  .bb-ola-mobile {
-    display: block;
-    text-align: center;
-    font-size: 0.95rem;
-    color: var(--bb-blue);
-    margin: 10px 0 6px;
-    font-weight: 700;
+  /* Direita: coluna, busca e nome empilhados */
+  .bb-topbar-right {
+    position: static;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-width: unset;
   }
 
-  .bb-search-mobile {
-    display: flex !important;
+  /* Busca largura total */
+  .bb-topbar-right .bb-search-form {
+    display: flex;
     width: 100%;
-    max-width: 100%;
-    margin-bottom: 10px;
     border-radius: 20px;
     height: 34px;
-    justify-content: center;
-    gap: 8px;
-    
   }
 
-  .bb-search-mobile .bb-search-input {
-    width: auto;
-    flex: unset;        
-    min-width: 0;
+  /* Nome centralizado */
+  .bb-topbar-right .bb-user-name {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 10px;
   }
 
-  
-  .bb-topbar-right .bb-account-btn {
-  padding: 0 12px;
-  font-size: 0.72rem;
-  height: 30px;
-  border-radius: 20px;
-}
-
-.bb-topbar-right .bb-account-btn span {
-  display: block;
-}
-
-/* substitui "Acessar a sua conta" por "Acessar" */
-.bb-topbar-right .bb-account-btn span {
-  font-size: 0;  /* esconde o texto original */
-}
-
-.bb-topbar-right .bb-account-btn span::before {
-  content: 'Login';  /* texto alternativo */
-  font-size: 0.72rem;
-}
-
+  /* Login e Sair: pequenos no canto superior direito */
+  .bb-topbar-right .bb-account-btn,
   .bb-topbar-right .bb-logout-btn {
-    padding: 0 12px;
-    font-size: 0.72rem;
+    position: absolute;
+    right: 16px;
+    width: auto;
+    padding: 0 14px;
     height: 30px;
     border-radius: 20px;
+    font-size: 0.72rem;
+    justify-content: center;
+    gap: 6px;
   }
+
+  .bb-topbar-right .bb-account-btn {top: 17px;}
+  .bb-topbar-right .bb-logout-btn {top: 8px;}
+
+
+  /* Mobile: esconde texto longo, mostra "Login" */
+  .acessar-desktop { display: none; }
+  .acessar-mobile { display: inline; }
 }
 
 /* MOBILE PEQUENO */
 @media (max-width: 480px) {
   .bb-topbar { padding: 10px 12px; }
-  .bb-logo-text { font-size: 0.95rem; }
+  .bb-logo-text, .bb-logo-yellow { font-size: 0.95rem; }
   .bb-topnav { gap: 12px; }
   .bb-topnav a { font-size: 0.75rem; }
-
 }
+
+
+

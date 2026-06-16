@@ -1,0 +1,389 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Wrapper principal fixo na tela - impede qualquer rolagem externa */
+.pagina-login {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    background-color: #e9ecef;
+    text-align: left;
+}
+
+/* Container principal */
+.pagina-login .container-login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+/* Transição do modo cadastro */
+.pagina-login .container-login.modo-cadastro .area-cadastro {
+    transform: none;
+    opacity: 1;
+    z-index: 10 !important;
+}
+
+/* Áreas de conteúdo - controlam rigorosamente a altura */
+.area-login,
+.area-cadastro {
+    flex: 1;
+    height: 100%;
+    min-height: 0; /* Permite que a área encolha se necessário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza todo o bloco verticalmente */
+    padding: 4vh 10%; /* Padding responsivo baseado na altura da tela */
+    overflow: hidden; /* Garante que nada vaze */
+}
+
+/* Estado padrão de exibição das telas */
+.area-cadastro {
+    display: none;
+}
+
+.pagina-login .container-login.modo-cadastro .area-cadastro {
+    display: flex;
+}
+
+.pagina-login .container-login.modo-cadastro .area-login {
+    display: none;
+}
+
+.pagina-login .container-login.modo-cadastro .area-branding {
+    order: -1;
+}
+
+/* Cabeçalhos internos reduzidos para não empurrar o formulário */
+.textos-boas-vindas, .texto-cadastro {
+    margin-bottom: 20px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.textos-boas-vindas h1, .texto-cadastro h1 {
+    color: #0038a8;
+    font-size: 26px;
+    margin-bottom: 4px;
+}
+
+/* Formulários compactos */
+.formulario-login, 
+.area-cadastro form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grupos de Input com margens reduzidas */
+.grupo-input,
+.grupo-input2 {
+    margin-bottom: 12px;
+}
+
+.grupo-input label,
+.grupo-input2 label {
+    display: block;
+    color: #0038a8;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.grupo-input .input-sem-icone input,
+.grupo-input2 .input-sem-icone input {
+    width: 100%;
+    padding: 10px 14px; /* Diminuído para economizar espaço vertical */
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    color: #37415f;
+    background-color: #ffffff;
+}
+
+.grupo-input .input-sem-icone input:focus,
+.grupo-input2 .input-sem-icone input:focus {
+    border-color: #0038a8;
+}
+
+/* Opções extras (Lembrar de mim / Esqueceu a senha) */
+.opcoes-extras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+
+.lembrar-mim {
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.link-esqueceu {
+    color: #0038a8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-esqueceu:hover {
+    text-decoration: underline;
+}
+
+/* Botões principais mais enxutos */
+.btn-enter, 
+.btn-criar-conta {
+    width: 100%;
+    padding: 12px; /* Reduzido de 18px/20px */
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+    background-color: #0038a8;
+    color: white;
+}
+
+.btn-enter {
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.btn-criar-conta {
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.btn-enter:hover, 
+.btn-criar-conta:hover {
+    background-color: #00297a;
+}
+
+/* Seletores de alternância inferiores */
+.seletor-area-login {
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    margin-top: 16px;
+    justify-content: center;
+}
+
+.seletor-area-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 6px;
+    margin-bottom: 6%;
+}
+
+.texto-possui-conta {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.btn-inativo {
+    background-color: transparent;
+    color: #6b7280;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-inativo:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+/* Botão Voltar para Home */
+.btn-voltar-home {
+    position: absolute;
+    top: 16px;
+    z-index: 100;
+    background: white;
+    border: 1px solid #9ea5a8;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-voltar-home:hover {
+    background-color: #9ca3af;
+    border-color: #9ca3af;
+    color: white;
+}
+
+.pagina-login .container-login:not(.modo-cadastro) ~ .btn-voltar-home {
+    left: 16px;
+    right: auto;
+}
+
+.pagina-login .container-login.modo-cadastro ~ .btn-voltar-home {
+    right: 16px;
+    left: auto;
+}
+
+/* ==========================================
+   LADO DO BRANDING (PAINEL AZUL)
+   ========================================== */
+.area-branding {
+    flex: 1;
+    height: 100%;
+    background-image: url(../assets/Container.png);
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Logo redimensionada para resoluções de notebook padrão */
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: bolder;
+    z-index: 20;
+}
+
+.logo-svg {
+    height: 45px;
+    width: 65px;
+}
+
+.textos-branding {
+    text-align: center;
+    max-width: 400px;
+}
+
+.textos-branding h2 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.textos-branding p {
+    font-size: 15px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+/* Rodapé */
+.rodape-branding {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: #94a3b8;
+    gap: 8px;
+}
+
+.links-rodape {
+    display: flex;
+    gap: 16px;
+}
+
+.links-rodape a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.links-rodape a:hover {
+    color: white;
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================== */
+
+@media (max-width: 1024px) {
+    .area-login, .area-cadastro {
+        padding: 30px 6%;
+    }
+    .textos-branding h2 {
+        font-size: 24px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .pagina-login {
+        position: relative;
+        height: auto;
+        min-height: 100dvh;
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .pagina-login .container-login {
+        height: auto;
+        min-height: 100dvh;
+        flex-direction: column;
+    }
+
+    .area-branding {
+        flex: none;
+        width: 100%;
+        height: 120px;
+        padding: 15px;
+    }
+
+    .textos-branding, .rodape-branding {
+        display: none !important;
+    }
+
+    .logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        font-size: 18px;
+    }
+
+    .logo-svg {
+        height: 35px;
+        width: 35px;
+    }
+
+    .area-login, .area-cadastro {
+        padding: 30px 20px;
+        width: 100%;
+        height: auto;
+    }
+}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,11 +9,24 @@
 
 body {
   background: #f5f5f5;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 
+/* Imagem do Topo */
+.hero-image-container {
+  width: 100%;
+}
 
+.hero-image {
+  max-width: 100%; /* Corrigido para o padrão correto do CSS */
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* Topbar original mantida */
 .topbar {
   background: #ffdf00;
   display: flex;
@@ -37,101 +52,748 @@ body {
   color: #003a8f;
 }
 
-
-.img-topo{
-
-  background-image: url("/src/assets/imagemCarro.png");
-  width: 100%;
-  height: 40px;
-}
-
-
-
-
+/* Seção de Cards - Modificada para quebrar linhas no Mobile */
 .cards {
   display: flex;
   justify-content: space-around;
-  margin: 10px;
-  gap: 15px;
-  padding: 15px 100px;
+  flex-wrap: wrap; /* Permite que os cards pulem de linha se não houver espaço */
+  margin: 20px;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px; /* Reduzido de 100px para não deformar em telas menores */
+  background-color: #f8fafc;
 }
 
+/* Elemento Card Individual */
+/* Elemento Card Individual - Mais compacto e com altura controlada */
 .card {
-  background: linear-gradient(to bottom, #004aad, #003a8f);
-  color: white;
-  /* padding: 20px; */
+  background: #002D6A;
   border-radius: 10px;
-  width: 22%;
+  width: 100%;
+  max-width: 300px; /* Largura ideal para caberem 4 lado a lado no PC */
+  min-height: 130px; /* Garante que todos tenham exatamente o mesmo tamanho vertical */
   cursor: pointer;
   transition: 0.3s;
+  padding: 15px; /* Reduzido o padding interno para diminuir a altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinha o conteúdo a partir do topo */
+  align-items: flex-start;
+  text-decoration: none;
 }
-
-
-
-
-
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
+/* Título interno do Card */
+.card h3 {
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Reduzido o espaço abaixo do título */
+  text-align: center;
+  width: 100%;
+  font-size: 0.95rem; /* Ajustado levemente para não quebrar muitas linhas */
+  line-height: 1.2;
+}
 
+/* Ícones dos Cards - Padronizados pelo tamanho do primeiro card */
+.card-icon {
+  width: 32px; /* Tamanho fixo em pixels para todas as imagens ficarem idênticas */
+  height: 32px; /* Força uma proporção quadrada perfeita */
+  object-fit: contain; /* Garante que a imagem não distorça dentro do quadrado */
+  margin-right: 10px;
+  flex-shrink: 0; /* Impede que o flexbox amasse o ícone */
+}
+
+/* Linha divisória interna */
+.divider {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 10px; /* Reduzido o espaço abaixo da linha */
+}
+
+/* Parágrafo descritivo */
+.card p {
+  color: #cbd5e1;
+  margin: 0;
+  text-align: center; /* Alinhado à esquerda para acompanhar o fluxo do título */
+  width: 100%;
+  font-size: 0.8rem; /* Fonte ligeiramente menor para economizar espaço vertical */
+}  
+
+/* Painel Container Inferior */
+/* 1. Altera o container para alinhar em coluna de cima para baixo */
+.painel-container {
+  display: flex;
+  flex-direction: column; /* Força um elemento embaixo do outro */
+  gap: 25px;
+  padding: 20px;
+  max-width: 800px; /* Alinha o limite de largura pelo tamanho do bloco maior */
+  margin: 0 auto;
+  align-items: center; /* Centraliza os dois blocos na tela */
+}
+
+/* 2. Garante que o bloco da Estação ocupe 100% da largura do container */
+.station-container {
+  width: 100%;
+  max-width: 100%; /* Remove o limite antigo de 700px */
+  background-color: #f1f5f8;
+  /* background-color: #f8fafc; */
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.station-title {
+  color: #003366;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.station-card {
+  display: flex;
+  gap: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 15px;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.optimizer-preview-card:hover {
+  transform: translateY(-2px);
+  border-color: #ffd600;
+  box-shadow: 0 10px 24px rgba(0, 45, 106, 0.12);
+}
+
+.map-wrapper {
+  flex: 0 0 200px;
+  height: 140px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.optimizer-mini-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(0, 45, 106, 0.08) 0 2px, transparent 2px 38px),
+    linear-gradient(45deg, rgba(0, 45, 106, 0.06) 0 2px, transparent 2px 34px),
+    radial-gradient(circle at 22% 24%, rgba(21, 153, 71, 0.18), transparent 26%),
+    radial-gradient(circle at 82% 78%, rgba(255, 214, 0, 0.22), transparent 24%),
+    #eef5fb;
+}
+
+.optimizer-mini-map::before,
+.optimizer-mini-map::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 0 1px rgba(160, 176, 196, 0.28);
+}
+
+.optimizer-mini-map::before {
+  width: 78px;
+  height: 18px;
+  top: 22px;
+  left: 18px;
+  transform: rotate(-12deg);
+}
+
+.optimizer-mini-map::after {
+  width: 96px;
+  height: 18px;
+  right: 12px;
+  bottom: 24px;
+  transform: rotate(-10deg);
+}
+
+.mini-map-road {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: #d7e0ea;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.75);
+}
+
+.mini-map-road-main {
+  width: 250px;
+  height: 24px;
+  left: -26px;
+  top: 70px;
+  transform: rotate(-18deg);
+}
+
+.mini-map-road-cross {
+  width: 210px;
+  height: 20px;
+  left: 34px;
+  top: 46px;
+  transform: rotate(44deg);
+}
+
+.mini-route-line {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: #0038a8;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.82);
+}
+
+.mini-route-line-a {
+  width: 62px;
+  left: 28px;
+  top: 88px;
+  transform: rotate(-18deg);
+}
+
+.mini-route-line-b {
+  width: 58px;
+  left: 82px;
+  top: 67px;
+  transform: rotate(-44deg);
+}
+
+.mini-route-line-c {
+  width: 72px;
+  left: 122px;
+  top: 48px;
+  transform: rotate(16deg);
+}
+
+.mini-marker {
+  position: absolute;
+  z-index: 3;
+  width: 17px;
+  height: 17px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 5px 12px rgba(0, 45, 106, 0.24);
+}
+
+.mini-origin {
+  left: 24px;
+  top: 83px;
+  background: #0038a8;
+}
+
+.mini-station {
+  left: 111px;
+  top: 51px;
+  background: #ffd600;
+}
+
+.mini-destination {
+  right: 18px;
+  top: 56px;
+  background: #159947;
+}
+
+.details-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.station-name {
+  color: #003366;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.optimizer-preview-copy {
+  color: #31527f;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.optimizer-preview-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #d8e2ef;
+  border-left: 4px solid #0038a8;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+.optimizer-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #003366;
+}
+
+.optimizer-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.optimizer-metrics {
+  display: grid;
+  grid-template-columns: 1.35fr 0.75fr 0.75fr;
+  gap: 8px;
+}
+
+.optimizer-metrics span {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #003366;
+  font-size: 0.82rem;
+  border: 1px solid #e6eef8;
+}
+
+.optimizer-metrics strong {
+  color: #5c6f8f;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.optimizer-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.optimizer-criteria span {
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #003366;
+  padding: 4px 9px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1e3a8a;
+  font-size: 0.95rem;
+}
+
+.action-wrapper {
+  margin-top: 5px;
+}
+
+.btn-navigate {
+  background: linear-gradient(180deg, #ffe000 0%, #ffd000 100%);
+  border: 1px solid #e6b800;
+  color: #002244;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: filter 0.2s;
+}
+
+.btn-navigate:hover { filter: brightness(0.95); }
+
+/* 3. Garante que o Painel Principal também ocupe 100% da largura, igualando os tamanhos */
 .station {
-  padding: 10px ;
-  margin: 20px;
+  width: 100%;
+  max-width: 100%; /* Remove o limite antigo de 450px */
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f5;
 }
 
 .station h2 {
-  padding: 10px 30px;
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
 }
 
-.station-box {
-  display: flex;
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
-  align-items: center;
+.painel-v-title {
+  color: #2c3e50 !important;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
-.map {
-  width: 200px;
-  height: 150px;
-  background: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
+.info-veiculo p {
+  color: #2c3e50;
+  margin: 8px 0;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed #eef2f5;
+  padding-bottom: 6px;
 }
 
-.info {
-  margin-left: 20px;
-}
-
-.button-logout {
-  width: 60px;
-  margin-top: 10px;
-  background: #1a73e8;
+.station button {
+  width: 100%;
+  background-color: #3498db;
+  color: #ffffff;
   border: none;
-  padding: 10px;
-  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 5px;
-  margin-left: 200px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: background-color 0.2s;
 }
 
-button:hover {
-  /* background: #c3cedb; */
-  border-color: #ffdf00;
-}
-
-
-.painel-mapa {
-
-  display: flex;
-  align-items: stretch;
-  justify-content: space-around;
-}
+.station button:hover { background-color: #2980b9; }
 
 
 /* ============================================================ */
+/* MEDIA QUERIES (A MAGICA DA RESPONSIVIDADE) */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+  /* No celular, os cards ocupam a largura total disponível */
+  .card {
+    max-width: 100%;
+  }
+
+  .cards {
+    border-radius: 12px;
+    padding: 15px 10px;
+  }
+
+  /* Faz a estrutura interna do eletroposto virar uma coluna */
+  .station-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .map-wrapper {
+    flex: none;
+    width: 100%;
+    height: 180px;
+  }
+
+  .optimizer-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  /* No celular, os cards ocupam a largura total disponível */
+  
+  
+  .card {
+    background: #002D6A;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 130px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-decoration: none;
+  }
+  .cards {
+    
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    margin: 20px;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #f8fafc;
+}
+  }
+
+  
+
+
+
+
+
+
+/* Dados do painel do veiculo */
+
+
+
+/* ── Painel externo ── */
+.bb-panel {
+  font-family: 'Sora', sans-serif;
+  padding: 1.5rem 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* ── Cabeçalho com logo ── */
+.bb-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+
+.bb-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bb-section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.bb-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+/* ── Card principal ── */
+.bb-card {
+  background: #f1f5f8;
+  /* background: #ffffff; */
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.bb-card-stripe {
+  height: 4px;
+  background: #003a8f;
+}
+
+.bb-card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+/* ── Header do card ── */
+.bb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.bb-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #555;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bb-title-icon {
+  font-size: 10px;
+  color: #003087;
+}
+
+/* ── Badge de status ── */
+.bb-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #EAF3DE;
+  color: #27500A;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.bb-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #639922;
+  flex-shrink: 0;
+}
+
+/* ── Grade de informações ── */
+.bb-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 1.25rem;
+}
+
+.bb-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bb-info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.bb-info-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.bb-info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* ── Seção de bateria ── */
+.bb-battery-section {
+  background: #f5f5f3;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.bb-battery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bb-battery-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+}
+
+.bb-battery-pct {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.bb-battery-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bb-battery-fill {
+  height: 100%;
+  background: #639922;
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+
+.bb-battery-fill.medium {
+  background: #BA7517;
+}
+
+.bb-battery-fill.low {
+  background: #A32D2D;
+}
+
+.bb-battery-status {
+  font-size: 11px;
+  color: #888;
+  margin: 6px 0 0;
+}
+
+/* ── Rodapé ── */
+.bb-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  color: #aaa;
+}
+
+.bb-footer-icon {
+  font-size: 13px;
+}
+
+/* ── Dark mode ── */
+@media (prefers-color-scheme: light) {
+  .bb-section-title { color: #f0f0f0; }
+  .bb-section-label { color: #777; }
+
+  .bb-card {
+    background: #1c1c1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+  }
+
+  .bb-card-header { border-bottom-color: rgba(255, 255, 255, 0.08); }
+  .bb-card-title { color: #aaa; }
+
+  .bb-info-label { color: #666; }
+  .bb-info-value { color: #f0f0f0; }
+
+  .bb-battery-section { background: #2a2a2c; }
+  .bb-battery-label { color: #aaa; }
+  .bb-battery-pct { color: #f0f0f0; }
+  .bb-battery-track { background: rgba(255, 255, 255, 0.1); }
+  .bb-battery-status { color: #666; }
+
+  .bb-footer { border-top-color: rgba(255, 255, 255, 0.06); color: #555; }
+}
+
