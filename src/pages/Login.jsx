@@ -316,13 +316,13 @@ export default function Auth({ onLoginSuccess }) {
         </section>
       </div>
 
-      <button 
-        type="button" 
-        className="btn-voltar-home" 
+      <button
+        type="button"
+        className="btn-voltar-home"
         onClick={() => navigate('/')}
         aria-label="Voltar para a Home"
       >
-        ✕ Voltar para Home
+        <i className="fas fa-arrow-left"></i> voltar
       </button>
     </div>
   );

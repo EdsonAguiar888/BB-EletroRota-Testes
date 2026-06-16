@@ -13,6 +13,7 @@ body {
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
+    /* MÁGICA AQUI: Desfoca tudo atrás deste elemento */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); /* Compatibilidade Safari */
 
@@ -35,6 +36,8 @@ body {
     border: 2px;
 }
 
+
+/* ============================================================================== */
 
 
 .login-container {
