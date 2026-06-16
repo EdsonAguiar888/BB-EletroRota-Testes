@@ -29,7 +29,7 @@ main {
 
 .perfil-card {
   display: flex;
-  flex-direction: row; /* Força lado a lado no PC */
+  flex-direction: row;
   background: var(--bb-white);
   border-radius: 20px;
   box-shadow: var(--bb-shadow-card);
@@ -41,7 +41,7 @@ main {
 .perfil-image-section {
   flex: 1;
   background: var(--bb-background);
-  padding: 40px; /* Voltou o fundo cinza em volta da imagem */
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,16 +54,16 @@ main {
   width: 100%;
   max-width: 350px;
   height: auto;
-  border-radius: 15px; /* Arredonda a imagem no PC */
-  object-fit: contain; /* Não estica a imagem */
+  border-radius: 15px;
+  object-fit: contain;
   object-position: center;
-  transform: none; /* Tira o zoom no PC para ver o carro inteiro */
+  transform: none; 
 }
 
 .perfil-image-section h3 {
   color: var(--bb-blue-dark-gray);
   margin-top: 20px;
-  display: block; /* Volta o título no PC */
+  display: block;
 }
 
 .perfil-info-section {
@@ -133,7 +133,6 @@ main {
   margin-top: 20px;
 }
 
-/* Agrupamento de estilos repetidos dos botões */
 .perfil-btn-edit, 
 .perfil-btn-delete {
   padding: 12px;
@@ -163,8 +162,7 @@ main {
   }
 }
 
-/*
-   Smartphone */
+/* Smartphone */
 @media (max-width: 767px) {
   .perfil-container {
     flex: 1;
