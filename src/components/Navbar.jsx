@@ -3,6 +3,11 @@ import { useState } from 'react';
 import LogoImg from '../assets/LogoEletroRota.svg';
 import BarraBusca from './Busca';
 import './Navbar.css';
+<<<<<<< HEAD
+=======
+import inicioPagina from '../pages/Mapa';
+import Mapa from '../pages/Mapa';
+>>>>>>> bb5a3acfff5caab7764dfa7ba4007132dd7e724d
 
 function BotaoLogin() {
   return (

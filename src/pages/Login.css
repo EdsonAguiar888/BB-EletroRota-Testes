@@ -192,8 +192,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 5px;
+    margin-top: 6px;
+    margin-bottom: 6%;
 }
 
 .texto-possui-conta {

@@ -307,3 +307,18 @@ export default function EditarPerfil({ usuario, setUsuario }) {
     </div>
   );
 }
+
+const containerStyle = { width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' };
+const cardStyle = { display: 'flex', background: '#fff', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', overflow: 'hidden', maxWidth: '1000px', width: '100%' };
+const imageSectionStyle = { flex: 1, background: '#f8f9fa', padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid #eee' };
+const imageStyle = { width: '100%', maxWidth: '350px', height: 'auto', borderRadius: '15px' };
+const infoSectionStyle = { flex: 1.2, padding: '40px' };
+const formStyle = { display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' };
+const inputGroup = { display: 'flex', flexDirection: 'column', gap: '5px', flex: 1 };
+const inputStyle = { padding: '10px', borderRadius: '8px', border: '1px solid #ccc', fontSize: '1rem' };
+const buttonGroupStyle = { display: 'flex', gap: '15px', marginTop: '20px' };
+const editButtonStyle = { flex: 1, padding: '12px', background: '#3498db', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' };
+const deleteButtonStyle = { padding: '12px', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' };
+const selectStyle = { padding: '10px', borderRadius: '8px', border: '2px solid #3498db', fontSize: '1rem', backgroundColor: '#fdfefe', cursor: 'pointer', color: '#2c3e50', fontWeight: '600' };
+
+

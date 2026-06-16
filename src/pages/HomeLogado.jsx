@@ -135,7 +135,7 @@ export default function HomeLogado({ usuario, setUsuario }) {
           <p>Veja os pontos de recarga próximos.</p>
         </Link>
 
-        <Link to="/calculadora" className="card" id="autonomia">
+        <Link to="/calculadora"   className="card" id="autonomia"  >
           <h3>
             <img src={imagemCalculadora} alt="Ícone Autonomia" className="card-icon" />
             Calculadora de Autonomia
