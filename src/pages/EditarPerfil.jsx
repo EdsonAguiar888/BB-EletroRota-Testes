@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import imagemCarro from '../assets/Meu BB-EletroRota.png';
-import './EditarPerfil.css';
+
 
 // Importando a função específica para validação de perfil unificado
 import { validarPerfilVeiculo } from '../components/Validacoes';
