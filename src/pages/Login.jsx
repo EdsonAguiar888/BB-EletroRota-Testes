@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { validarAuth, emailJaCadastrado } from '../components/Validacoes';
 import "./Login.css";
 
-import logo from '../assets/BBEletroRota-Logopng.png';
+import logo from '../assets/logo bb transp a.png';
 
 function MensagemErroCampo({ campo, errosCampos }) {
   if (!errosCampos[campo]) return null;
@@ -298,7 +298,6 @@ export default function Auth({ onLoginSuccess }) {
         <section className="area-branding">
           <div className="logo">
             <img src={logo} alt="Logo BB EletroRota" className="logo-svg" />
-            <span className="logo-texto">BB EletroRota</span>
           </div>
 
           <div className="textos-branding">
@@ -316,14 +315,13 @@ export default function Auth({ onLoginSuccess }) {
         </section>
       </div>
 
-      <button 
-        type="button" 
-        className="btn-voltar-home" 
+      <button
+        type="button"
+        className="btn-voltar-home"
         onClick={() => navigate('/')}
         aria-label="Voltar para a Home"
       >
         <i className="fas fa-arrow-left"></i> voltar
-
       </button>
     </div>
   );
