@@ -252,7 +252,7 @@
   .acessar-mobile { display: inline; }
 }
 
-/* SMARTPHONE —*/
+/* SMARTPHONE */
 @media (max-width: 767px) {
 
   .bb-topbar > .bb-logo-area,
@@ -388,7 +388,7 @@
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) !important;
-    height: clamp(39px, 6vw, 45x) !important;
+    height: clamp(39px, 6vw, 45px) !important;
     margin: 0 !important;
   }
 
@@ -460,10 +460,10 @@
 
   .bb-topnav a { font-size: 0.82rem; }
 
-  .bb-logo-img { height: clamp(48px, 4.5vw, 60px); } 
+  .bb-logo-img { height: clamp(48px, 4.5vw, 60px); }
 
   .bb-search-form {
-    width: clamp(150px, 10vw, 180px); 
+    width: clamp(150px, 10vw, 180px);
     height: 32px;
     flex-shrink: 1;
     overflow: hidden;
@@ -497,7 +497,7 @@
 }
 
 
-/* MONITORES GRANDES — 1441px+ */
+/* MONITORES GRANDES - 1441px+ */
 @media (min-width: 1441px) {
 
   .bb-topbar {
