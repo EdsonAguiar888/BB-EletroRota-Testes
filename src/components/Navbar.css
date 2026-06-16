@@ -11,16 +11,8 @@
   --bb-out-vermelho: #c0392b;
 }
 
-.bb-navebar-header{
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  display: block;
-}
-
-.bb-navbar-header + * {
-  margin-top: 0;
-}
+.bb-navebar-header { margin: 0; padding: 0; line-height: 1; display: block; }
+.bb-navbar-header + * { margin-top: 0; }
 
 .bb-topbar {
   background-color: var(--bb-yellow);
@@ -150,8 +142,6 @@
   justify-content: center;
   flex-shrink: 0;
   width: auto;
-  position: relative;
-  top: -5px;
 }
 .bb-logout-btn:hover { background-color: var(--bb-out); }
 
@@ -160,7 +150,6 @@
 .bb-hamburger, .bb-drawer, .bb-drawer-overlay { display: none; }
 .acessar-desktop { display: inline; }
 
-.acessar-desktop  { display: inline; }
 
 @media (max-width: 1024px) {
 
@@ -260,6 +249,7 @@
   }
 
   .acessar-desktop { display: none; }
+  .acessar-mobile { display: inline; }
 }
 
 /* SMARTPHONE */

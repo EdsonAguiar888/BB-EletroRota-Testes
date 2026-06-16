@@ -1,6 +1,5 @@
-body{
+body {
     z-index: 1000;
-   
 }
 
 .overlay {
@@ -9,24 +8,20 @@ body{
     left: 0;
     width: 100%;
     height: 100vh;
-    
+
     background-image: url("/src/assets/imagemBackgroundDesfocada.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    /* filter: blur(5px); */
-    /* Opcional: melhora a performance em navegadores */
-    /* -webkit-filter: blur(2px); */
-    
+
     /* MÁGICA AQUI: Desfoca tudo atrás deste elemento */
-    backdrop-filter: blur(8px);    
+    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); /* Compatibilidade Safari */
-    
+
     /* Centralizar a modal */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1001; /* Garante que fique por cima */
-   
 }
 
 /* Estilo do conteúdo da sobreposição */
@@ -37,29 +32,13 @@ body{
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     z-index: 1002; /* Fica acima do overlay */
-     border-color: #1557b0;
+    border-color: #1557b0;
     border: 2px;
 }
 
 
-
-
 /* ============================================================================== */
 
-
-
-
-
-
-
-/* 
-body {
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-} */
 
 .login-container {
     width: 100%;
@@ -92,7 +71,7 @@ input {
     border-radius: 4px;
     font-size: 16px;
     transition: border 0.3s;
-    color-scheme: light; 
+    color-scheme: light;
 }
 
 input:focus {
@@ -118,9 +97,7 @@ button:hover { background-color: #1557b0; }
 .error { color: #d93025; }
 .success { color: #188038; }
 
-
-.login-card{
-
+.login-card {
     position: relative;
 }
 
@@ -135,8 +112,8 @@ button:hover { background-color: #1557b0; }
     
     
     position: absolute; /* Posiciona em relação ao .box */
-    top: 10px;           /* Distância do topo */
-    right: 10px;         /* Distância da direita */
+    top: 10px;           
+    right: 10px;        
     width: 20px;
     height: 20px;
     border: none;
@@ -150,8 +127,8 @@ button:hover { background-color: #1557b0; }
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .bt-irParaHome:hover {
+.bt-irParaHome:hover {
     background-color: #cc0000;
 }

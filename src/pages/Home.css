@@ -577,6 +577,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 
@@ -584,6 +585,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 100%;
 }
 
 .bb-section-label {
