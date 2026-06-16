@@ -278,11 +278,12 @@
 }
 
 .logo-svg {
-    height: 100px;
+   height: 100px;
     width: auto;
     max-width: 380px;
     object-fit: contain;
 }
+
 
 .textos-branding {
     text-align: center;
@@ -290,7 +291,7 @@
 }
 
 .textos-branding h2 {
-    font-size: 28px;
+     font-size: 28px;
     line-height: 1.2;
     margin-bottom: 12px;
     color: #ffffff;
@@ -329,7 +330,8 @@
 }
 
 
-/* SMARTPHONE (Até 767px) */
+/* Smartphone  */
+
 @media (max-width: 767px) {
 
     .pagina-login {
@@ -381,7 +383,7 @@
     .logo-svg {
         height: 45px;
         width: auto;        /* deixa a largura proporcional */
-        max-width: 200px;   /* limite para não vazar */
+        max-width: 200px;   /*  limite para não vazar */
     }
 
     .area-login, 
@@ -396,13 +398,13 @@
         top: 16px;
         left: 16px;
         right: auto;
-        font-size: 13px;        /* letra menor */
+        font-size: 13px;        /*  letra menor */
         padding: 4px 8px;       /* botão mais compacto */
         border-radius: 14px;
     }
 }
 
-/* TABLET (De 768px até 1024px) */
+/*  Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
     .area-login, 
     .area-cadastro {
