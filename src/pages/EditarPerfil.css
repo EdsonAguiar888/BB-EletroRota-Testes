@@ -1,4 +1,3 @@
-/* ESTILOS BASE (Desktop/Geral) */
 
 .perfil-container {
   --bb-blue: #3498db;        
@@ -41,7 +40,7 @@ main {
 .perfil-image-section {
   flex: 1;
   background: var(--bb-background);
-  padding: 40px;
+  padding: 40px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +62,7 @@ main {
 .perfil-image-section h3 {
   color: var(--bb-blue-dark-gray);
   margin-top: 20px;
-  display: block;
+  display: block; 
 }
 
 .perfil-info-section {
