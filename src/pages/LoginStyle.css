@@ -101,10 +101,19 @@ button:hover { background-color: #1557b0; }
     position: relative;
 }
 
-.bt-irParaHome {
-    position: absolute; /* Posiciona em relação ao .login-card */
-    top: 10px;
-    right: 10px;
+
+.bt-irParaHome{
+    position: absolute;
+    margin-top: '10px';    
+    position : 'absolute';
+    background:' #ffdf00 ';
+    color: 'blue';
+    border: '2px solid #3814da';
+    
+    
+    position: absolute; /* Posiciona em relação ao .box */
+    top: 10px;           
+    right: 10px;        
     width: 20px;
     height: 20px;
     border: none;
